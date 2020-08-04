@@ -8,137 +8,145 @@
     <script src="https://kit.fontawesome.com/9006e11a27.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <section class="header">
-      <div class="logo">
-        <a href="index.html">
-          <img class="logo-img" src="logo.png" alt="">
-        </a>
-      </div>
-      <div class="menu">
-        <ul class="menu-nav">
-          <li class="nav-item"><a href="menu.html">MENU</a></li>
-          <li class="nav-item"><a href="store-finder.html">STORE FINDER</a></li>
-          <li class="nav-item"><a href="coupon.html">COUPON</a></li>
+    <div class="wrapper">
+      <section class="header">
+        <div class="logo">
+          <a href="index.html">
+            <img class="logo-img" src="logo.png" alt="">
+          </a>
+        </div>
+        <div class="menu">
+          <ul class="menu-nav">
+            <li class="nav-item"><a href="menu.html">MENU</a></li>
+            <li class="nav-item"><a href="store-finder.html">STORE FINDER</a></li>
+            <li class="nav-item"><a href="coupon.html">COUPON</a></li>
+          </ul>
+        </div>
+        <div class="menu-btn">
+          <i class="fas fa-bars" onclick="toggleMobileMenu()" ></i>
+        </div>
+      </section>
+      <section class="mobile-menu">
+        <ul class="mobile-menu-nav">
+          <li class="mobile-nav-item"><a href="menu.html">MENU</a></li>
+          <li class="mobile-nav-item"><a href="store-finder.html">STORE FINDER</a></li>
+          <li class="mobile-nav-item"><a href="coupon.html">COUPON</a></li>
         </ul>
-      </div>
-      <div class="menu-btn">
-        <a href="https://www.dominos.jp/en"><i class="fas fa-bars"></i></a>
-      </div>
-    </section>
-    <section class="nav-spacer"></section>
-    <section class="start-order">
-      <a href="delivery.html" class="delivery">
-        <i class="fas fa-motorcycle"></i>
-        <br>
-        <span>DELIVERY</span>
-      </a>
-      <div class="or">OR</div>
-      <a href="pick-up.html" class="pick-up">
-        <i class="fas fa-store-alt"></i>
-        <br>
-        <span>PICK UP</span>
-      </a>
-    </section>
-    <section class="carousel">
-      <div class="carousel-container">
-        <div class="carousel-slide">
-          <div class="buffalo-wings banner">
-            <img class="carousel-image" src="images/buffalo wings.jpg" alt="">
-          </div>
-          <div class="hamburger-frenchfries banner">
-            <img class="carousel-image" src="images/hamburger frenchfries.jpg" alt="">
-          </div>
-          <div class="nachos banner">
-            <img class="carousel-image" src="images/nachos.jpg" alt="">
-          </div>
-        </div>
-      </div>
-      <div class="control">
-        <button type="button" class="carousel-button-left">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <button type="button" class="carousel-button-right">
-          <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
-    </section>
-    <section class="middle-table">
-      <div class="table">
-        <img class="table-img" src="images/wood.png" alt="">
-      </div>
-    </section>
-    <section class="articles">
-      <div class="article-container">
-        <div class="new-topics">
-          <h3>New Topics</h3>
-        </div>
-        <div class="topics">
-          <div class="topic">
-            <div class="topic-container">
-              <div class="topic-title">
-                <h4>Buffalo Wings</h4>
-              </div>
-              <div class="topic-article">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              </div>
-              <div class="topic-btn">
-                <p><a class="see-details" href="#">See Details</a></p>
-              </div>
-              <div class="topic-img-banner">
-                <a href="https://www.dominos.jp/en"><img class="topic-img"src="images/buffalo wings.jpg" alt=""></a>
-              </div>
+      </section>
+      <section class="start-order">
+        <a href="delivery.html" class="delivery">
+          <i class="fas fa-motorcycle"></i>
+          <br>
+          <span>DELIVERY</span>
+        </a>
+        <div class="or">OR</div>
+        <a href="pick-up.html" class="pick-up">
+          <i class="fas fa-store-alt"></i>
+          <br>
+          <span>PICK UP</span>
+        </a>
+      </section>
+      <section class="carousel">
+        <div class="carousel-container">
+          <div class="carousel-slide">
+            <div class="buffalo-wings banner">
+              <img class="carousel-image" src="images/buffalo wings.jpg" alt="">
             </div>
-          </div>
-          <div class="topic">
-            <div class="topic-container">
-              <div class="topic-title">
-                <h4>Hamburger</h4>
-              </div>
-              <div class="topic-article">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              </div>
-              <div class="topic-btn">
-                <p><a class="see-details" href="#">See Details</a></p>
-              </div>
-              <div class="topic-img-banner">
-                <a href="https://www.dominos.jp/en"><img class="topic-img"src="images/hamburger frenchfries.jpg" alt=""></a>
-              </div>
+            <div class="hamburger-frenchfries banner">
+              <img class="carousel-image" src="images/hamburger frenchfries.jpg" alt="">
             </div>
-          </div>
-          <div class="topic">
-            <div class="topic-container">
-              <div class="topic-title">
-                <h4>Nachos</h4>
-              </div>
-              <div class="topic-article">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              </div>
-              <div class="topic-btn">
-                <p><a class="see-details" href="#">See Details</a></p>
-              </div>
-              <div class="topic-img-banner">
-                <a href="https://www.dominos.jp/en"><img class="topic-img"src="images/nachos.jpg" alt=""></a>
-              </div>
+            <div class="nachos banner">
+              <img class="carousel-image" src="images/nachos.jpg" alt="">
             </div>
           </div>
         </div>
-        <div class="important-notice">
-          <div class="notice-title">
-            <h3>Important Notice</h3>
+        <div class="control">
+          <button type="button" class="carousel-button-left">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button type="button" class="carousel-button-right">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+      <section class="middle-table">
+        <div class="table">
+          <img class="table-img" src="images/wood.png" alt="">
+        </div>
+      </section>
+      <section class="articles">
+        <div class="article-container">
+          <div class="new-topics">
+            <h3>New Topics</h3>
           </div>
-          <div class="notice-list">
-            <p>2020.08.01 <a class="notice" href="#">Notice of store-opening</a></p>
-            <p>2020.07.21 <a class="notice" href="#">Notice on operationg hours of stores</a></p>
-            <p>2020.05.01 <a class="notice" href="#">Notice on response to COVID-19</a></p>
+          <div class="topics">
+            <div class="topic">
+              <div class="topic-container">
+                <div class="topic-title">
+                  <h4>Buffalo Wings</h4>
+                </div>
+                <div class="topic-article">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="topic-btn">
+                  <p><a class="see-details" href="#">See Details</a></p>
+                </div>
+                <div class="topic-img-banner">
+                  <a href="https://www.dominos.jp/en"><img class="topic-img"src="images/buffalo wings.jpg" alt=""></a>
+                </div>
+              </div>
+            </div>
+            <div class="topic">
+              <div class="topic-container">
+                <div class="topic-title">
+                  <h4>Hamburger</h4>
+                </div>
+                <div class="topic-article">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="topic-btn">
+                  <p><a class="see-details" href="#">See Details</a></p>
+                </div>
+                <div class="topic-img-banner">
+                  <a href="https://www.dominos.jp/en"><img class="topic-img"src="images/hamburger frenchfries.jpg" alt=""></a>
+                </div>
+              </div>
+            </div>
+            <div class="topic">
+              <div class="topic-container">
+                <div class="topic-title">
+                  <h4>Nachos</h4>
+                </div>
+                <div class="topic-article">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="topic-btn">
+                  <p><a class="see-details" href="#">See Details</a></p>
+                </div>
+                <div class="topic-img-banner">
+                  <a href="https://www.dominos.jp/en"><img class="topic-img"src="images/nachos.jpg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="important-notice">
+            <div class="notice-title">
+              <h3>Important Notice</h3>
+            </div>
+            <div class="notice-list">
+              <p>2020.08.01 <a class="notice" href="#">Notice of store-opening</a></p>
+              <p>2020.07.21 <a class="notice" href="#">Notice on operationg hours of stores</a></p>
+              <p>2020.05.01 <a class="notice" href="#">Notice on response to COVID-19</a></p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="footer">
-      <div class="footer-logo">
-        <img class="footer-logo-img" src="logo.png" alt="">
-      </div>
-    </section>
+      </section>
+      <section class="footer">
+        <div class="footer-logo">
+          <img class="footer-logo-img" src="logo.png" alt="">
+        </div>
+      </section>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
