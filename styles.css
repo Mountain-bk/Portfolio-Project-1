@@ -12,8 +12,22 @@ a{
 h3, h4, li{
   text-transform: uppercase;
   font-family: 'Roboto', sans-serif;
+  font-stretch: condensed;
+}
+ul{
+  list-style-type: none;
 }
 
+.wrapper{
+  min-height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/*Shirik page*/
+.shrink-page{
+  transform: translateX(-50%);
+}
 
 /*Header*/
 .header{
@@ -37,7 +51,6 @@ h3, h4, li{
   height: 100%;
   display: flex;
   align-items: center;
-  list-style-type: none;
 }
 .nav-item{
   padding: 0 35px;
@@ -47,17 +60,33 @@ h3, h4, li{
   border-right: 0;
 }
 .menu-btn{
-  visibility: hidden;
-  position: absolute;
+  display: none;
 }
 .fa-bars{
   color: white;
   font-size: 2rem;
 }
 
-/*Space*/
-.nav-spacer{
-  margin-top: 120px;
+/*Mobile Menu*/
+.mobile-menu{
+  width: 50%;
+  height: 100%;
+  background-color: black;
+  right: -50%;
+  top: 0;
+  position: fixed;
+  z-index: 2000;
+}
+.mobile-menu-nav{
+  font-size: 2rem;
+  padding: 0 20px;
+}
+.mobile-nav-item{
+  padding: 10px 0;
+}
+
+.popup{
+  display: block;
 }
 
 /*Start Order Module*/
@@ -265,6 +294,7 @@ h3, h4, li{
 @media only screen and (max-width: 1023px){
   .header{
     grid-template-columns: 32% auto;
+    place-items: center;
   }
   .carousel-image{
     width: 80%;
@@ -286,12 +316,10 @@ h3, h4, li{
     justify-content: center;
     align-items: center;
     height: 80px;
-  }.nav-spacer{
-    margin-top: 80px;
   }.menu{
     display: none;
   }.menu-btn{
-    visibility: visible;
+    display: block;
     position: relative;
     margin-right: 20px;
   }.start-order a{
@@ -300,7 +328,7 @@ h3, h4, li{
     font-size: 1rem;
     top: 80px;
   }.carousel{
-    margin-top: 120px;
+    margin-top: 180px;
   }.carousel, .carousel-slide, .banner, .carousel-image{
     height: 275px;
   }.middle-table{
