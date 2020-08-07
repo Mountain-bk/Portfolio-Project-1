@@ -1,5 +1,5 @@
 
-//Slide Carousel Image when you click arrow button
+//---Slide Carousel Image when you click arrow button---//
 const carouselSlide = document.querySelector(".carousel-slide");
 const carouselImages = document.querySelectorAll(".carousel-image");
 const carouselContainer = document.querySelector(".carousel-container");
@@ -37,7 +37,8 @@ if (prevBtn){
 }
 
 
-//Toggle Mobile Menu//
+//---Toggle Mobile Menu---//
+
 function toggleMobileMenu(){
   var body = document.body;
   window.scroll(0,0);
@@ -45,7 +46,8 @@ function toggleMobileMenu(){
   body.classList.toggle("shrink-page");
 };
 
-//Display Order Date//
+//---Display Order Date---//
+
 const dateRange = document.getElementsByClassName("date-selector");
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 let date = new Date();
@@ -67,8 +69,12 @@ if(dateRange[0]){
   }
 }
 
+//---Undisplay "estimated time require" depends on current time---//
 
-
+const timeValue = document.querySelector(".time-value");
+if(date.getHours() < 11){
+  timeValue.innetHTML = "We accept online orders between 11am - 1am. Please select specified date."
+};
 
 //---Display Order Time---//
 
@@ -83,15 +89,20 @@ var readyTime = readyHour + currentMinute   //Set time after 30 minutes from cur
 if (timeRange[0]){
   //Create option each 15 minutes
   for(var term = readyTime; term < 1440; term+=15){
-    //Set starting time of the interval
-    var intervalStart = setIntervalStart(term);
-    //Set end time of the interval
-    var intervalEnd = setIntervalEnd(term);
-    //Text for the options
-    var text = intervalStart + " - " + intervalEnd;
+    var text = createTimeText(term);
     //Add options to time select
     timeRange[0].options[timeRange[0].options.length] = new Option(text);
   };
+}
+
+function createTimeText(key){
+  //Set starting time of the interval
+  var intervalStart = setIntervalStart(key);
+  //Set end time of the interval
+  var intervalEnd = setIntervalEnd(key);
+  //Text for the options
+  var text = intervalStart + " - " + intervalEnd;
+  return text
 }
 
 function setIntervalStart(key){
@@ -103,13 +114,14 @@ function setIntervalStart(key){
   var startTime = hour + ":" + minute;
   return startTime
 }
+
 function setIntervalEnd(key){
   var hour = Math.floor(key / 60);
   var minute = key % 60;
   var limitMinute = minute + 15;
   if (limitMinute == 60){
     var limitHour = hour + 1;
-    limitMinute = 00;
+    limitMinute = "00";
   } else {
     var limitHour = hour;
   }
@@ -149,6 +161,7 @@ function giveCurrentMinute(){
 
 
 //Change time option depends on order date//
+
 if (dateRange[0]){
   dateRange[0].addEventListener("change", () => {
     var x = timeRange[0].length;
@@ -158,20 +171,30 @@ if (dateRange[0]){
     if (dateRange[0].options[dateRange[0].selectedIndex].text == date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear()){
       timeRange[0].options[0] = new Option("ASAP");
       for(var term = readyTime; term < 1440; term+=15){
-        var intervalStart = setIntervalStart(term);
-        var intervalEnd = setIntervalEnd(term);
-        var text = intervalStart + " - " + intervalEnd;
+        var text = createTimeText(term);
         timeRange[0].options[timeRange[0].options.length] = new Option(text);
       };
     } else{
       timeRange[0].options[0] = new Option("Select Time");
-      timeRange[0].options[0].disabled = true;
       for(var term = 660; term < 1440; term+=15){
-        var intervalStart = setIntervalStart(term);
-        var intervalEnd = setIntervalEnd(term);
-        var text = intervalStart + " - " + intervalEnd;
+        var text = createTimeText(term);
         timeRange[0].options[timeRange[0].options.length] = new Option(text);
       };
     }
   });
 }
+
+
+//---Toggle check-mark or cross-mark based on selections---//
+
+const selectors = document.querySelectorAll("#selector");
+const checkMark = document.querySelector(".time-mark");
+selectors.forEach(select =>{
+  select.addEventListener("click", () =>{
+  if (timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
+    checkMark.src = "images/cross.png";
+  } else{
+    checkMark.src = "images/check.png";
+  }
+});
+});
