@@ -49,79 +49,129 @@ function toggleMobileMenu(){
 const dateRange = document.getElementsByClassName("date-selector");
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 let date = new Date();
-setDate();
-
-function setDate(){
+if(dateRange[0]){
   for(var day = 0; day < 31; day++) {
-  let date = new Date();
-  date.setDate(date.getDate() + day);
-  dateRange[0].options[dateRange[0].options.length] = new Option([date.getDate(), monthNames[date.getMonth()], date.getFullYear()].join('-'), date.toISOString());
-  dateRange[0].style.width = "90%";
-  dateRange[0].style.height = "40px";
-}
+    //refreshing date
+    let date = new Date();
+    //setting date(day)
+    date.setDate(date.getDate() + day);
+    //creating option
+    var option = document.createElement("option");
+    //making text of the option
+    option.text = date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear();
+    //choosing the value of the option
+    option.value = day;
+    //append the option
+    dateRange[0].appendChild(option);
+    //dateRange[0].options[dateRange[0].options.length] = new Option([date.getDate(), monthNames[date.getMonth()], date.getFullYear()].join('-'), date.toISOString());
+  }
 }
 
-//Display Order Time//
+
+
+
+//---Display Order Time---//
+
+//Select time select//
 const timeRange = document.getElementsByClassName("time-selector");
+//Pass in current minute//
 var currentMinute = giveCurrentMinute();
-var readyTime = (date.getHours() * 60) + currentMinute   //Set the ready time after 30 minutes
+//Pass in current hour//
+var readyHour = giveOrderHour();
+//Create available order time//
+var readyTime = readyHour + currentMinute   //Set time after 30 minutes from current time
+if (timeRange[0]){
+  //Create option each 15 minutes
+  for(var term = readyTime; term < 1440; term+=15){
+    //Set starting time of the interval
+    var intervalStart = setIntervalStart(term);
+    //Set end time of the interval
+    var intervalEnd = setIntervalEnd(term);
+    //Text for the options
+    var text = intervalStart + " - " + intervalEnd;
+    //Add options to time select
+    timeRange[0].options[timeRange[0].options.length] = new Option(text);
+  };
+}
 
-for(var term = readyTime; term < 1440; term+=15){  //Create option each 15 minutes
-  setTime(term);
-};
-
-function setTime(key){
-  var hour = Math.floor(key / 60);                //get the hour
-  var minute = key % 60;                          //Get the minute
-  var limitMinute = minute + 15;                   //Add 15 minutes for duration minute
-  if (limitMinute == 60){                         //Change the hour if its 60 minutes
+function setIntervalStart(key){
+  var hour = Math.floor(key / 60);
+  var minute = key % 60;
+  if (minute == 0){
+    minute = "0" + minute;
+  }
+  var startTime = hour + ":" + minute;
+  return startTime
+}
+function setIntervalEnd(key){
+  var hour = Math.floor(key / 60);
+  var minute = key % 60;
+  var limitMinute = minute + 15;
+  if (limitMinute == 60){
     var limitHour = hour + 1;
     limitMinute = 00;
   } else {
-    var limitHour = hour;                         //Don't change the hour(not 60 minute)
+    var limitHour = hour;
   }
-  if (minute == 0){                               //Add 0 if minute is 0
-    minute = "0" + minute;
-  } else if (limitMinute == 0){
-    limitMinute = "0" + limitMinute;
+  var limitTime = limitHour + ":" + limitMinute;
+  return limitTime
+}
+
+function giveOrderHour(){
+  var totalMinute = (date.getHours() * 60);
+  var currentHour = date.getHours()
+  if (currentHour < 11){
+    return (11*60)
+  } else{
+    return totalMinute
   }
-  var startTime = hour + ":" + minute;            //Create starting time
-  var limitTime = limitHour + ":" + limitMinute;  //Creating limit time
-  timeRange[0].options[timeRange[0].options.length] = new Option(startTime + " - " + limitTime);
-  timeRange[0].style.width = "90%";
-  timeRange[0].style.height = "40px";
 }
 
 function giveCurrentMinute(){
   var currentMinute = date.getMinutes();
-  if (currentMinute <= 15){
-    return 45
-  } else if (currentMinute <= 30 && currentMinute > 15){
-    return 60
-  } else if (currentMinute <= 45 && currentMinute > 30){
-    return 75
-  } else if (currentMinute <= 60 && currentMinute > 45){
-    return 90
+  var currentHour = date.getHours();
+  if (currentHour == 10 && currentMinute > 30){
+    return 30
+  } else if (currentHour < 11){
+    return 0
+  } else{
+    if (currentMinute <= 15){
+      return 45
+    } else if (currentMinute <= 30 && currentMinute > 15){
+      return 60
+    } else if (currentMinute <= 45 && currentMinute > 30){
+      return 75
+    } else if (currentMinute <= 60 && currentMinute > 45){
+      return 90
+    }
   }
 }
 
-//Change time option depends on order date//
-dateRange[0].addEventListener("change", () => {
-  var x = timeRange[0].length;
-  for (var i = x-1; i >= 0; i--){
-    timeRange[0].remove(i);
-  };
-  if (dateRange[0].options[dateRange[0].selectedIndex].text == date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear()){
-    timeRange[0].options[0] = new Option("ASAP");
-    for(var term = readyTime; term < 1440; term+=15){
-      setTime(term);
-    };
-  } else{
-    timeRange[0].options[0] = new Option("Select Time");
-    timeRange[0].options[0].disabled = true;
-    for(var term = 600; term < 1440; term+=15){
-      setTime(term);
-    };
-  }
-});
 
+//Change time option depends on order date//
+if (dateRange[0]){
+  dateRange[0].addEventListener("change", () => {
+    var x = timeRange[0].length;
+    for (var i = x-1; i >= 0; i--){
+      timeRange[0].remove(i);
+    };
+    if (dateRange[0].options[dateRange[0].selectedIndex].text == date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear()){
+      timeRange[0].options[0] = new Option("ASAP");
+      for(var term = readyTime; term < 1440; term+=15){
+        var intervalStart = setIntervalStart(term);
+        var intervalEnd = setIntervalEnd(term);
+        var text = intervalStart + " - " + intervalEnd;
+        timeRange[0].options[timeRange[0].options.length] = new Option(text);
+      };
+    } else{
+      timeRange[0].options[0] = new Option("Select Time");
+      timeRange[0].options[0].disabled = true;
+      for(var term = 660; term < 1440; term+=15){
+        var intervalStart = setIntervalStart(term);
+        var intervalEnd = setIntervalEnd(term);
+        var text = intervalStart + " - " + intervalEnd;
+        timeRange[0].options[timeRange[0].options.length] = new Option(text);
+      };
+    }
+  });
+}
