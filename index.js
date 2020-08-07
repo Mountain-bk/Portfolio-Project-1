@@ -76,7 +76,7 @@ if(date.getHours() < 11){
   timeValue.innetHTML = "We accept online orders between 11am - 1am. Please select specified date."
 };
 
-//---Display Order Time---//
+//---Display Pick Up Order Time---//
 
 //Select time select//
 const timeRange = document.getElementsByClassName("time-selector");
@@ -102,6 +102,9 @@ function createTimeText(key){
   var intervalEnd = setIntervalEnd(key);
   //Text for the options
   var text = intervalStart + " - " + intervalEnd;
+  if (document.title === "Delivery Order Time"){
+    return intervalStart
+  } else if (document.title === "Pick Up Order Time")
   return text
 }
 
@@ -158,6 +161,8 @@ function giveCurrentMinute(){
     }
   }
 }
+
+
 
 
 //Change time option depends on order date//
