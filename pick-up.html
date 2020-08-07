@@ -2,9 +2,57 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Pick Up Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pick Up Order Time</title>
+    <script src="https://kit.fontawesome.com/9006e11a27.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Pick Up Details</h1>
+    <div class="delivery-title-container">
+      <div class="delivery-title">
+        <h1>Pick Up Order Time</h1>
+      </div>
+    </div>
+    <div class="order-form-container">
+      <div class="order-form">
+        <div class="order-asap">
+          <div class="order-question"><h2>When would you like your order</h2></div>
+          <a href="https://internetorder.dominos.jp/estore/en/OrderTime?serviceMethod=Delivery"><div class="asap" >ASAP</div></a>
+        </div>
+        <div class="order-or">OR</div>
+        <div class="order-date-time">
+          <div class="input-order-date">
+            <div class="date-title">
+              <h3>order date</h3>
+            </div>
+            <div class="order-date">
+              <select id="selector" class="date-selector">
+              </select>
+              <div class="validation-container">
+                <img class="date-mark" src="images/check.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="input-order-time">
+            <div class="time-title">
+              <h3>order time</h3>
+            </div>
+            <div class="order-time">
+              <select id="selector" class="time-selector">
+                <option value="">ASAP</option>
+              </select>
+              <div class="validation-container">
+                <img class="time-mark" src="images/check.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="back-next-row">
+          <a href="#"><div class="back">BACK</div></a>
+          <a href="#"><div class="next">NEXT</div></a>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>
