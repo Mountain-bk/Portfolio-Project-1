@@ -16,6 +16,7 @@ h1, h2, h3, h4, li{
   margin: 0;
 }
 p{
+  font-family: 'Roboto', sans-serif;
   margin: 0;
 }
 ul{
@@ -23,8 +24,8 @@ ul{
 }
 
 
-/*Top Page*/
 
+/*Top Page*/
 .wrapper{
   min-height: 100%;
   position: relative;
@@ -46,6 +47,7 @@ ul{
   position: fixed;
   top:0;
   z-index: 1000;
+  font-size: 1.5rem;
 }
 .logo{
   width:100%;
@@ -265,8 +267,10 @@ ul{
 .see-details{
   background-color: #e0183b;
   color: white;
-  padding: 10px 20px 5px 10px;
+  padding: 5px 20px;
   border-radius: 10px;
+  width: 100px;
+  position: relative;
 }
 
 .important-notice{
@@ -304,13 +308,13 @@ ul{
 }
 
 
-/*Delivery Details title*/
-.delivery-title-container{
+/*Delivery Page and Pick up Page*/
+.delivery-title-container, .pickup-title-container{
   display: flex;
   justify-content: center;
   margin: 50px 0;
 }
-.delivery-title{
+.delivery-title, .pickup-title{
   width: 70%;
   font-size: 1.3rem;
   text-align: left;
@@ -334,15 +338,17 @@ ul{
   width: 60%;
   background-color: #006492;
   color: white;
-  padding: 5px 80px 5px 10px;
+  padding: 5px 0 5px 10px;
+  border-radius: 5px 0 0 5px;
 }
 .time-value{
   width: 40%;
   background-color: white;
   color: #e0183b;
-  padding: 5px 80px 5px 10px;
+  padding: 5px 0 5px 10px;
+  border-radius: 0 5px 5px 0;
 }
-.order-asap{
+.order-intro{
   display: block;
   width: 100%;
 }
@@ -353,16 +359,23 @@ ul{
   font-size: 1.3rem;
   padding: 20px 0;
 }
+.intro{
+  color: white;
+  text-align: center;
+  width: 100%;
+}
 .asap{
   width: 100%;
   height: auto;
   font-size: 1.5rem;
-  padding: 15px 0;
+  padding: 10px 0;
   text-align: center;
   background-color: #e0183b;
   color: white;
   position: relative;
+  border-radius: 5px;
 }
+
 .order-or{
   width: 100%;
   text-align: center;
@@ -419,7 +432,7 @@ ul{
   padding: 5px 20px 5px 5px;
   border-radius: 5px;
 }
-.asap:after, .next:after{
+.asap:after, .next:after, .see-details:after{
     content: "";
     width: 0;
     height: 0;
@@ -442,6 +455,148 @@ ul{
   border-right: 6px solid #fff;
 }
 
+/*Menu Page*/
+.menu-main{
+  max-width: 1574px;
+  margin: auto;
+}
+.menu-title-container{
+  margin: 50px 0;
+}
+.menu-title{
+  font-size: 1.3rem;
+  text-align: left;
+  bottom: 0;
+  border-bottom: solid 2px white;
+  color: white;
+}
+.recommend{
+  width: 100%;
+  height: 175px;
+}
+.recommend-container{
+  width: 700px;
+  height: 100%;
+  margin: auto;
+}
+.recommend-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.menu-wrapper{
+  width: 100%;
+  height: auto;
+  position: relative;
+  margin: auto auto 100px auto;
+}
+.menu-container{
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+.beverage{
+  padding-right: 270px;
+}
+.food-title, .drink-title{
+  font-size: 2rem;
+  border-bottom: solid 2px white;
+  margin-top: 60px;
+  color: white;
+}
+.food-list, .drink-list{
+}
+.food-article, .drink-article{
+  display: inline-block;
+  width: 24%;
+  margin-top: 50px;
+}
+.food-img-banner, .drink-img-banner{
+  width: 100%;
+  height: 150px;
+}
+.menu-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.food-detail, .drink-detail{
+  color: white;
+  height: 100px;
+  padding: 10px 0 0 10px;
+}
+.add-cart{
+  width: 100%;
+  height: auto;
+  padding: 5px 0;
+  text-align: center;
+  background-color: #e0183b;
+  color: white;
+  border-radius: 5px;
+}
+.cart-container{
+  width: 270px;
+  height: 100%;
+  position: absolute;
+  background: pink;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+}
+.cart{
+  width: 270px;
+}
+.zigzag-top{
+  height: 10px;
+  background: url("images/zigzag-top.png");
+}
+.input-coupon{
+  height: auto;
+  background-color: #dedede;
+  padding: 20px 5px;
+  text-align: center;
+  font-size: 1.3rem;
+}
+.coupon-code, .coupon-apply-btn{
+  height: 30px;
+  font-size: 1.2rem;
+}
+.coupon-code{
+  width: 150px;
+  border-radius: 5px;
+}
+.coupon-apply-btn{
+  background-color: #e0183b;
+  color: white;
+  width: 80px;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+}
+
+.order-details{
+  background: white;
+  height: 300px;
+}
+.zigzag-bottom{
+  height: 10px;
+  background: url("images/zigzag-bottom.png");
+  transform: rotate(180deg);
+}
+.order-details-title, .tax, .total-price{
+  color: black;
+}
+
+.payment-btn{
+  width: 80%;
+  height: auto;
+  padding: 5px 0;
+  background-color: #e0183b;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+}
 
 @media only screen and (max-width: 1023px){
   .header{
@@ -461,6 +616,7 @@ ul{
 }
 
 @media only screen and (max-width: 690px){
+/*Top Page*/
   .topic{
     width: 90%;
   }.header{
@@ -505,5 +661,17 @@ ul{
     font-size: 1rem;
   }.footer-logo-img{
     width: 100%;
+  }
+/*Delivery and Pick Up HTML*/
+  .order-form{
+    width: 90vw;
+  }.time-heading{
+    width: 60%;
+    padding: 5px 0 5px 10px;
+  }.time-value{
+    width: 40%;
+    padding: 5px 0 5px 10px;
+  }.back, .next{
+    margin-bottom: 40px;
   }
 }
