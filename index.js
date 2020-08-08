@@ -69,12 +69,37 @@ if(dateRange[0]){
   }
 }
 
-//---Undisplay "estimated time require" depends on current time---//
-
+//---Change text of "Delivery Estimated" Time if it's closed---//
 const timeValue = document.querySelector(".time-value");
-if(date.getHours() < 11){
-  timeValue.innetHTML = "We accept online orders between 11am - 1am. Please select specified date."
-};
+if(timeValue){
+  if(date.getHours() < 11){
+    timeValue.innerHTML = "We accept online orders between 11am - 12am. Please select specified date."
+  }
+}
+
+//---Change ASAP button to closed script if it's closed---//
+const closedText = document.querySelector(".asap");
+const intro = document.querySelector(".intro");
+if(closedText){
+  if(date.getHours() < 11){
+    closedText.remove();
+    intro.innerHTML = "This store is currently closed. Please select an order time below."
+  };
+}
+
+//---Toggle check-mark or cross-mark based on selections---//
+
+const selectors = document.querySelectorAll("#selector");
+const checkMark = document.querySelector(".time-mark");
+selectors.forEach(select =>{
+  select.addEventListener("click", () =>{
+  if (timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
+    checkMark.src = "images/cross.png";
+  } else{
+    checkMark.src = "images/check.png";
+  }
+});
+});
 
 //---Display Pick Up Order Time---//
 
@@ -87,6 +112,12 @@ var readyHour = giveOrderHour();
 //Create available order time//
 var readyTime = readyHour + currentMinute   //Set time after 30 minutes from current time
 if (timeRange[0]){
+  if(date.getHours() < 11){
+    timeRange[0].options[0] = new Option("Select Time");
+    checkMark.src = "images/cross.png";
+  } else{
+    timeRange[0].options[0] = new Option("ASAP");
+  }
   //Create option each 15 minutes
   for(var term = readyTime; term < 1440; term+=15){
     var text = createTimeText(term);
@@ -188,18 +219,3 @@ if (dateRange[0]){
     }
   });
 }
-
-
-//---Toggle check-mark or cross-mark based on selections---//
-
-const selectors = document.querySelectorAll("#selector");
-const checkMark = document.querySelector(".time-mark");
-selectors.forEach(select =>{
-  select.addEventListener("click", () =>{
-  if (timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
-    checkMark.src = "images/cross.png";
-  } else{
-    checkMark.src = "images/check.png";
-  }
-});
-});
