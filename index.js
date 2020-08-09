@@ -154,6 +154,7 @@ function setIntervalEnd(key){
   var minute = key % 60;
   var limitMinute = minute + 15;
   if (limitMinute == 60){
+    //convert 60 to 00
     var limitHour = hour + 1;
     limitMinute = "00";
   } else {
@@ -167,8 +168,10 @@ function giveOrderHour(){
   var totalMinute = (date.getHours() * 60);
   var currentHour = date.getHours()
   if (currentHour < 11){
+    //return 11am if current hour is before 11am
     return (11*60)
   } else{
+    //return current hour if current hour is after 11am
     return totalMinute
   }
 }
@@ -193,9 +196,6 @@ function giveCurrentMinute(){
   }
 }
 
-
-
-
 //Change time option depends on order date//
 
 if (dateRange[0]){
@@ -218,4 +218,144 @@ if (dateRange[0]){
       };
     }
   });
+}
+
+//---Add position fixed when the cart menu reaches to top of the screen---///
+const menu = document.querySelector(".menu-wrapper");
+var cart = document.querySelector(".cart");
+window.addEventListener("scroll", () =>{
+  var scrollTop = window.pageYOffset;
+  var menuScrollTop = menu.offsetTop;
+  if(scrollTop >= menuScrollTop){
+    cart.style.position = "fixed";
+  } else if (scrollTop <= menuScrollTop){
+    cart.style.position = "absolute";
+  }
+})
+
+//---Products Lists---//
+
+let beverages = [
+  {
+    name : "Buffalo Wings",
+    price : 6,
+    tax : 0.6,
+    inCart : 0
+  },
+  {
+    name : "Value Set(Hamburger, French Fries, Drink)",
+    price : 8,
+    tax : 0.8,
+    inCart : 0
+  },
+  {
+    name : "Fried Chicken",
+    price : 7,
+    tax : 0.7,
+    inCart : 0
+  },
+  {
+    name : "Nachos",
+    price : 4,
+    tax : 0.4,
+    inCart : 0
+  },
+  {
+    name : "Hamburger",
+    price : 5,
+    tax : 0.5,
+    inCart : 0
+  },
+  {
+    name : "French Fries",
+    price : 4,
+    tax : 0.4,
+    inCart : 0
+  },
+  {
+    name : "Coke(500ml)",
+    price : 2,
+    tax : 0.2,
+    inCart : 0
+  },
+  {
+    name : "Beer(Bottle)",
+    price : 5,
+    tax : 0.5,
+    inCart : 0
+  },
+];
+
+//---Add to Local Storage---//
+const addCartBtn = document.querySelectorAll(".add-cart");
+for (let i=0; i < addCartBtn.length; i++){
+  addCartBtn[i].addEventListener("click", () => {
+    addCartNumbers();
+    //addbeverages(beverages[i]);
+    addBeverages(beverages[i]);
+    addTax(beverages[i]);
+    addTotalPrice(beverages[i]);
+  })
+};
+
+function addCartNumbers(){
+  let cartQuantity = localStorage.getItem("cartNumbers");
+  cartQuantity = parseInt(cartQuantity);
+  //If beverages are stored in local storage
+  if (cartQuantity){
+    //Add quantity to cart
+    localStorage.setItem("cartNumbers", cartQuantity + 1);
+  //If nothing are stored in local storage
+  } else{
+    //Set first beverage to the cart
+    localStorage.setItem("cartNumbers", 1);
+  }
+}
+function addbeverages(beverage){
+  let beverages = localStorage.getItem("beverageInCart");
+  beverages = parseInt(beverages);
+  if(beverages){
+    if(beverage == beverages){
+      beverags.inCart + 1;
+    } else{
+      beverage.inCart += 1;
+      localStorage.setItem("beverageInCart", beverages + JSON.stringify(beverage));
+    }
+  }else{
+    beverage.inCart += 1;
+    localStorage.setItem("beverageInCart", JSON.stringify(beverage));
+  }
+
+}
+
+function addBeverages(beverage){
+  let beverageName = beverage.name;
+  beverage.inCart += 1;
+  //beverage.price = (beverage.inCart) * beverage.price;
+  localStorage.setItem(beverageName, JSON.stringify(beverage));
+}
+function addTotalPrice(beverage){
+  let totalPrice = localStorage.getItem("TotalPrice");
+  totalPrice = JSON.parse(totalPrice);
+  let addPrice = beverage.price + beverage.tax;
+  //If prices are stored in local storage
+  if (totalPrice){
+    //Add price
+    localStorage.setItem("TotalPrice", (totalPrice + addPrice).toFixed(2));
+  //If nothing are stored in local storage
+  } else{
+    //Set first price to the cart
+    localStorage.setItem("TotalPrice", addPrice);
+  }
+}
+
+function addTax(beverage){
+  let totalTax = localStorage.getItem("TotalTax");
+  totalTax = JSON.parse(totalTax);
+  if (totalTax){
+    console.log(typeof totalTax);
+    localStorage.setItem("TotalTax", (totalTax + beverage.tax).toFixed(2));
+  } else{
+    localStorage.setItem("TotalTax", beverage.tax);
+  }
 }
