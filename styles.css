@@ -11,7 +11,7 @@ a{
 
 h1, h2, h3, h4, li{
   text-transform: uppercase;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-stretch: condensed;
   margin: 0;
 }
@@ -23,7 +23,11 @@ ul{
   list-style-type: none;
 }
 
-
+button{
+  font-family: 'Oswald', sans-serif;
+  border-radius: 5px;
+  border: none;
+}
 
 /*Top Page*/
 .wrapper{
@@ -525,26 +529,30 @@ ul{
   height: 100px;
   padding: 10px 0 0 10px;
 }
+.add-cart-container{
+
+}
 .add-cart{
   width: 100%;
   height: auto;
-  padding: 5px 0;
+  padding: 15px 0;
   text-align: center;
   background-color: #e0183b;
   color: white;
-  border-radius: 5px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 .cart-container{
   width: 270px;
   height: 100%;
   position: absolute;
-  background: pink;
   z-index: 1000;
   top: 0;
   right: 0;
 }
 .cart{
   width: 270px;
+  top: 0;
 }
 .zigzag-top{
   height: 10px;
@@ -569,14 +577,16 @@ ul{
   background-color: #e0183b;
   color: white;
   width: 80px;
-  border: none;
-  font-family: 'Roboto', sans-serif;
   border-radius: 5px;
+  border: none;
+  font-stretch: condensed;
+  text-transform: uppercase;
 }
 
 .order-details{
   background: white;
   height: 300px;
+  padding-left: 10px;
 }
 .zigzag-bottom{
   height: 10px;
@@ -585,17 +595,32 @@ ul{
 }
 .order-details-title, .tax, .total-price{
   color: black;
+  font-stretch: condensed;
+  margin-bottom: 20px;
 }
-
+.order-details-title{
+  font-size: 1.7rem;
+}
+.tax{
+  font-size: 1.4rem;
+  border-bottom: solid 2px black;
+}
+.total-price{
+  font-size: 1.7rem;
+  border-bottom: solid 2px black;
+}
+.payment{
+  text-align: center;
+}
 .payment-btn{
   width: 80%;
   height: auto;
-  padding: 5px 0;
+  padding: 10px 0;
   background-color: #e0183b;
   color: white;
-  border-radius: 5px;
-  text-align: center;
   margin: auto;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
 @media only screen and (max-width: 1023px){
