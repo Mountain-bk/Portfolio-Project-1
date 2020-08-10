@@ -222,14 +222,22 @@ if (dateRange[0]){
 
 //---Add position fixed when the cart menu reaches to top of the screen---///
 const menu = document.querySelector(".menu-wrapper");
+const footer = document.querySelector(".footer");
 var cart = document.querySelector(".cart");
 window.addEventListener("scroll", () =>{
   var scrollTop = window.pageYOffset;
   var menuScrollTop = menu.offsetTop;
+  var menuScrollBottom = menuScrollTop + menu.offsetHeight;
+  var footerScrollTop = footer.offsetTop;
+  //console.log(scrollTop + window.innerHeight);
   if(scrollTop >= menuScrollTop){
     cart.style.position = "fixed";
   } else if (scrollTop <= menuScrollTop){
     cart.style.position = "absolute";
+  }
+  if (scrollTop + window.innerHeight >= footerScrollTop){
+    cart.style.position = "absolute";
+    cart.style.bottom = "0";
   }
 })
 
