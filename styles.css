@@ -9,11 +9,16 @@ a{
   color: white;
 }
 
-h1, h2, h3, h4, li{
+h1, h2, h3, li{
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   font-stretch: condensed;
   margin: 0;
+}
+h4{
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  font-weight: bold;
 }
 p{
   font-family: 'Roboto', sans-serif;
@@ -585,8 +590,61 @@ button{
 
 .order-details{
   background: white;
-  height: 300px;
-  padding-left: 10px;
+  height: auto;
+  padding: 10px;
+}
+.order-beverages{
+}
+.order-beverages-details{
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+  border-bottom: dashed 1px black;
+}
+.order-name-price{
+  width: 100%;
+  display: flex;
+}
+.order-name{
+  width: 70%;
+}
+.order-price{
+  text-align: right;
+  width: 30%;
+}
+
+.remove-edit-container{
+  width: 100%;
+}
+.remove-btn{
+  background: black;
+  color: white;
+  margin-right: 10px;
+}
+.edit-btn{
+  background: #006E7F;
+  color: white;
+}
+.tax{
+  display: flex;
+  padding: 10px 0;
+}
+.tax-title{
+  width: 70%;
+}
+.tax-price{
+  text-align: right;
+  width: 30%;
+}
+.total-price{
+  display: flex;
+}
+.total-title{
+  width: 70%;
+}
+.total{
+  text-align: right;
+  width: 30%;
 }
 .zigzag-bottom{
   height: 10px;
@@ -602,12 +660,14 @@ button{
   font-size: 1.7rem;
 }
 .tax{
-  font-size: 1.4rem;
-  border-bottom: solid 2px black;
+  border-bottom: dashed 1px black;
 }
 .total-price{
-  font-size: 1.7rem;
-  border-bottom: solid 2px black;
+  font-size: 1.5rem;
+  border-bottom: dashed 1px black;
+}
+.total-amount{
+  color: #006E7F;
 }
 .payment{
   text-align: center;
