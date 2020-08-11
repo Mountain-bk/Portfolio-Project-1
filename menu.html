@@ -34,10 +34,10 @@
                 <div class="food-detail">
                   <p>Bufffalo Wings</p>
                   <p>(8 pieces)</p>
-                  <p>$6.00</p>
+                  <p>$6.00(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Buffalo Wings" data-price=6.00 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
               <div class="food-article">
@@ -47,10 +47,10 @@
                 <div class="food-detail">
                   <p>Value Set</p>
                   <p>(Hamburger, Frenchfries, Drink)</p>
-                  <p>$8.00</p>
+                  <p>$8.00(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Value Set" data-price=8.00 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
               <div class="food-article">
@@ -59,10 +59,10 @@
                 </div>
                 <div class="food-detail">
                   <p>Fried Chicken</p>
-                  <p>$7.00</p>
+                  <p>$7.00(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Fried Chicken" data-price=7.00 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
               <div class="food-article">
@@ -71,10 +71,10 @@
                 </div>
                 <div class="food-detail">
                   <p>Nachos</p>
-                  <p>$4.00</p>
+                  <p>$4.00(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Nachos" data-price=4.00 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
               <div class="food-article">
@@ -83,10 +83,10 @@
                 </div>
                 <div class="food-detail">
                   <p>Hamburger</p>
-                  <p>$5.00</p>
+                  <p>$5.00(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Hamburger" data-price=5.00 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
               <div class="food-article">
@@ -95,10 +95,10 @@
                 </div>
                 <div class="food-detail">
                   <p>French Fries</p>
-                  <p>$4.00</p>
+                  <p>$4.00(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="French Fries" data-price=4.00 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
             </div>
@@ -113,23 +113,23 @@
                 <div class="drink-detail">
                   <p>Coke</p>
                   <p>(500ml)</p>
-                  <p>$2.00</p>
+                  <p>$3.50(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Coke" data-price=3.50 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
               <div class="drink-article">
                 <div class="drink-img-banner">
-                  <img class="menu-img" src="images/beer.jpg" alt="">
+                  <img class="menu-img" src="images/sprite.jpg" alt="">
                 </div>
                 <div class="drink-detail">
-                  <p>Beer</p>
-                  <p>(Bottle)</p>
-                  <p>$5.00</p>
+                  <p>Sprite</p>
+                  <p>(500ml)</p>
+                  <p>$3.50(plus tax)</p>
                 </div>
                 <div class="add-cart-container">
-                  <button class="add-cart" type="button">Add Cart</button>
+                  <button data-name="Sprite" data-price=3.50 class="add-cart" type="button">Add Cart</button>
                 </div>
               </div>
             </div>
@@ -146,23 +146,32 @@
             </div>
             <div class="order-details">
               <div class="order-details-title">
-                <p>ORDER DETAILS</p>
+                <h3>ORDER DETAILS</h3>
               </div>
               <div class="order-beverages">
 
               </div>
               <div class="tax">
-                <p>TAX</p>
+                <div class="tax-title">
+                  <h3>TAX</h3>
+                </div>
+                <div class="tax-price">
+                  <h3 class="tax-amount"></h3>
+                </div>
               </div>
               <div class="total-price">
-                <p>TOTAL</p>
+                <div class="total-title">
+                  <h3>TOTAL</h3>
+                </div>
+                <div class="total">
+                  <h3 class="total-amount"></h3>
+                </div>
               </div>
               <div class="payment">
                 <button class="payment-btn" type="button">GO TO PAYMENT</button>
               </div>
             </div>
             <div class="zigzag-bottom">
-
             </div>
           </div>
         </div>
