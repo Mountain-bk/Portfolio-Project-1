@@ -222,148 +222,136 @@ if (dateRange[0]){
 
 //---Add position fixed when the cart menu reaches to top of the screen---///
 const menu = document.querySelector(".menu-wrapper");
-const footer = document.querySelector(".footer");
-var cart = document.querySelector(".cart");
+const screenCart = document.querySelector(".cart");
 window.addEventListener("scroll", () =>{
   var scrollTop = window.pageYOffset;
   var menuScrollTop = menu.offsetTop;
   var menuScrollBottom = menuScrollTop + menu.offsetHeight;
-  var footerScrollTop = footer.offsetTop;
-  //console.log(scrollTop + window.innerHeight);
   if(scrollTop >= menuScrollTop){
-    cart.style.position = "fixed";
+    screenCart.style.position = "fixed";
+    screenCart.style.top = "0";
   } else if (scrollTop <= menuScrollTop){
-    cart.style.position = "absolute";
+    screenCart.style.position = "absolute";
   }
-  if (scrollTop + window.innerHeight >= footerScrollTop){
-    cart.style.position = "absolute";
-    cart.style.bottom = "0";
+  if (menuScrollBottom - scrollTop <= screenCart.offsetHeight){
+    screenCart.style.position = "absolute";
+    screenCart.style.top = "initial";
+    screenCart.style.bottom = "0";
   }
-})
+});
 
-//---Products Lists---//
+//---Shopping Cart API---//
+var shoppingCart = (() => {
+  cart = [];
+  function Item(name, price, tax, count){
+    this.product = name;
+    this.price = price;
+    this.tax = tax;
+    this.count = count;
+  }
+  //Set item to local storage
+  function saveCart(){
+    localStorage.setItem("shoppingCart", JSON.stringify(cart));
+  }
+  var obj = {};
+  //Add item to the local storage//
+  obj.addItemInCart = function(name, price, tax, count){
+    for (var item in cart){
+      if(cart[item].product === name){
+        cart[item].count++;
+        saveCart();
+        return;
+      }
+    }
+    var item = new Item(name, price, tax, count);
+    cart.push(item);
+    saveCart();
+  }
+  //List cart//
+  obj.listCart = () =>{
+    //create copy of cart
+    var cartCopy = [];
+    //access to all the items in cart
+    for(i in cart){
+      //select item in cart
+      item = cart[i];
+      //create copy of item
+      itemCopy = {};
+      //access to all the property in item
+      for(p in item){
+        //copy all the property
+        itemCopy[p] = item[p];
+      }
+      //
+      itemCopy.total = Number((item.price + item.tax) * item.count).toFixed(2);
+      cartCopy.push(itemCopy);
+    }
+    return cartCopy;
+  }
+  //Total Tax in cart//
+  obj.totalTax = () =>{
+    var totalTax = 0;
+    for(var item in cart){
+      totalTax += cart[item].tax * cart[item].count;
+    }
+    return totalTax
+  }
+  //Total Price in cart//
+  obj.totalAmount = () =>{
+    var totalPrice = 0;
+    var totalAmount = 0;
+    var totalTax = 0;
+    for(var item in cart){
+      totalPrice += cart[item].price * cart[item].count;
+      totalTax += cart[item].tax * cart[item].count;
+      totalAmount = totalPrice + totalTax;
+    }
+    return totalAmount
+  }
+  return obj;
+})();
 
-let beverages = [
-  {
-    name : "Buffalo Wings",
-    price : 6,
-    tax : 0.6,
-    inCart : 0
-  },
-  {
-    name : "Value Set(Hamburger, French Fries, Drink)",
-    price : 8,
-    tax : 0.8,
-    inCart : 0
-  },
-  {
-    name : "Fried Chicken",
-    price : 7,
-    tax : 0.7,
-    inCart : 0
-  },
-  {
-    name : "Nachos",
-    price : 4,
-    tax : 0.4,
-    inCart : 0
-  },
-  {
-    name : "Hamburger",
-    price : 5,
-    tax : 0.5,
-    inCart : 0
-  },
-  {
-    name : "French Fries",
-    price : 4,
-    tax : 0.4,
-    inCart : 0
-  },
-  {
-    name : "Coke(500ml)",
-    price : 2,
-    tax : 0.2,
-    inCart : 0
-  },
-  {
-    name : "Beer(Bottle)",
-    price : 5,
-    tax : 0.5,
-    inCart : 0
-  },
-];
-
-//---Add to Local Storage---//
-const addCartBtn = document.querySelectorAll(".add-cart");
-for (let i=0; i < addCartBtn.length; i++){
-  addCartBtn[i].addEventListener("click", () => {
-    addCartNumbers();
-    //addbeverages(beverages[i]);
-    addBeverages(beverages[i]);
-    addTax(beverages[i]);
-    addTotalPrice(beverages[i]);
+//---Add to cart---//
+const addCart = document.querySelectorAll(".add-cart");
+for (let i = 0; addCart.length > i; i++){
+  addCart[i].addEventListener("click", () =>{
+    var name = addCart[i].getAttribute("data-name");
+    var price = Number(addCart[i].getAttribute("data-price"));
+    var tax = price / 10;
+    shoppingCart.addItemInCart(name, price, tax, 1);
+    displayCart();
   })
 };
 
-function addCartNumbers(){
-  let cartQuantity = localStorage.getItem("cartNumbers");
-  cartQuantity = parseInt(cartQuantity);
-  //If beverages are stored in local storage
-  if (cartQuantity){
-    //Add quantity to cart
-    localStorage.setItem("cartNumbers", cartQuantity + 1);
-  //If nothing are stored in local storage
-  } else{
-    //Set first beverage to the cart
-    localStorage.setItem("cartNumbers", 1);
-  }
-}
-function addbeverages(beverage){
-  let beverages = localStorage.getItem("beverageInCart");
-  beverages = parseInt(beverages);
-  if(beverages){
-    if(beverage == beverages){
-      beverags.inCart + 1;
-    } else{
-      beverage.inCart += 1;
-      localStorage.setItem("beverageInCart", beverages + JSON.stringify(beverage));
-    }
-  }else{
-    beverage.inCart += 1;
-    localStorage.setItem("beverageInCart", JSON.stringify(beverage));
-  }
-
-}
-
-function addBeverages(beverage){
-  let beverageName = beverage.name;
-  beverage.inCart += 1;
-  //beverage.price = (beverage.inCart) * beverage.price;
-  localStorage.setItem(beverageName, JSON.stringify(beverage));
-}
-function addTotalPrice(beverage){
-  let totalPrice = localStorage.getItem("TotalPrice");
-  totalPrice = JSON.parse(totalPrice);
-  let addPrice = beverage.price + beverage.tax;
-  //If prices are stored in local storage
-  if (totalPrice){
-    //Add price
-    localStorage.setItem("TotalPrice", (totalPrice + addPrice).toFixed(2));
-  //If nothing are stored in local storage
-  } else{
-    //Set first price to the cart
-    localStorage.setItem("TotalPrice", addPrice);
-  }
-}
-
-function addTax(beverage){
-  let totalTax = localStorage.getItem("TotalTax");
-  totalTax = JSON.parse(totalTax);
-  if (totalTax){
-    console.log(typeof totalTax);
-    localStorage.setItem("TotalTax", (totalTax + beverage.tax).toFixed(2));
-  } else{
-    localStorage.setItem("TotalTax", beverage.tax);
-  }
+//---Display Cart---//
+const orderBeverage = document.querySelector(".order-beverages");
+const totalTax = document.querySelector(".tax-amount");
+const totalPrice = document.querySelector(".total-amount");
+function displayCart(){
+  var cartArray = shoppingCart.listCart();
+  var output = " ";
+  for(var i in cartArray){
+    output +=
+    "<div class='order-beverages-details'>" +
+      "<div class='order-name-price'>" +
+        "<div class='order-name'>" +
+          "<h4>" + cartArray[i].product + " x " + cartArray[i].count + "</h4>" +
+        "</div>" +
+        "<div class='order-price'>" +
+          "<h4>" + "$" + cartArray[i].price * cartArray[i].count + "</h4>" +
+          "<p>(plus tax)</p>" +
+        "</div>" +
+      "</div>" +
+      "<div class='order-size-container'>" +
+        //"<p class='order-size'>S size</p>" +
+      "</div>" +
+      "<div class='remove-edit-container'>" +
+        "<button class='remove-btn' type='button' name='button'>REMOVE</button>" +
+        "<button class='edit-btn' type='button' name='button'>EDIT</button>" +
+      "</div>" +
+    "</div>"
+  };
+  orderBeverage.innerHTML = output;
+  totalTax.innerHTML = "$" + shoppingCart.totalTax().toFixed(2);
+  totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
