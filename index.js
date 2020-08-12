@@ -267,6 +267,16 @@ var shoppingCart = (() => {
     cart.push(item);
     saveCart();
   }
+  //Remove Item from cart//
+  obj.removeItemFromCartAll = function(name){
+    for(var item in cart){
+      if(cart[item].product === name){
+        cart.splice(item, 1);
+        break;
+      }
+    }
+    saveCart();
+  }
   //List cart//
   obj.listCart = () =>{
     //create copy of cart
@@ -323,6 +333,8 @@ for (let i = 0; addCart.length > i; i++){
   })
 };
 
+
+
 //---Display Cart---//
 const orderBeverage = document.querySelector(".order-beverages");
 const totalTax = document.querySelector(".tax-amount");
@@ -346,7 +358,7 @@ function displayCart(){
         //"<p class='order-size'>S size</p>" +
       "</div>" +
       "<div class='remove-edit-container'>" +
-        "<button class='remove-btn' type='button' name='button'>REMOVE</button>" +
+        "<button class='remove-btn' type='button' data-name='" + cartArray[i].product + "'data-price=" + cartArray[i].price + ">REMOVE</button>" +
         "<button class='edit-btn' type='button' name='button'>EDIT</button>" +
       "</div>" +
     "</div>"
@@ -355,3 +367,15 @@ function displayCart(){
   totalTax.innerHTML = "$" + shoppingCart.totalTax().toFixed(2);
   totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
+
+//---Remove Items from the cart---//
+const removeBtn = document.querySelectorAll(".remove-btn");
+
+
+orderBeverage.addEventListener("click", function(e){
+  if(e.target.matches(".remove-btn")){
+    var name = removeBtn[i].getAttribute("data-name");
+    shoppingCart.removeItemFromCartAll(name);
+    displayCart();
+  }
+});
