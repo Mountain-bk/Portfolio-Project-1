@@ -368,14 +368,14 @@ function displayCart(){
   totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
 
-//---Remove Items from the cart---//
-const removeBtn = document.querySelectorAll(".remove-btn");
-
-
+//---Remove All Items from the cart---//
 orderBeverage.addEventListener("click", function(e){
   if(e.target.matches(".remove-btn")){
-    var name = removeBtn[i].getAttribute("data-name");
-    shoppingCart.removeItemFromCartAll(name);
-    displayCart();
+    var removeBtn = document.querySelectorAll(".remove-btn");
+    for (let i = 0; removeBtn.length > i; i++){
+      var name = removeBtn[i].getAttribute("data-name");
+      shoppingCart.removeItemFromCartAll(name);
+      displayCart();
+    }
   }
 });
