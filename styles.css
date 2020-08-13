@@ -7,6 +7,7 @@ body{
 a{
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
 h1, h2, h3, li{
@@ -32,6 +33,7 @@ button{
   font-family: 'Oswald', sans-serif;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
 
 /*Top Page*/
@@ -534,10 +536,10 @@ button{
   height: 100px;
   padding: 10px 0 0 10px;
 }
-.add-cart-container{
-
+.select-container{
+  width: 100%;
 }
-.add-cart{
+.add-cart, .select-btn, .save-changes{
   width: 100%;
   height: auto;
   padding: 15px 0;
@@ -551,13 +553,14 @@ button{
   width: 270px;
   height: 100%;
   position: absolute;
-  z-index: 1000;
+  z-index: 50;
   top: 0;
   right: 0;
 }
 .cart{
   width: 270px;
   top: 0;
+  z-index: 50;
 }
 .zigzag-top{
   height: 10px;
@@ -606,11 +609,11 @@ button{
   display: flex;
 }
 .order-name{
-  width: 70%;
+  width: 60%;
 }
 .order-price{
   text-align: right;
-  width: 30%;
+  width: 40%;
 }
 
 .remove-edit-container{
@@ -630,21 +633,21 @@ button{
   padding: 10px 0;
 }
 .tax-title{
-  width: 70%;
+  width: 60%;
 }
 .tax-price{
   text-align: right;
-  width: 30%;
+  width: 40%;
 }
 .total-price{
   display: flex;
 }
 .total-title{
-  width: 70%;
+  width: 60%;
 }
 .total{
   text-align: right;
-  width: 30%;
+  width: 40%;
 }
 .zigzag-bottom{
   height: 10px;
@@ -681,6 +684,84 @@ button{
   margin: auto;
   font-size: 1.2rem;
   text-transform: uppercase;
+}
+
+.modal{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
+  z-index: 100;
+}
+.modal-content-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 50%;
+  height: auto;
+  border-radius: 0.5rem;
+  z-index: 100;
+  padding: 1rem 1.5rem;
+}
+.close-btn{
+  font-size: 1.5rem;
+  height: 10%;
+  cursor: pointer;
+}
+.modal-content{
+  width: 100%;
+  height: 90%;
+}
+.modal-header{
+  display: flex;
+  font-size: 1.5rem;
+}
+.modal-product{
+  width: 50%;
+}
+.modal-price{
+  width: 50%;
+  text-align: right;
+}
+.modal-img-container{
+  width: 100%;
+  height: 400px;
+  margin: 10px 0;
+}
+.modal-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal-add-cart{
+  display: flex;
+  align-items: center;
+}
+.quantity-container{
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.input-count{
+  height: 40px;
+}
+.minus-btn, .plus-btn{
+  height: 40px;
+  width: 40px;
+  font-size: 1.3rem;
+  background-color: #dedede;
+}
+.add-cart-container{
+  width: 70%;
 }
 
 @media only screen and (max-width: 1023px){
