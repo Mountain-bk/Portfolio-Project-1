@@ -240,6 +240,7 @@ window.addEventListener("scroll", () =>{
   }
 });
 
+
 //---Shopping Cart API---//
 var shoppingCart = (() => {
   cart = [];
@@ -258,7 +259,7 @@ var shoppingCart = (() => {
   obj.addItemInCart = function(name, price, tax, count){
     for (var item in cart){
       if(cart[item].product === name){
-        cart[item].count++;
+        cart[item].count = Number(cart[item].count) + Number(count);
         saveCart();
         return;
       }
@@ -320,17 +321,6 @@ var shoppingCart = (() => {
   return obj;
 })();
 
-//---Add to cart---//
-const addCart = document.querySelectorAll(".add-cart");
-for (let i = 0; addCart.length > i; i++){
-  addCart[i].addEventListener("click", () =>{
-    var name = addCart[i].getAttribute("data-name");
-    var price = Number(addCart[i].getAttribute("data-price"));
-    var tax = price / 10;
-    shoppingCart.addItemInCart(name, price, tax, 1);
-    displayCart();
-  })
-};
 
 
 
@@ -358,7 +348,7 @@ function displayCart(){
       "</div>" +
       "<div class='remove-edit-container'>" +
         "<button class='remove-btn' type='button' data-name='" + cartArray[i].product + "'data-price=" + cartArray[i].price + ">REMOVE</button>" +
-        "<button class='edit-btn' type='button' name='button'>EDIT</button>" +
+        "<button class='edit-btn' type='button' data-name='" + cartArray[i].product + "'data-price=" + cartArray[i].price + ">EDIT</button>" +
       "</div>" +
     "</div>"
   };
@@ -368,11 +358,88 @@ function displayCart(){
 }
 
 //---Remove Specific Items from the cart---//
-orderBeverage.addEventListener("click", function(e){
-  if(e.target.matches(".remove-btn")){
-    console.log(e.target)
-    var name = e.target.getAttribute("data-name");
-    shoppingCart.removeItemFromCart(name);
-    displayCart();
+if(orderBeverage){
+  orderBeverage.addEventListener("click", function(e){
+    if(e.target.matches(".remove-btn")){
+      var name = e.target.getAttribute("data-name");
+      console.log(name);
+      shoppingCart.removeItemFromCart(name);
+      displayCart();
+    } else if(e.target.matches(".edit-btn")){
+      modal.style.visibility = "visible";
+      modal.style.opacity = "1";
     }
-});
+  });
+}
+
+
+
+
+//---Open Modal---//
+const selectBtn = document.querySelectorAll(".select-btn");
+const modal = document.querySelector(".modal");
+const modalProductName = document.querySelector(".modal-product-name");
+const modalPriceText = document.querySelector(".modal-price-text");
+const modalImageContainer = document.querySelector(".modal-img-container");
+const modalAddCartContainer = document.querySelector(".add-cart-container");
+const quantityContainer = document.querySelector(".quantity-container");
+
+//---Show Add Cart Modal---//
+for(let i = 0; selectBtn.length > i; i++){
+  selectBtn[i].addEventListener("click", () =>{
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
+    var modalName = selectBtn[i].getAttribute("data-name");
+    modalProductName.innerHTML = modalName;
+    var modalPrice = Number(selectBtn[i].getAttribute("data-price")).toFixed(2);
+    modalPriceText.innerHTML = "$" + modalPrice;
+    modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
+    modalAddCartContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='add-cart' type='button'>Add Cart</button>";
+  })
+};
+
+//---Add to cart---//
+if(modal){
+  modal.addEventListener("click", function(e){
+    if(e.target.matches(".add-cart")){
+      var name = e.target.getAttribute("data-name");
+      var count = inputCount.value;
+      var price = Number(e.target.getAttribute("data-price"));
+      var tax = price / 10;
+      shoppingCart.addItemInCart(name, price, tax, count);
+      modal.style.visibility = "hidden";
+      modal.style.opacity = "0";
+      inputCount.value = 1;
+      displayCart();
+      }
+  });
+}
+
+//---Close Modal---//
+const closeBtn = document.querySelector(".close-btn");
+if(closeBtn){
+  closeBtn.addEventListener("click", ()=>{
+    modal.style.visibility = "hidden";
+    modal.style.opacity = "0";
+  });
+
+}
+
+//---Change number of items of add cart---//
+const inputCount = document.querySelector(".input-count");
+if(quantityContainer){
+  quantityContainer.addEventListener("click", function(e){
+    //-1 quatity of item for add cart//
+    if(e.target.matches(".minus-btn")){
+      if(inputCount.value == 1){
+        inputCount.value = 1;
+      } else{
+        inputCount.value = Number(inputCount.value) - 1;
+      }
+    }
+    //+1 quatity of item for add cart//
+    else if(e.target.matches(".plus-btn")){
+      inputCount.value = Number(inputCount.value) + 1;
+    }
+  });
+}
