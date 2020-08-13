@@ -268,11 +268,10 @@ var shoppingCart = (() => {
     saveCart();
   }
   //Remove Item from cart//
-  obj.removeItemFromCartAll = function(name){
+  obj.removeItemFromCart = function(name){
     for(var item in cart){
       if(cart[item].product === name){
         cart.splice(item, 1);
-        break;
       }
     }
     saveCart();
@@ -368,14 +367,12 @@ function displayCart(){
   totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
 
-//---Remove All Items from the cart---//
+//---Remove Specific Items from the cart---//
 orderBeverage.addEventListener("click", function(e){
   if(e.target.matches(".remove-btn")){
-    var removeBtn = document.querySelectorAll(".remove-btn");
-    for (let i = 0; removeBtn.length > i; i++){
-      var name = removeBtn[i].getAttribute("data-name");
-      shoppingCart.removeItemFromCartAll(name);
-      displayCart();
+    console.log(e.target)
+    var name = e.target.getAttribute("data-name");
+    shoppingCart.removeItemFromCart(name);
+    displayCart();
     }
-  }
 });
