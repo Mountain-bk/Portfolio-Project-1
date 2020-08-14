@@ -254,6 +254,15 @@ var shoppingCart = (() => {
   function saveCart(){
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
   }
+
+  function loadCart(){
+    cart = JSON.parse(localStorage.getItem('shoppingCart'));
+  }
+
+  if (localStorage.getItem("shoppingCart") != null) {
+    loadCart();
+  }
+
   var obj = {};
   //Add item to the local storage//
   obj.addItemInCart = function(name, price, tax, count){
@@ -277,6 +286,28 @@ var shoppingCart = (() => {
     }
     saveCart();
   }
+
+  obj.removeOneItemFromCart = function(name){
+    for(var item in cart){
+      if(cart[item].product === name){
+        cart[item].count -= 1;
+        if(cart[item].count === 0){
+          cart.splice(item, 1);
+        }
+      }
+    }
+    saveCart();
+  }
+
+  obj.addOneItemInCart = function(name){
+    for(var item in cart){
+      if(cart[item].product === name){
+        cart[item].count += 1;
+      }
+    }
+    saveCart();
+  }
+
   //List cart//
   obj.listCart = () =>{
     //create copy of cart
@@ -318,16 +349,16 @@ var shoppingCart = (() => {
     }
     return totalAmount
   }
+
   return obj;
 })();
-
-
 
 
 //---Display Cart---//
 const orderBeverage = document.querySelector(".order-beverages");
 const totalTax = document.querySelector(".tax-amount");
 const totalPrice = document.querySelector(".total-amount");
+
 function displayCart(){
   var cartArray = shoppingCart.listCart();
   var output = " ";
@@ -357,23 +388,19 @@ function displayCart(){
   totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
 
-//---Remove Specific Items from the cart---//
+
+//---Remove Specific Items or Edit specific items from the cart---//
 if(orderBeverage){
   orderBeverage.addEventListener("click", function(e){
     if(e.target.matches(".remove-btn")){
       var name = e.target.getAttribute("data-name");
-      console.log(name);
       shoppingCart.removeItemFromCart(name);
       displayCart();
     } else if(e.target.matches(".edit-btn")){
-      modal.style.visibility = "visible";
-      modal.style.opacity = "1";
+      showEditCartModal(e.target);
     }
   });
 }
-
-
-
 
 //---Open Modal---//
 const selectBtn = document.querySelectorAll(".select-btn");
@@ -382,25 +409,59 @@ const modalProductName = document.querySelector(".modal-product-name");
 const modalPriceText = document.querySelector(".modal-price-text");
 const modalImageContainer = document.querySelector(".modal-img-container");
 const modalAddCartContainer = document.querySelector(".add-cart-container");
+const modalSaveChangesContainer = document.querySelector(".save-changes-container");
 const quantityContainer = document.querySelector(".quantity-container");
+const minusBtn = document.querySelector(".minus-btn");
+const plusBtn = document.querySelector(".plus-btn");
+const editMinusBtn = document.querySelector(".edit-minus-btn");
+const editPlusBtn = document.querySelector(".edit-plus-btn");
+const modalAddCart = document.querySelector(".modal-add-cart");
+const modalEditCart = document.querySelector(".modal-edit-cart");
 
-//---Show Add Cart Modal---//
+//Show Add Cart Modal//
 for(let i = 0; selectBtn.length > i; i++){
   selectBtn[i].addEventListener("click", () =>{
-    modal.style.visibility = "visible";
-    modal.style.opacity = "1";
-    var modalName = selectBtn[i].getAttribute("data-name");
-    modalProductName.innerHTML = modalName;
-    var modalPrice = Number(selectBtn[i].getAttribute("data-price")).toFixed(2);
-    modalPriceText.innerHTML = "$" + modalPrice;
-    modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
-    modalAddCartContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='add-cart' type='button'>Add Cart</button>";
+    showAddCartModal(selectBtn[i]);
   })
 };
 
-//---Add to cart---//
-if(modal){
-  modal.addEventListener("click", function(e){
+function showEditCartModal(selectedItem){
+  modal.style.visibility = "visible";
+  modal.style.opacity = "1";
+  modalAddCart.style.display = "none";
+  modalEditCart.style.display = "flex";
+  var modalName = selectedItem.getAttribute("data-name");
+  var i = JSON.parse(localStorage.getItem("shoppingCart"));
+  for (var item in i){
+    if(i[item].product === modalName){
+      var count = i[item].count;
+      modalProductName.innerHTML = modalName;
+      var modalPrice = Number(selectedItem.getAttribute("data-price")).toFixed(2);
+      modalPriceText.innerHTML = "$" + modalPrice;
+      modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
+      cartCount.value = count;
+      modalSaveChangesContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='save-changes' type='button'>Save Changes</button>";
+    }
+  }
+}
+
+function showAddCartModal(selectedItem){
+  modalAddCart.style.display = "flex";
+  modalEditCart.style.display = "none";
+  modal.style.visibility = "visible";
+  modal.style.opacity = "1";
+  var modalName = selectedItem.getAttribute("data-name");
+  modalProductName.innerHTML = modalName;
+  var modalPrice = Number(selectedItem.getAttribute("data-price")).toFixed(2);
+  modalPriceText.innerHTML = "$" + modalPrice;
+  modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
+  modalAddCartContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='add-cart' type='button'>Add Cart</button>";
+  inputCount.value = 1;
+}
+
+//Add to cart//
+if(modalAddCartContainer){
+  modalAddCartContainer.addEventListener("click", function(e){
     if(e.target.matches(".add-cart")){
       var name = e.target.getAttribute("data-name");
       var count = inputCount.value;
@@ -409,13 +470,54 @@ if(modal){
       shoppingCart.addItemInCart(name, price, tax, count);
       modal.style.visibility = "hidden";
       modal.style.opacity = "0";
-      inputCount.value = 1;
       displayCart();
       }
   });
 }
 
-//---Close Modal---//
+//---Change number of items in add cart---//
+const inputCount = document.querySelector(".input-count");
+//-1 add cart item
+if(inputCount){
+  minusBtn.addEventListener("click", () =>{
+  if(inputCount.value == 1){
+    inputCount.value = 1;
+  } else{
+    inputCount.value = Number(inputCount.value) - 1;
+  }
+});
+//+1 add cart item
+plusBtn.addEventListener("click", () =>{
+  inputCount.value = Number(inputCount.value) + 1;
+});
+}
+
+
+//Change number of items in edit cart//
+const cartCount = document.querySelector(".cart-count");
+//-1 edit cart item
+editMinusBtn.addEventListener("click", () =>{
+  var name = modalProductName.innerHTML;
+  shoppingCart.removeOneItemFromCart(name);
+  if(cartCount.value == 0){
+    cartCount.value = 0;
+  } else{
+    cartCount.value = Number(cartCount.value) - 1;
+  }
+  displayCart();
+});
+//+1 edit cart item
+editPlusBtn.addEventListener("click", () =>{
+  var name = modalProductName.innerHTML;
+  shoppingCart.addOneItemInCart(name);
+  cartCount.value = Number(cartCount.value) + 1;
+  displayCart();
+})
+
+
+
+
+//Close Modal//
 const closeBtn = document.querySelector(".close-btn");
 if(closeBtn){
   closeBtn.addEventListener("click", ()=>{
@@ -425,21 +527,6 @@ if(closeBtn){
 
 }
 
-//---Change number of items of add cart---//
-const inputCount = document.querySelector(".input-count");
-if(quantityContainer){
-  quantityContainer.addEventListener("click", function(e){
-    //-1 quatity of item for add cart//
-    if(e.target.matches(".minus-btn")){
-      if(inputCount.value == 1){
-        inputCount.value = 1;
-      } else{
-        inputCount.value = Number(inputCount.value) - 1;
-      }
-    }
-    //+1 quatity of item for add cart//
-    else if(e.target.matches(".plus-btn")){
-      inputCount.value = Number(inputCount.value) + 1;
-    }
-  });
+if(orderBeverage){
+  displayCart();
 }
