@@ -699,7 +699,7 @@ button{
   transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
   z-index: 100;
 }
-.modal-content-container {
+.modal-content-container{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -741,27 +741,41 @@ button{
   height: 100%;
   object-fit: cover;
 }
-.modal-add-cart{
+.modal-add-cart, .modal-edit-cart{
   display: flex;
   align-items: center;
 }
+.modal-edit-cart{
+  display: none;
+}
+
 .quantity-container{
   width: 30%;
+  height: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
-.input-count{
-  height: 40px;
+.minus-btn-container, .plus-btn-container{
+  width: 15%;
 }
-.minus-btn, .plus-btn{
+.input-count-container{
+  width: 60%;
+}
+
+.input-count, .cart-count{
   height: 40px;
-  width: 40px;
+  width: 100%;
+}
+.minus-btn, .plus-btn, .edit-minus-btn, .edit-plus-btn{
+  height: 100%;
+  width: 100%;
   font-size: 1.3rem;
   background-color: #dedede;
 }
-.add-cart-container{
+.add-cart-container, .save-changes-container{
   width: 70%;
+  padding: 0 10px;
 }
 
 @media only screen and (max-width: 1023px){
