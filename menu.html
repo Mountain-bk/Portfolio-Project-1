@@ -176,13 +176,13 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="footer">
-      <div class="footer-logo">
-        <img class="footer-logo-img" src="logo.png" alt="">
       </div>
-    </div>
-    <div class="modal">
+      <div class="footer">
+        <div class="footer-logo">
+          <img class="footer-logo-img" src="logo.png" alt="">
+        </div>
+      </div>
+      <div class="modal">
         <div class="modal-content-container">
           <div class="close-btn-container">
             <span class="close-btn">&times;</span>
@@ -206,17 +206,39 @@
             </div>
             <div class="modal-add-cart">
               <div class="quantity-container">
-                <button class="minus-btn" type="button" name="button">-</button>
-                <input class="input-count" type="number" name="" value="1">
-                <button class="plus-btn" type="button" name="button">+</button>
+                <div class="minus-btn-container">
+                  <button class="minus-btn" type="button" name="button">-</button>
+                </div>
+                <div class="input-count-container">
+                  <input class="input-count" type="number" name="" value="1">
+                </div>
+                <div class="plus-btn-container">
+                  <button class="plus-btn" type="button" name="button">+</button>
+                </div>
               </div>
               <div class="add-cart-container">
 
               </div>
             </div>
+            <div class="modal-edit-cart">
+              <div class="quantity-container">
+                <div class="minus-btn-container">
+                  <button class="edit-minus-btn" type="button" name="button">-</button>
+                </div>
+                <div class="input-count-container">
+                  <input class="cart-count" type="number" name="" value="">
+                </div>
+                <div class="plus-btn-container">
+                  <button class="edit-plus-btn" type="button" name="button">+</button>
+                </div>
+              </div>
+              <div class="save-changes-container">
+
+              </div>
+            </div>
           </div>
         </div>
-    </div>
+      </div>
     <script src="index.js"></script>
   </body>
 </html>
