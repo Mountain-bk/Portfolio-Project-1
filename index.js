@@ -579,7 +579,8 @@ function changeToCloseCartBtn(){
 window.addEventListener("resize", () =>{
   if(window.innerWidth > 690){
     cartContainer.style.display = "block";
-  } else if(window.innerWidth < 690){
+    changeToCloseCartBtn();
+  } else if(window.innerWidth === 690){
     cartContainer.style.display = "none";
     mobileCartBtn.innerHTML =
     "<i class='fas fa-shopping-cart'></i>" +
