@@ -1,3 +1,5 @@
+
+
 body{
   margin: 0;
   padding: 0;
@@ -410,7 +412,6 @@ button{
   height: 40px;
   display: flex;
   margin-bottom: 15px;
-  background-color: white;
 }
 .date-selector, .time-selector{
   font-size: 1.3rem;
@@ -418,7 +419,8 @@ button{
 }
 .validation-container{;
   width: 10%;
-  height: 100%;
+  height: auto;
+  background-color: white;
 }
 .date-mark, .time-mark{
   width: 100%;
@@ -470,6 +472,7 @@ button{
 .menu-main{
   max-width: 1574px;
   margin: auto;
+  padding: 0 10px;
 }
 .menu-title-container{
   margin: 50px 0;
@@ -550,6 +553,7 @@ button{
   text-transform: uppercase;
 }
 .cart-container{
+  display: block;
   width: 270px;
   height: 100%;
   position: absolute;
@@ -615,8 +619,8 @@ button{
   text-align: right;
   width: 40%;
 }
-
 .remove-edit-container{
+  margin-top: 5px;
   width: 100%;
 }
 .remove-btn{
@@ -654,6 +658,7 @@ button{
   background: url("images/zigzag-bottom.png");
   transform: rotate(180deg);
 }
+
 .order-details-title, .tax, .total-price{
   color: black;
   font-stretch: condensed;
@@ -673,8 +678,12 @@ button{
   color: #006E7F;
 }
 .payment{
+  width: 100%;
+  height: auto;
+  display: flex;
   text-align: center;
 }
+
 .payment-btn{
   width: 80%;
   height: auto;
@@ -684,6 +693,8 @@ button{
   margin: auto;
   font-size: 1.2rem;
   text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  border-radius: 5px;
 }
 
 .modal{
@@ -695,9 +706,8 @@ button{
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
-  transform: scale(1.1);
   transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
-  z-index: 100;
+  z-index: 400;
 }
 .modal-content-container{
   position: absolute;
@@ -736,6 +746,7 @@ button{
   height: 400px;
   margin: 10px 0;
 }
+
 .modal-image{
   width: 100%;
   height: 100%;
@@ -766,6 +777,7 @@ button{
 .input-count, .cart-count{
   height: 40px;
   width: 100%;
+  border-radius: 10px;
 }
 .minus-btn, .plus-btn, .edit-minus-btn, .edit-plus-btn{
   height: 100%;
@@ -777,8 +789,13 @@ button{
   width: 70%;
   padding: 0 10px;
 }
+.mobile-cart-nav{
+  display: none;
+}
+
 
 @media only screen and (max-width: 1023px){
+/*Top Page*/
   .header{
     grid-template-columns: 32% auto;
     place-items: center;
@@ -792,6 +809,13 @@ button{
     right:2%;
   }.topic{
     width: 45%;
+  }
+/*Menu*/
+  .food-article, .drink-article{
+  width: 32%;
+  }
+  .input-count-container{
+    width: 40%;
   }
 }
 
@@ -853,5 +877,133 @@ button{
     padding: 5px 0 5px 10px;
   }.back, .next{
     margin-bottom: 40px;
+  }
+/*Menu*/
+  .recommend{
+    width: 100%;
+    height: 110px;
+  }
+  .recommend-container{
+    width: 350px;
+    height: 100%;
+    margin: auto;
+  }
+  .food-article, .drink-article{
+  width: 49%;
+  }
+  .beverage{
+    padding-right: 0;
+  }
+  .select-btn{
+    padding: 5px 0;
+  }
+  .cart-container{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 90vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
+    z-index: 100;
+    overflow: scroll;
+  }
+  .cart{
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 100%;
+    z-index: 200;
+    transform: translate(5%);
+
+  }
+  .zigzag-top, .zigzag-bottom{
+    display: none;
+  }
+  .payment{
+    display: none;
+  }
+  .modal-content-container{
+    width: 70%;
+    padding: 1rem 1rem;
+  }
+  .modal-header{
+    height: auto;
+  }
+  .modal-img-container{
+    height: 200px;
+  }
+  .quantity-container{
+    width: 50%;
+  }
+  .minus-btn-container, .plus-btn-container{
+    width: 25%;
+  }
+  .input-count-container{
+    width: 30%;
+  }
+  .add-cart-container, .save-changes-container{
+    width: 50%;
+    padding: 0 0 0 10px;
+  }
+  .mobile-cart-nav{
+    display: block;
+    background-color: rgba(0, 0, 0, 1);
+    position: fixed;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    z-index: 300;
+  }
+  .cart-nav-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  .place-order-container, .cart-total-container{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .place-order-btn{
+    width: 95%;
+    height: auto;
+    padding: 15px 0;
+    background-color: #e0183b;
+    color: white;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .cart-total-btn{
+    width: 95%;
+    height: auto;
+    padding: 15px 0;
+    background-color: #838383;
+    color: white;
+    text-transform: uppercase;
+  }
+  .cart-nav-text{
+    font-size: 0.8rem;
+    color: #dedede;
+  }
+  .cart-nav-price{
+    font-size: 1.4rem;
+  }
+  .fa-shopping-cart{
+    font-size: 1.2rem;
+  }
+}
+@media only screen and (max-width: 374px){
+  .recommend-container{
+    width: 100%;
+  }
+  .food-article, .drink-article{
+  width: 100%;
   }
 }
