@@ -88,17 +88,15 @@ if(closedText){
 }
 
 //---Toggle check-mark or cross-mark based on selections---//
-
 const selectors = document.querySelectorAll("#selector");
 const checkMark = document.querySelector(".time-mark");
-selectors.forEach(select =>{
-  select.addEventListener("click", () =>{
-  if (timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
+
+window.addEventListener("change", () =>{
+  if(timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
     checkMark.src = "images/cross.png";
   } else{
     checkMark.src = "images/check.png";
   }
-});
 });
 
 //---Display Pick Up Order Time---//
@@ -223,29 +221,35 @@ if (dateRange[0]){
 //---Add position fixed when the cart menu reaches to top of the screen---///
 const menu = document.querySelector(".menu-wrapper");
 const screenCart = document.querySelector(".cart");
-window.addEventListener("scroll", () =>{
-  var scrollTop = window.pageYOffset;
-  var menuScrollTop = menu.offsetTop;
-  var menuScrollBottom = menuScrollTop + menu.offsetHeight;
-  if(scrollTop >= menuScrollTop){
-    screenCart.style.position = "fixed";
-    screenCart.style.top = "0";
-  } else if (scrollTop <= menuScrollTop){
-    screenCart.style.position = "absolute";
+if(menu){
+  if(window.innerWidth > 690){
+    window.addEventListener("scroll", () =>{
+      var scrollTop = window.pageYOffset;
+      var menuScrollTop = menu.offsetTop;
+      var menuScrollBottom = menuScrollTop + menu.offsetHeight;
+      if(scrollTop >= menuScrollTop){
+        screenCart.style.position = "fixed";
+        screenCart.style.top = "0";
+      } else if (scrollTop <= menuScrollTop){
+        screenCart.style.position = "absolute";
+      }
+      if (menuScrollBottom - scrollTop <= screenCart.offsetHeight){
+        screenCart.style.position = "absolute";
+        screenCart.style.top = "initial";
+        screenCart.style.bottom = "0";
+      }
+    });
   }
-  if (menuScrollBottom - scrollTop <= screenCart.offsetHeight){
-    screenCart.style.position = "absolute";
-    screenCart.style.top = "initial";
-    screenCart.style.bottom = "0";
-  }
-});
+}
+
 
 
 //---Shopping Cart API---//
 var shoppingCart = (() => {
   cart = [];
-  function Item(name, price, tax, count){
+  function Item(name, details, price, tax, count){
     this.product = name;
+    this.details = details;
     this.price = price;
     this.tax = tax;
     this.count = count;
@@ -265,7 +269,7 @@ var shoppingCart = (() => {
 
   var obj = {};
   //Add item to the local storage//
-  obj.addItemInCart = function(name, price, tax, count){
+  obj.addItemInCart = function(name, details, price, tax, count){
     for (var item in cart){
       if(cart[item].product === name){
         cart[item].count = Number(cart[item].count) + Number(count);
@@ -273,7 +277,7 @@ var shoppingCart = (() => {
         return;
       }
     }
-    var item = new Item(name, price, tax, count);
+    var item = new Item(name, details, price, tax, count);
     cart.push(item);
     saveCart();
   }
@@ -282,27 +286,6 @@ var shoppingCart = (() => {
     for(var item in cart){
       if(cart[item].product === name){
         cart.splice(item, 1);
-      }
-    }
-    saveCart();
-  }
-
-  obj.removeOneItemFromCart = function(name){
-    for(var item in cart){
-      if(cart[item].product === name){
-        cart[item].count -= 1;
-        if(cart[item].count === 0){
-          cart.splice(item, 1);
-        }
-      }
-    }
-    saveCart();
-  }
-
-  obj.addOneItemInCart = function(name){
-    for(var item in cart){
-      if(cart[item].product === name){
-        cart[item].count += 1;
       }
     }
     saveCart();
@@ -380,14 +363,12 @@ function displayCart(){
       "<div class='order-name-price'>" +
         "<div class='order-name'>" +
           "<h4>" + cartArray[i].product + " x " + cartArray[i].count + "</h4>" +
+          "<p>" + cartArray[i].details + "</p>" +
         "</div>" +
         "<div class='order-price'>" +
           "<h4>" + "$" + cartArray[i].price * cartArray[i].count + "</h4>" +
           "<p>(plus tax)</p>" +
         "</div>" +
-      "</div>" +
-      "<div class='order-size-container'>" +
-        //"<p class='order-size'>S size</p>" +
       "</div>" +
       "<div class='remove-edit-container'>" +
         "<button class='remove-btn' type='button' data-name='" + cartArray[i].product + "'data-price=" + cartArray[i].price + ">REMOVE</button>" +
@@ -429,6 +410,7 @@ const editMinusBtn = document.querySelector(".edit-minus-btn");
 const editPlusBtn = document.querySelector(".edit-plus-btn");
 const modalAddCart = document.querySelector(".modal-add-cart");
 const modalEditCart = document.querySelector(".modal-edit-cart");
+const cartContainer = document.querySelector(".cart-container");
 
 //Show Add Cart Modal//
 for(let i = 0; selectBtn.length > i; i++){
@@ -464,10 +446,11 @@ function showAddCartModal(selectedItem){
   modal.style.opacity = "1";
   var modalName = selectedItem.getAttribute("data-name");
   modalProductName.innerHTML = modalName;
+  var modalDetails = selectedItem.getAttribute("data-details");
   var modalPrice = Number(selectedItem.getAttribute("data-price")).toFixed(2);
   modalPriceText.innerHTML = "$" + modalPrice;
   modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
-  modalAddCartContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='add-cart' type='button'>Add Cart</button>";
+  modalAddCartContainer.innerHTML = "<button data-name='" + modalName + "' data-details='" + modalDetails + "' data-price=" + modalPrice + " class='add-cart' type='button'>Add Cart</button>";
   inputCount.value = 1;
 }
 
@@ -476,21 +459,25 @@ if(modalAddCartContainer){
   modalAddCartContainer.addEventListener("click", function(e){
     if(e.target.matches(".add-cart")){
       var name = e.target.getAttribute("data-name");
+      var details = e.target.getAttribute("data-details");
       var count = Number(inputCount.value);
       var price = Number(e.target.getAttribute("data-price"));
       var tax = price / 10;
-      shoppingCart.addItemInCart(name, price, tax, count);
-      modal.style.visibility = "hidden";
-      modal.style.opacity = "0";
+      shoppingCart.addItemInCart(name, details, price, tax, count);
+      closeModal();
       displayCart();
+      if(window.innerWidth <= 690){
+        changeToCloseCartBtn();
+      }
       }
   });
 }
 
 //---Change number of items in add cart---//
 const inputCount = document.querySelector(".input-count");
-//-1 add cart item
+
 if(inputCount){
+  //-1 add cart item
   minusBtn.addEventListener("click", () =>{
   if(inputCount.value == 1){
     inputCount.value = 1;
@@ -498,33 +485,33 @@ if(inputCount){
     inputCount.value = Number(inputCount.value) - 1;
   }
 });
-//+1 add cart item
-plusBtn.addEventListener("click", () =>{
-  inputCount.value = Number(inputCount.value) + 1;
+  //+1 add cart item
+  plusBtn.addEventListener("click", () =>{
+    inputCount.value = Number(inputCount.value) + 1;
 });
 }
 
 
 //Change number of items in edit cart//
 const cartCount = document.querySelector(".cart-count");
-//-1 edit cart item
-editMinusBtn.addEventListener("click", () =>{
-  var name = modalProductName.innerHTML;
-  //shoppingCart.removeOneItemFromCart(name);
-  if(cartCount.value == 0){
-    cartCount.value = 0;
-  } else{
-    cartCount.value = Number(cartCount.value) - 1;
-  }
-  //displayCart();
-});
-//+1 edit cart item
-editPlusBtn.addEventListener("click", () =>{
-  var name = modalProductName.innerHTML;
-  //shoppingCart.addOneItemInCart(name);
-  cartCount.value = Number(cartCount.value) + 1;
-  //displayCart();
-})
+
+if(cartCount){
+  //-1 edit cart item
+  editMinusBtn.addEventListener("click", () =>{
+    var name = modalProductName.innerHTML;
+    if(cartCount.value == 0){
+      cartCount.value = 0;
+    } else{
+      cartCount.value = Number(cartCount.value) - 1;
+    }
+  });
+  //+1 edit cart item
+  editPlusBtn.addEventListener("click", () =>{
+    var name = modalProductName.innerHTML;
+    cartCount.value = Number(cartCount.value) + 1;
+  });
+}
+
 
 //---Save changes of cart---//
 if(modalSaveChangesContainer){
@@ -533,8 +520,7 @@ if(modalSaveChangesContainer){
       var name = modalProductName.innerHTML;
       var newCartCount = cartCount.value;
       shoppingCart.setNewItemCount(name, newCartCount);
-      modal.style.visibility = "hidden";
-      modal.style.opacity = "0";
+      closeModal();
       displayCart();
       }
   });
@@ -545,12 +531,59 @@ if(modalSaveChangesContainer){
 const closeBtn = document.querySelector(".close-btn");
 if(closeBtn){
   closeBtn.addEventListener("click", ()=>{
-    modal.style.visibility = "hidden";
-    modal.style.opacity = "0";
+    closeModal();
   });
-
 }
 
+function closeModal(){
+  modal.style.visibility = "hidden";
+  modal.style.opacity = "0";
+}
+
+//Display the cart everytime when you load in desktop//
 if(orderBeverage){
   displayCart();
 }
+
+//---Open cart (mobile)---//
+const mobileCartBtn = document.querySelector(".cart-total-btn");
+const cartNavPrice = document.querySelector(".cart-nav-price");
+if(mobileCartBtn){
+  displayTotalAmount();
+
+  mobileCartBtn.addEventListener("click", () =>{
+    if(mobileCartBtn.innerHTML == "<p>Close Cart</p>"){
+      cartContainer.style.display = "none";
+      mobileCartBtn.innerHTML =
+      "<i class='fas fa-shopping-cart'></i>" +
+      "<span class='cart-nav-text'>total</span>" +
+      "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
+    } else{
+      changeToCloseCartBtn();
+    }
+  });
+}
+//Display total amount in nav cart//
+function displayTotalAmount(){
+  cartNavPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
+}
+//Change to close button when the nav cart is open//
+function changeToCloseCartBtn(){
+  cartContainer.style.display = "block";
+  mobileCartBtn.innerHTML = "";
+  mobileCartBtn.innerHTML = "<p>Close Cart</p>";
+}
+
+
+//---Toggle cart either mobile or desktop---//
+window.addEventListener("resize", () =>{
+  if(window.innerWidth > 690){
+    cartContainer.style.display = "block";
+  } else if(window.innerWidth < 690){
+    cartContainer.style.display = "none";
+    mobileCartBtn.innerHTML =
+    "<i class='fas fa-shopping-cart'></i>" +
+    "<span class='cart-nav-text'>total</span>" +
+    "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
+  }
+});
