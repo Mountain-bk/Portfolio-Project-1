@@ -171,6 +171,7 @@ button{
   left: 0px;
   display: flex;
   transition: .8s ease;
+  touch-action: pan-x;
 }
 .banner{
   width: 100vw;
@@ -794,6 +795,67 @@ button{
   display: none;
 }
 
+/*Store Page*/
+.store-wrapper{
+  max-width: 1440px;
+  margin: auto;
+}
+.store-title-container{
+  margin-top: 350px;
+  width: 100%;
+  margin-bottom: 100px;
+}
+.store-title{
+  border-bottom: solid 2px white;
+  color: white;
+}
+.store-details-container{
+  width: 100%;
+}
+.store-details{
+  background: black;
+}
+.location-title-container{
+  padding: 30px 60px;
+  color: white;
+}
+.specific-details-container{
+  display: flex;
+  height: 400px;
+  margin-bottom: 50px;
+}
+.store-img-container, .address-hours-container, .map-container{
+  width: 33%;
+  height: 100%;
+}
+.store-img-container{
+  display: flex;
+  justify-content: center;
+}
+.store-img{
+  object-fit: cover;
+  width: 70%;
+  height: 70%;
+}
+.address-hours-container{
+  line-height: 1.6;
+  font-size: 1.3rem;
+  color: white;
+}
+.adress{
+  height: 50%;
+}
+.hours{
+  height: 50%;
+}
+.map-container{
+
+}
+.map-container iframe{
+  width: 80%;
+  height: 60%;
+}
+
 
 @media only screen and (max-width: 1023px){
 /*Top Page*/
@@ -824,38 +886,50 @@ button{
 /*Top Page*/
   .topic{
     width: 90%;
-  }.header{
+  }
+  .header{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80px;
-  }.menu{
+  }
+  .menu{
     display: none;
-  }.menu-btn{
+  }
+  .menu-btn{
     display: block;
     position: relative;
     margin-right: 20px;
-  }.start-order a{
+  }
+  .start-order a{
     height: 40px;
-  }.start-order{
+  }
+  .start-order{
     font-size: 1rem;
     top: 80px;
-  }.carousel{
+  }
+  .carousel{
     margin-top: 180px;
-  }.carousel, .carousel-slide, .banner, .carousel-image{
+  }
+  .carousel, .carousel-slide, .banner, .carousel-image{
     height: 275px;
-  }.carousel-image{
+  }
+  .carousel-image{
     width: 100%;
-  }.carousel-button-left, .carousel-button-right{
+  }
+  .carousel-button-left, .carousel-button-right{
     background: white;
     padding: 5px;
     border-radius: 10px;
-  }.middle-table{
+  }
+  .middle-table{
     height: 50px;
-  }.carousel .fas{
+  }
+  .carousel .fas{
     font-size: 2rem;
     color: #e0183b;
-  }.carousel-button-left{
+  }
+  .carousel-button-left{
     left:0;
   }
   .carousel-button-right{
@@ -998,6 +1072,44 @@ button{
   }
   .fa-shopping-cart{
     font-size: 1.2rem;
+  }
+/*Store Page*/
+  .store-wrapper{
+    padding: 0 50px;
+  }
+  .location-title-container{
+    padding: 30px;
+  }
+  .specific-details-container{
+    display: block;
+    height: auto;
+    margin-bottom: 100px;
+  }
+  .store-img-container, .address-hours-container, .map-container{
+    width: 100%;
+    height: 300px;
+  }
+  .store-img-container{
+    justify-content: center;
+  }
+  .store-img{
+    object-fit: cover;
+    width: 80%;
+    height: 90%;
+  }
+  .address-hours-container{
+    padding-left: 30px;
+  }
+  .map-container{
+    display: flex;
+    justify-content: center;
+  }
+  .map-container iframe{
+    width: 80%;
+    height: 80%;
+  }
+  .store-title-container{
+    margin-top: 250px;
   }
 }
 @media only screen and (max-width: 374px){
