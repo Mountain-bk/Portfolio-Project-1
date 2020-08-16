@@ -601,6 +601,7 @@ button{
   padding: 10px;
 }
 .order-beverages{
+  transition: .7s ease;
 }
 .order-beverages-details{
   padding: 10px 0;
