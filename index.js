@@ -5,13 +5,15 @@ const carouselImages = document.querySelectorAll(".carousel-image");
 const carouselContainer = document.querySelector(".carousel-container");
 const carouselBanner = document.querySelectorAll(".banner");
 
+//0=Buffalo Wings, 1=Value Set, 2=Nachos//
 let counter = 0;
-let size = window.innerWidth
+let size = window.innerWidth;
 
+//Slide to next carousel image//
 const nextBtn = document.querySelector(".carousel-button-right");
 if (nextBtn){
   nextBtn.addEventListener("click", () => {
-    carouselSlide.style.transition = ".8s ease";
+    size = window.innerWidth;
     counter++;
     if (counter === 3){
       carouselSlide.style.transform = "translateX(" + (-size * 0) + "px)";
@@ -22,10 +24,11 @@ if (nextBtn){
   });
 }
 
+//Slide to previous carousel image//
 const prevBtn = document.querySelector(".carousel-button-left");
 if (prevBtn){
   prevBtn.addEventListener("click", () => {
-    carouselSlide.style.transition = ".8s ease";
+    size = window.innerWidth;
     counter--;
     if (counter === -1){
       carouselSlide.style.transform = "translateX(" + (-size * 2) + "px)";
@@ -36,6 +39,23 @@ if (prevBtn){
   });
 }
 
+
+//Slide to next carousel automatically//
+if(carouselSlide){
+  setTimeout(automaticCarousel, 4000);
+}
+
+function automaticCarousel(){
+  size = window.innerWidth;
+  counter++;
+  if (counter === 3){
+    carouselSlide.style.transform = "translateX(" + (-size * 0) + "px)";
+    counter = 0;
+  } else{
+    carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
+  }
+  setTimeout(automaticCarousel, 4000);
+}
 
 //---Toggle Mobile Menu---//
 
@@ -354,6 +374,16 @@ const orderBeverage = document.querySelector(".order-beverages");
 const totalTax = document.querySelector(".tax-amount");
 const totalPrice = document.querySelector(".total-amount");
 
+function appearDisplay(){
+  orderBeverage.style.opacity = "1";
+}
+
+function animateDisplay(){
+  orderBeverage.style.opacity = "0";
+  setTimeout(displayCart, 300);
+  setTimeout(appearDisplay, 300);
+}
+
 function displayCart(){
   var cartArray = shoppingCart.listCart();
   var output = " ";
@@ -381,19 +411,6 @@ function displayCart(){
   totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
 
-
-//---Remove Specific Items or Edit specific items from the cart---//
-if(orderBeverage){
-  orderBeverage.addEventListener("click", function(e){
-    if(e.target.matches(".remove-btn")){
-      var name = e.target.getAttribute("data-name");
-      shoppingCart.removeItemFromCart(name);
-      displayCart();
-    } else if(e.target.matches(".edit-btn")){
-      showEditCartModal(e.target);
-    }
-  });
-}
 
 //---Open Modal---//
 const selectBtn = document.querySelectorAll(".select-btn");
@@ -465,11 +482,25 @@ if(modalAddCartContainer){
       var tax = price / 10;
       shoppingCart.addItemInCart(name, details, price, tax, count);
       closeModal();
-      displayCart();
+      animateDisplay();
       if(window.innerWidth <= 690){
         changeToCloseCartBtn();
       }
       }
+  });
+}
+
+//---Remove Specific Items or Edit specific items from the cart---//
+if(orderBeverage){
+  orderBeverage.addEventListener("click", function(e){
+    if(e.target.matches(".remove-btn")){
+      orderBeverage.style.opacity = "0";
+      var name = e.target.getAttribute("data-name");
+      shoppingCart.removeItemFromCart(name);
+      animateDisplay();
+    } else if(e.target.matches(".edit-btn")){
+      showEditCartModal(e.target);
+    }
   });
 }
 
@@ -521,7 +552,7 @@ if(modalSaveChangesContainer){
       var newCartCount = cartCount.value;
       shoppingCart.setNewItemCount(name, newCartCount);
       closeModal();
-      displayCart();
+      animateDisplay();
       }
   });
 }
@@ -543,6 +574,7 @@ function closeModal(){
 //Display the cart everytime when you load in desktop//
 if(orderBeverage){
   displayCart();
+  orderBeverage.style.opacity = "1";
 }
 
 //---Open cart (mobile)---//
@@ -576,15 +608,17 @@ function changeToCloseCartBtn(){
 
 
 //---Toggle cart either mobile or desktop---//
-window.addEventListener("resize", () =>{
-  if(window.innerWidth > 690){
-    cartContainer.style.display = "block";
-    changeToCloseCartBtn();
-  } else if(window.innerWidth === 690){
-    cartContainer.style.display = "none";
-    mobileCartBtn.innerHTML =
-    "<i class='fas fa-shopping-cart'></i>" +
-    "<span class='cart-nav-text'>total</span>" +
-    "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
-  }
-});
+if(cartContainer){
+  window.addEventListener("resize", () =>{
+    if(window.innerWidth > 690){
+      cartContainer.style.display = "block";
+      changeToCloseCartBtn();
+    } else if(window.innerWidth === 690){
+      cartContainer.style.display = "none";
+      mobileCartBtn.innerHTML =
+      "<i class='fas fa-shopping-cart'></i>" +
+      "<span class='cart-nav-text'>total</span>" +
+      "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
+    }
+  });
+}
