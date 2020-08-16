@@ -170,7 +170,7 @@ button{
   width: 300%;
   left: 0px;
   display: flex;
-
+  transition: .8s ease;
 }
 .banner{
   width: 100vw;
