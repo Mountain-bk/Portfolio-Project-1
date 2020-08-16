@@ -2,9 +2,113 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Store Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@469&display=swap" rel="stylesheet">
+    <title>Store</title>
+    <script src="https://kit.fontawesome.com/9006e11a27.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Store Finder</h1>
+    <div class="wrapper">
+      <section class="header">
+        <div class="logo">
+          <a class="a-logo" href="index.html">
+            <img class="logo-img" src="logo.png" alt="">
+          </a>
+        </div>
+        <div class="menu">
+          <ul class="menu-nav">
+            <li class="nav-item"><a href="menu.html">MENU</a></li>
+            <li class="nav-item"><a href="store-finder.html">STORE</a></li>
+            <li class="nav-item"><a href="coupon.html">COUPON</a></li>
+          </ul>
+        </div>
+        <div class="menu-btn">
+          <i class="fas fa-bars" onclick="toggleMobileMenu()" ></i>
+        </div>
+      </section>
+      <section class="mobile-menu">
+        <ul class="mobile-menu-nav">
+          <li class="mobile-nav-item"><a href="menu.html">MENU</a></li>
+          <li class="mobile-nav-item"><a href="store-finder.html">STORE</a></li>
+          <li class="mobile-nav-item"><a href="coupon.html">COUPON</a></li>
+        </ul>
+      </section>
+      <section class="start-order">
+        <a href="delivery.html" class="delivery">
+          <i class="fas fa-motorcycle"></i>
+          <br>
+          <span>DELIVERY</span>
+        </a>
+        <div class="or">OR</div>
+        <a href="pick-up.html" class="pick-up">
+          <i class="fas fa-store-alt"></i>
+          <br>
+          <span>PICK UP</span>
+        </a>
+      </section>
+    </div>
+    <div class="store-wrapper">
+      <div class="store-title-container">
+        <div class="store-title">
+          <h1>Store</h1>
+        </div>
+      </div>
+      <div class="store-details-container">
+        <div class="store-details">
+          <div class="location-title-container">
+            <h2>AMHERST, NY</h2>
+          </div>
+          <div class="specific-details-container">
+            <div class="store-img-container">
+              <img class="store-img" src="images/store.jpg" alt="">
+            </div>
+            <div class="address-hours-container">
+              <div class="adress">
+                <h3>ADDRESS</h3>
+                <p>3651 Sheridan Drive</p>
+                <p>Amherst, NY 14226</p>
+                <p>(716) 834-6234</p>
+              </div>
+              <div class="hours">
+                <h3>HOURS</h3>
+                <p>Monday-Saturday | 11am-11pm</p>
+                <p>Sunday | 12pm-10pm</p>
+              </div>
+            </div>
+            <div class="map-container">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2918.95716390117!2d-78.80044098452402!3d42.979175979150256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d37253d6a1e1df%3A0x8ead4abdb51a9eb!2sDuff&#39;s%20Famous%20Wings!5e0!3m2!1sja!2sjp!4v1597578329787!5m2!1sja!2sjp" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="store-details">
+          <div class="location-title-container">
+            <h2>AMHERST, NY</h2>
+          </div>
+          <div class="specific-details-container">
+            <div class="store-img-container">
+              <img class="store-img" src="images/store.jpg" alt="">
+            </div>
+            <div class="address-hours-container">
+              <div class="adress">
+                <h3>ADDRESS</h3>
+                <p>3651 Sheridan Drive</p>
+                <p>Amherst, NY 14226</p>
+                <p>(716) 834-6234</p>
+              </div>
+              <div class="hours">
+                <h3>HOURS</h3>
+                <p>Monday-Saturday | 11am-11pm</p>
+                <p>Sunday | 12pm-10pm</p>
+              </div>
+            </div>
+            <div class="map-container">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2918.95716390117!2d-78.80044098452402!3d42.979175979150256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d37253d6a1e1df%3A0x8ead4abdb51a9eb!2sDuff&#39;s%20Famous%20Wings!5e0!3m2!1sja!2sjp!4v1597578329787!5m2!1sja!2sjp" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>
