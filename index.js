@@ -376,14 +376,14 @@ const orderBeverage = document.querySelector(".order-beverages");
 const totalTax = document.querySelector(".tax-amount");
 const totalPrice = document.querySelector(".total-amount");
 
-function appearDisplay(){
-  orderBeverage.style.opacity = "1";
-}
-
 function animateDisplay(){
   orderBeverage.style.opacity = "0";
   setTimeout(displayCart, 300);
   setTimeout(appearDisplay, 300);
+}
+
+function appearDisplay(){
+  orderBeverage.style.opacity = "1";
 }
 
 function displayCart(){
@@ -575,8 +575,7 @@ function closeModal(){
 
 //Display the cart everytime when you load in desktop//
 if(orderBeverage){
-  displayCart();
-  orderBeverage.style.opacity = "1";
+  animateDisplay();
 }
 
 //---Open cart (mobile)---//
