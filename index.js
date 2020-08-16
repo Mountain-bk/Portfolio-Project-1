@@ -1,5 +1,5 @@
 
-//---Slide Carousel Image when you click arrow button---//
+//---Carousel (Top page)---//
 const carouselSlide = document.querySelector(".carousel-slide");
 const carouselImages = document.querySelectorAll(".carousel-image");
 const carouselContainer = document.querySelector(".carousel-container");
@@ -7,13 +7,13 @@ const carouselBanner = document.querySelectorAll(".banner");
 
 //0=Buffalo Wings, 1=Value Set, 2=Nachos//
 let counter = 0;
-let size = window.innerWidth;
+let size = window.visualViewport.width
 
 //Slide to next carousel image//
 const nextBtn = document.querySelector(".carousel-button-right");
 if (nextBtn){
   nextBtn.addEventListener("click", () => {
-    size = window.innerWidth;
+    size = window.visualViewport.width
     counter++;
     if (counter === 3){
       carouselSlide.style.transform = "translateX(" + (-size * 0) + "px)";
@@ -28,7 +28,7 @@ if (nextBtn){
 const prevBtn = document.querySelector(".carousel-button-left");
 if (prevBtn){
   prevBtn.addEventListener("click", () => {
-    size = window.innerWidth;
+    size = window.visualViewport.width
     counter--;
     if (counter === -1){
       carouselSlide.style.transform = "translateX(" + (-size * 2) + "px)";
@@ -46,7 +46,7 @@ if(carouselSlide){
 }
 
 function automaticCarousel(){
-  size = window.innerWidth;
+  size = window.visualViewport.width
   counter++;
   if (counter === 3){
     carouselSlide.style.transform = "translateX(" + (-size * 0) + "px)";
@@ -56,6 +56,8 @@ function automaticCarousel(){
   }
   setTimeout(automaticCarousel, 4000);
 }
+
+
 
 //---Toggle Mobile Menu---//
 
