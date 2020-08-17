@@ -225,11 +225,19 @@ if (dateRange[0]){
       timeRange[0].remove(i);
     };
     if (dateRange[0].options[dateRange[0].selectedIndex].text == date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear()){
-      timeRange[0].options[0] = new Option("ASAP");
-      for(var term = readyTime; term < 1440; term+=15){
-        var text = createTimeText(term);
-        timeRange[0].options[timeRange[0].options.length] = new Option(text);
-      };
+      if(date.getHours() < 11){
+        timeRange[0].options[0] = new Option("Select Time");
+        for(var term = readyTime; term < 1440; term+=15){
+          var text = createTimeText(term);
+          timeRange[0].options[timeRange[0].options.length] = new Option(text);
+        };
+      } else if(date.getHours() > 11){
+        timeRange[0].options[0] = new Option("ASAP");
+        for(var term = readyTime; term < 1440; term+=15){
+          var text = createTimeText(term);
+          timeRange[0].options[timeRange[0].options.length] = new Option(text);
+        };
+      }
     } else{
       timeRange[0].options[0] = new Option("Select Time");
       for(var term = 660; term < 1440; term+=15){
