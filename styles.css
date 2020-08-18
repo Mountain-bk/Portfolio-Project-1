@@ -165,7 +165,7 @@ button{
 .carousel-container{
   overflow-x: auto;
   scroll-behavior: smooth;
-  transition: .8s ease;
+  transition: 1s ease;
   ms-overflow-style: none;
   scroll-snap-type: x mandatory;
 }
