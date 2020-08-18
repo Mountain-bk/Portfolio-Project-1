@@ -5,56 +5,52 @@ const carouselImages = document.querySelectorAll(".carousel-image");
 const carouselContainer = document.querySelector(".carousel-container");
 const carouselBanner = document.querySelectorAll(".banner");
 
-//0=Buffalo Wings, 1=Value Set, 2=Nachos//
-let counter = 0;
 let size = window.visualViewport.width
 
-//Slide to next carousel image//
+//Slide next image when click arrow//
 const nextBtn = document.querySelector(".carousel-button-right");
-if (nextBtn){
-  nextBtn.addEventListener("click", () => {
-    size = window.visualViewport.width
-    counter++;
-    if (counter === 3){
-      carouselSlide.style.transform = "translateX(" + (-size * 0) + "px)";
-      counter = 0;
-    } else{
-      carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
-    }
-  });
-}
-
-//Slide to previous carousel image//
 const prevBtn = document.querySelector(".carousel-button-left");
-if (prevBtn){
-  prevBtn.addEventListener("click", () => {
-    size = window.visualViewport.width
-    counter--;
-    if (counter === -1){
-      carouselSlide.style.transform = "translateX(" + (-size * 2) + "px)";
-      counter = 2;
-    } else{
-      carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
+
+if(nextBtn){
+  nextBtn.addEventListener("click", () =>{
+    var banner = carouselBanner.length;
+    size = window.visualViewport.width;
+    var limitWidth = (carouselSlide.offsetWidth / banner) * (banner - 1);
+    //console.log(carouselContainer.scrollLeft);
+    //console.log(carouselSlide.offsetWidth);
+    if(carouselContainer.scrollLeft == limitWidth){
+      carouselContainer.scrollBy(-carouselContainer.scrollWidth, 0);
     }
+    carouselContainer.scrollBy(size, 0);
   });
 }
 
-
-//Slide to next carousel automatically//
-if(carouselSlide){
-  setTimeout(automaticCarousel, 4000);
+if(prevBtn){
+  prevBtn.addEventListener("click", () =>{
+    var banner = carouselBanner.length;
+    size = window.visualViewport.width;
+    if(carouselContainer.scrollLeft == 0){
+      carouselContainer.scrollBy(carouselContainer.scrollWidth, 0);
+    }
+    carouselContainer.scrollBy(-size, 0);
+  });
 }
+
+//Slide automatically every 5seconds//
+if(carouselContainer){
+  setTimeout(automaticCarousel, 5000);
+};
 
 function automaticCarousel(){
   size = window.visualViewport.width
-  counter++;
-  if (counter === 3){
-    carouselSlide.style.transform = "translateX(" + (-size * 0) + "px)";
-    counter = 0;
+  var banner = carouselBanner.length;
+  var limitWidth = (carouselSlide.offsetWidth / banner) * (banner - 1);
+  if(carouselContainer.scrollLeft == limitWidth){
+    carouselContainer.scrollBy(-carouselContainer.scrollWidth, 0);
   } else{
-    carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
+    carouselContainer.scrollBy(size, 0);
   }
-  setTimeout(automaticCarousel, 4000);
+  setTimeout(automaticCarousel, 5000);
 }
 
 
