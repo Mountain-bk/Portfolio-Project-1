@@ -163,17 +163,23 @@ button{
   position: relative;
 }
 .carousel-container{
-  width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  transition: .8s ease;
+  ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+}
+.carousel-container::-webkit-scrollbar{
+  display: none;
 }
 .carousel-slide{
   width: 300%;
   left: 0px;
   display: flex;
   transition: .8s ease;
-  touch-action: pan-x;
 }
 .banner{
+  scroll-snap-align: center;
   width: 100vw;
   display: flex;
   justify-content: center;
