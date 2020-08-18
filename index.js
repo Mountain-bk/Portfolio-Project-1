@@ -5,6 +5,7 @@ const carouselImages = document.querySelectorAll(".carousel-image");
 const carouselContainer = document.querySelector(".carousel-container");
 const carouselBanner = document.querySelectorAll(".banner");
 
+
 let size = window.visualViewport.width
 
 //Slide next image when click arrow//
@@ -20,8 +21,9 @@ if(nextBtn){
     //console.log(carouselSlide.offsetWidth);
     if(carouselContainer.scrollLeft == limitWidth){
       carouselContainer.scrollBy(-carouselContainer.scrollWidth, 0);
+    } else{
+      carouselContainer.scrollBy(size, 0);
     }
-    carouselContainer.scrollBy(size, 0);
   });
 }
 
@@ -31,14 +33,15 @@ if(prevBtn){
     size = window.visualViewport.width;
     if(carouselContainer.scrollLeft == 0){
       carouselContainer.scrollBy(carouselContainer.scrollWidth, 0);
+    } else{
+      carouselContainer.scrollBy(-size, 0);
     }
-    carouselContainer.scrollBy(-size, 0);
   });
 }
 
 //Slide automatically every 5seconds//
 if(carouselContainer){
-  setTimeout(automaticCarousel, 5000);
+  setInterval(automaticCarousel, 5000);
 };
 
 function automaticCarousel(){
@@ -50,7 +53,6 @@ function automaticCarousel(){
   } else{
     carouselContainer.scrollBy(size, 0);
   }
-  setTimeout(automaticCarousel, 5000);
 }
 
 
