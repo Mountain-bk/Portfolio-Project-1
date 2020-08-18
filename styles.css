@@ -165,7 +165,6 @@ button{
 .carousel-container{
   overflow-x: auto;
   scroll-behavior: smooth;
-  transition: 1s ease;
   ms-overflow-style: none;
   scroll-snap-type: x mandatory;
 }
@@ -176,7 +175,7 @@ button{
   width: 300%;
   left: 0px;
   display: flex;
-  transition: .8s ease;
+  transition: 1s ease;
 }
 .banner{
   scroll-snap-align: center;
