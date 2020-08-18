@@ -475,6 +475,47 @@ button{
 }
 
 /*Menu Page*/
+.menu-header{
+  width: 100%;
+  height: auto;
+}
+.menu-header-container{
+  max-width: 1574px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  line-height: 50px;
+  padding: 30px 0;
+}
+.menu-bar{
+  width: 30%;
+  height: auto;
+  background-color: #006492;
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+}
+.menu-bar:after{
+  content: "";
+  width: 0;
+  height: 0;
+  left: 100%;
+  top: 30%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #006492;
+  position: absolute;
+}
+
+.payment-bar{
+  width: 30%;
+  height: auto;
+  background-color: #42362e;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+}
 .menu-main{
   max-width: 1574px;
   margin: auto;
@@ -862,6 +903,66 @@ button{
   height: 60%;
 }
 
+/*Payment*/
+.payment-header{
+  width: 100%;
+  height: auto;
+}
+.payment-header-container{
+  max-width: 1574px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  line-height: 50px;
+  padding: 30px 0;
+}
+.menu-bar-payment{
+  width: 30%;
+  height: auto;
+  background-color: #42362e;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+}
+
+.payment-bar-payment{
+  width: 30%;
+  height: auto;
+  background-color: #006492;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+  position: relative;
+}
+.payment-bar-payment:after{
+  content: "";
+  width: 0;
+  height: 0;
+  right: 100%;
+  top: 30%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #006492;
+  position: absolute;
+}
+.cart-bar-payment{
+  width: 30%;
+  height: auto;
+  background-color: #42362e;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+  display: none;
+}
+.payment-cart-container{
+  display: none;
+  width: 270px;
+  height: 100%;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  right: 0;
+}
 
 @media only screen and (max-width: 1023px){
 /*Top Page*/
@@ -964,6 +1065,10 @@ button{
     margin-bottom: 40px;
   }
 /*Menu*/
+  .menu-bar, .payment-bar{
+    width: 40%;
+    font-size: 0.7rem;
+  }
   .recommend{
     width: 100%;
     height: 110px;
@@ -1056,7 +1161,7 @@ button{
   .place-order-btn{
     width: 95%;
     height: auto;
-    padding: 15px 0;
+    padding: 10px 0;
     background-color: #e0183b;
     color: white;
     font-size: 1.4rem;
@@ -1068,7 +1173,7 @@ button{
   .cart-total-btn{
     width: 95%;
     height: auto;
-    padding: 15px 0;
+    padding: 10px 0;
     background-color: #838383;
     color: white;
     text-transform: uppercase;
@@ -1122,6 +1227,14 @@ button{
   }
   .store-title-container{
     margin-top: 220px;
+  }
+  /*Payment*/
+  .menu-bar-payment, .payment-bar-payment, .cart-bar-payment{
+    width: 30%;
+    font-size: 0.7rem;
+  }
+  .cart-bar-payment{
+    display: block;
   }
 }
 @media only screen and (max-width: 374px){
