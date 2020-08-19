@@ -164,6 +164,7 @@ button{
 }
 .carousel-container{
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   ms-overflow-style: none;
   scroll-snap-type: x mandatory;
@@ -956,6 +957,60 @@ button{
 }
 .payment-cart-container{
   display: none;
+  width: 270px;
+  height: 100%;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  right: 0;
+}
+.payment-body{
+  max-width: 1440px;
+  position: relative;
+  margin: auto;
+}
+.payment-form-wrapper{
+  position: relative;
+  padding-right: 270px;
+}
+.payment-form{
+  max-width: 400px;
+  margin: auto;
+}
+.input-container{
+  width: 100%;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
+}
+.validation-field{
+  width: 100%;
+  position: relative;
+}
+.validation-field input{
+  width: 100%;
+  padding: 3px 0;
+  border: 0;
+  border-radius: 3px;
+}
+.confirm-payment{
+  width: 90%;
+  margin: auto;
+}
+.confirm-payment-btn{
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+  background-color: #e0183b;
+  color: white;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  border-radius: 5px;
+}
+
+.payment-cart-container{
+  display: block;
   width: 270px;
   height: 100%;
   position: absolute;
