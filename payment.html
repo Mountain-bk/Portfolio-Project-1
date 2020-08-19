@@ -22,48 +22,81 @@
         </div>
       </div>
     </div>
-    <div class="payment-wrapper">
-      <div class="">
-
+    <div class="payment-body">
+      <div class="payment-form-wrapper">
+        <div class="payment-form">
+          <div class="input-container">
+            <label for="customer-name">Name</label>
+            <div class="validation-field">
+              <input id="customer-name" type="text" name="" value="">
+            </div>
+          </div>
+          <div class="input-container">
+            <label for="customer-phone">Phone</label>
+            <div class="validation-field">
+              <input id="customer-phone" type="text" name="" value="">
+            </div>
+          </div>
+          <div class="input-container">
+            <label for="customer-email">Email</label>
+            <div class="validation-field">
+              <input id="customer-email" type="text" name="" value="">
+            </div>
+          </div>
+          <div class="input-container">
+            <div class="receipt">
+              Receipt
+            </div>
+            <div class="receipt-row">
+              <input id="receipt-required"type="checkbox" name="" value="">
+              <label for="receipt-required">Please check this checkbox if you require a receipt</label>
+            </div>
+          </div>
+          <div class="confirm-payment-container">
+            <div class="confirm-payment">
+              <button type="button" class="confirm-payment-btn" name="button">Confirm Payment</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="payment-cart-container">
-      <div class="cart">
-        <div class="zigzag-top">
-        </div>
-        <div class="input-coupon">
-          <p>Enter Voucher Code Here</p>
-          <input class="coupon-code" type="text" placeholder="Voucher Code" >
-          <button class="coupon-apply-btn" type="button">Apply</button>
-        </div>
-        <div class="order-details">
-          <div class="order-details-title">
-            <h3>ORDER DETAILS</h3>
+      <div class="payment-cart-container">
+        <div class="cart">
+          <div class="zigzag-top">
           </div>
-          <div class="order-beverages">
+          <div class="input-coupon">
+            <p>Enter Voucher Code Here</p>
+            <input class="coupon-code" type="text" placeholder="Voucher Code" >
+            <button class="coupon-apply-btn" type="button">Apply</button>
+          </div>
+          <div class="order-details">
+            <div class="order-details-title">
+              <h3>ORDER DETAILS</h3>
+            </div>
+            <div class="order-beverages">
 
-          </div>
-          <div class="tax">
-            <div class="tax-title">
-              <h3>TAX</h3>
             </div>
-            <div class="tax-price">
-              <h3 class="tax-amount"></h3>
+            <div class="tax">
+              <div class="tax-title">
+                <h3>TAX</h3>
+              </div>
+              <div class="tax-price">
+                <h3 class="tax-amount"></h3>
+              </div>
+            </div>
+            <div class="total-price">
+              <div class="total-title">
+                <h3>TOTAL</h3>
+              </div>
+              <div class="total">
+                <h3 class="total-amount"></h3>
+              </div>
+            </div>
+            <div class="payment">
+              <a href="#" class="payment-btn"><div>GO TO PAYMENT</div></a>
             </div>
           </div>
-          <div class="total-price">
-            <div class="total-title">
-              <h3>TOTAL</h3>
-            </div>
-            <div class="total">
-              <h3 class="total-amount"></h3>
-            </div>
+          <div class="zigzag-bottom">
           </div>
-          <div class="payment">
-            <a href="#" class="payment-btn"><div>GO TO PAYMENT</div></a>
-          </div>
-        </div>
-        <div class="zigzag-bottom">
         </div>
       </div>
     </div>
