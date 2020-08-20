@@ -108,7 +108,7 @@ if(closedText){
 }
 
 //---Toggle check-mark or cross-mark based on selections---//
-const selectors = document.querySelectorAll("#selector");
+//const selectors = document.querySelectorAll("#date-time-selector");
 const checkMark = document.querySelector(".time-mark");
 
 window.addEventListener("change", () =>{
@@ -130,9 +130,11 @@ var readyHour = giveOrderHour();
 //Create available order time//
 var readyTime = readyHour + currentMinute   //Set time after 30 minutes from current time
 if (timeRange[0]){
+  //When current hour is before 11
   if(date.getHours() < 11){
     timeRange[0].options[0] = new Option("Select Time");
     checkMark.src = "images/cross.png";
+  //When current hour is after 11
   } else{
     timeRange[0].options[0] = new Option("ASAP");
   }
@@ -203,13 +205,13 @@ function giveCurrentMinute(){
     return 0
   } else{
     if (currentMinute <= 15){
-      return 45
-    } else if (currentMinute <= 30 && currentMinute > 15){
       return 60
-    } else if (currentMinute <= 45 && currentMinute > 30){
+    } else if (currentMinute <= 30 && currentMinute > 15){
       return 75
-    } else if (currentMinute <= 60 && currentMinute > 45){
+    } else if (currentMinute <= 45 && currentMinute > 30){
       return 90
+    } else if (currentMinute <= 60 && currentMinute > 45){
+      return 105
     }
   }
 }
@@ -222,20 +224,24 @@ if (dateRange[0]){
     for (var i = x-1; i >= 0; i--){
       timeRange[0].remove(i);
     };
+    //When date is today//
     if (dateRange[0].options[dateRange[0].selectedIndex].text == date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear()){
+      //When hour is before 11//
       if(date.getHours() < 11){
         timeRange[0].options[0] = new Option("Select Time");
         for(var term = readyTime; term < 1440; term+=15){
           var text = createTimeText(term);
           timeRange[0].options[timeRange[0].options.length] = new Option(text);
         };
-      } else if(date.getHours() > 11){
+      //When hour is after 11
+      } else if(date.getHours() >= 11){
         timeRange[0].options[0] = new Option("ASAP");
         for(var term = readyTime; term < 1440; term+=15){
           var text = createTimeText(term);
           timeRange[0].options[timeRange[0].options.length] = new Option(text);
         };
       }
+    //When date is not today
     } else{
       timeRange[0].options[0] = new Option("Select Time");
       for(var term = 660; term < 1440; term+=15){
@@ -245,6 +251,89 @@ if (dateRange[0]){
     }
   });
 }
+
+//---Set order-date and order-time---//
+
+//Set when you click next button//
+const next = document.querySelector(".next");
+if(next){
+  next.addEventListener("click", () =>{
+    var orderDate = dateRange[0].options[dateRange[0].selectedIndex].text;
+    var orderTime = timeRange[0].options[timeRange[0].selectedIndex].text;
+    if(orderTime === "Select Time"){
+      next.removeAttribute("href");
+      alert("Select Time");
+    }else{
+      next.setAttribute("href", "menu.html");
+      localStorage.setItem("orderDate", orderDate);
+      localStorage.setItem("orderTime", orderTime);
+    }
+  });
+}
+
+
+//Set when you click ASAP button//
+const asap = document.querySelector(".a-asap");
+if(asap){
+  asap.addEventListener("click", () =>{
+    var todayDate = date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear();
+    localStorage.setItem("orderDate", todayDate);
+    localStorage.setItem("orderTime", "ASAP");
+  });
+}
+
+//---Refresh local Storage if there is idle time---//
+
+//Refresh date and time after 15 minutes if user select not-ASAP//
+if(localStorage.getItem("orderTime")){
+  removeOrderTerm();
+}
+
+function removeOrderTerm(){
+  if(localStorage.getItem("orderTime") != "ASAP"){
+    setTimeout(removeSelectedTerm, 5000);
+  }
+}
+
+function removeSelectedTerm(){
+  localStorage.removeItem("orderTime");
+  localStorage.removeItem("orderDate");
+  alert("Order Term has been expired");
+}
+//Refresh the local storage if there is 30 minutes of idle time//
+let userActivityTimeout = null;
+
+//Function to reset user inactivity time//
+function resetUserActivityTimeOut(){
+  clearTimeout(userActivityTimeout);
+  userActivityTimeout = setTimeout(() =>{
+    inactiveUserAction();
+  },900000);
+}
+
+//Function what will happen when user action is inactive//
+function inactiveUserAction(){
+  localStorage.clear();
+  alert("Your session has expired. Please restart your order");
+  document.location.href = "index.html";
+}
+
+//Function which will reset inactivity timeout(event which will start the timer)//
+function activateActivityTracker(){
+  window.addEventListener("scroll", resetUserActivityTimeOut);
+  window.addEventListener("keydown", resetUserActivityTimeOut);
+  window.addEventListener("load", resetUserActivityTimeOut);
+  window.addEventListener("click", resetUserActivityTimeOut);
+}
+
+//If products are in cart, start the timer//
+if(localStorage.getItem("shoppingCart")){
+  activateActivityTracker();
+}
+
+
+
+
 
 //---Add position fixed when the cart menu reaches to top of the screen---///
 const menu = document.querySelector(".menu-wrapper");
@@ -436,6 +525,7 @@ const editPlusBtn = document.querySelector(".edit-plus-btn");
 const modalAddCart = document.querySelector(".modal-add-cart");
 const modalEditCart = document.querySelector(".modal-edit-cart");
 const cartContainer = document.querySelector(".cart-container");
+const paymentCartContainer = document.querySelector(".payment-cart-container");
 
 //Show Add Cart Modal//
 for(let i = 0; selectBtn.length > i; i++){
@@ -587,9 +677,13 @@ if(orderBeverage){
 //---Open cart (mobile)---//
 const mobileCartBtn = document.querySelector(".cart-total-btn");
 const cartNavPrice = document.querySelector(".cart-nav-price");
+const mobileCartBtnPayment = document.querySelector(".payment-cart-btn");
+const paymentMobileNav = document.querySelector(".payment-mobile-cart-nav");
+const mobilePaymentCloseBtn = document.querySelector(".payment-cart-total-btn");
+
+//Open cart (menu page)//
 if(mobileCartBtn){
   displayTotalAmount();
-
   mobileCartBtn.addEventListener("click", () =>{
     if(mobileCartBtn.innerHTML == "<p>Close Cart</p>"){
       cartContainer.style.display = "none";
@@ -608,10 +702,36 @@ function displayTotalAmount(){
 }
 //Change to close button when the nav cart is open//
 function changeToCloseCartBtn(){
-  cartContainer.style.display = "block";
-  mobileCartBtn.innerHTML = "";
-  mobileCartBtn.innerHTML = "<p>Close Cart</p>";
+  if(cartContainer){
+    cartContainer.style.display = "block";
+    mobileCartBtn.innerHTML = "";
+    mobileCartBtn.innerHTML = "<p>Close Cart</p>";
+  }else if(paymentCartContainer){
+    paymentCartContainer.style.display = "block";
+  }
+
 }
+
+//Open cart (mobile payment page)//
+if(mobileCartBtnPayment){
+  mobileCartBtnPayment.addEventListener("click", () =>{
+    if(mobileCartBtnPayment.innerHTML == "<p>Close Cart</p>"){
+      paymentCartContainer.style.display = "none";
+      mobileCartBtnPayment.innerHTML = "cart"
+    } else{
+      changeToCloseCartBtn();
+      paymentMobileNav.style.display = "block";
+    }
+  });
+}
+
+//Close cart (mobile payment page)//
+if(mobilePaymentCloseBtn){
+  mobilePaymentCloseBtn.addEventListener("click", () =>{
+    paymentCartContainer.style.display = "none";
+    paymentMobileNav.style.display = "none";
+  });
+};
 
 
 //---Toggle cart either mobile or desktop---//
