@@ -28,10 +28,11 @@
         <div class="order-date-time">
           <div class="input-order-date">
             <div class="date-title">
-              <h3>order date</h3>
+              <label for="date">order date</label>
             </div>
             <div class="order-date">
-              <select id="selector" class="date-selector">
+              <select id="date" class="date-selector">
+
               </select>
               <div class="validation-container">
                 <img class="date-mark" src="images/check.png" alt="">
@@ -40,10 +41,10 @@
           </div>
           <div class="input-order-time">
             <div class="time-title">
-              <h3>order time</h3>
+              <label for="time">order time</label>
             </div>
             <div class="order-time">
-              <select id="selector" class="time-selector">
+              <select id="time" class="time-selector">
                 <option value="">ASAP</option>
               </select>
               <div class="validation-container">
@@ -53,8 +54,8 @@
           </div>
         </div>
         <div class="back-next-row">
-          <a href="#"><div class="back">BACK</div></a>
-          <a href="menu.html"><div class="next">NEXT</div></a>
+          <a href="javascript:history.back()"><div class="back">BACK</div></a>
+          <a class="next" href="menu.html"><div>NEXT</div></a>
         </div>
       </div>
     </div>
