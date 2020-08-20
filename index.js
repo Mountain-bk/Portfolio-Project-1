@@ -272,7 +272,7 @@ if(next){
 }
 
 
-//Set when you click ASAP button//
+//Set order term when you click ASAP button//
 const asap = document.querySelector(".a-asap");
 if(asap){
   asap.addEventListener("click", () =>{
@@ -291,7 +291,7 @@ if(localStorage.getItem("orderTime")){
 
 function removeOrderTerm(){
   if(localStorage.getItem("orderTime") != "ASAP"){
-    setTimeout(removeSelectedTerm, 5000);
+    setTimeout(removeSelectedTerm, 450000);
   }
 }
 
@@ -331,7 +331,43 @@ if(localStorage.getItem("shoppingCart")){
   activateActivityTracker();
 }
 
+//---Alert if cart is empty---//
+const paymentBarBtn = document.querySelector(".payment-bar-btn");
+const paymentBtn = document.querySelector(".payment-btn");
+const paymentNavBtn = document.querySelector(".place-order-btn");
 
+if(paymentBarBtn){
+  paymentBarBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart")){
+      paymentBarBtn.setAttribute("href", "payment.html");
+    }else{
+      paymentBarBtn.removeAttribute("href");
+      alert("Please add item to cart");
+    }
+  });
+};
+
+if(paymentBtn){
+  paymentBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart")){
+      paymentBtn.setAttribute("href", "payment.html");
+    }else{
+      paymentBtn.removeAttribute("href");
+      alert("Please add item to cart");
+    }
+  })
+}
+
+if(paymentNavBtn){
+  paymentNavBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart")){
+      paymentNavBtn.setAttribute("href", "payment.html");
+    }else{
+      paymentNavBtn.removeAttribute("href");
+      alert("Please add item to cart");
+    }
+  })
+}
 
 
 
@@ -374,6 +410,9 @@ var shoppingCart = (() => {
   //Set item to local storage
   function saveCart(){
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
+    if(localStorage.getItem("shoppingCart") == "[]"){
+      localStorage.removeItem("shoppingCart");
+    }
   }
 
   function loadCart(){
@@ -534,26 +573,6 @@ for(let i = 0; selectBtn.length > i; i++){
   })
 };
 
-function showEditCartModal(selectedItem){
-  modal.style.visibility = "visible";
-  modal.style.opacity = "1";
-  modalAddCart.style.display = "none";
-  modalEditCart.style.display = "flex";
-  var modalName = selectedItem.getAttribute("data-name");
-  var i = JSON.parse(localStorage.getItem("shoppingCart"));
-  for (var item in i){
-    if(i[item].product === modalName){
-      var count = i[item].count;
-      modalProductName.innerHTML = modalName;
-      var modalPrice = Number(selectedItem.getAttribute("data-price")).toFixed(2);
-      modalPriceText.innerHTML = "$" + modalPrice;
-      modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
-      cartCount.value = count;
-      modalSaveChangesContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='save-changes' type='button'>Save Changes</button>";
-    }
-  }
-}
-
 function showAddCartModal(selectedItem){
   modalAddCart.style.display = "flex";
   modalEditCart.style.display = "none";
@@ -598,8 +617,29 @@ if(orderBeverage){
       animateDisplay();
     } else if(e.target.matches(".edit-btn")){
       showEditCartModal(e.target);
+
     }
   });
+}
+
+function showEditCartModal(selectedItem){
+  modal.style.visibility = "visible";
+  modal.style.opacity = "1";
+  modalAddCart.style.display = "none";
+  modalEditCart.style.display = "flex";
+  var modalName = selectedItem.getAttribute("data-name");
+  var i = JSON.parse(localStorage.getItem("shoppingCart"));
+  for (var item in i){
+    if(i[item].product === modalName){
+      var count = i[item].count;
+      modalProductName.innerHTML = modalName;
+      var modalPrice = Number(selectedItem.getAttribute("data-price")).toFixed(2);
+      modalPriceText.innerHTML = "$" + modalPrice;
+      modalImageContainer.innerHTML = "<img class='modal-image' src='images/" + modalName + ".jpg'>";
+      cartCount.value = count;
+      modalSaveChangesContainer.innerHTML = "<button data-name='" + modalName + "' data-price=" + modalPrice + " class='save-changes' type='button'>Save Changes</button>";
+    }
+  }
 }
 
 //---Change number of items in add cart---//
