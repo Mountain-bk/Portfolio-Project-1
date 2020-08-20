@@ -12,7 +12,7 @@ a{
   cursor: pointer;
 }
 
-h1, h2, h3, li{
+h1, h2, h3, li, label{
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   font-stretch: condensed;
@@ -406,6 +406,10 @@ button{
 }
 .order-date-time{
   width: 100%;
+}
+.order-date-time label{
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 .input-order-date, .input-order-time{
   width: 100%;
@@ -949,11 +953,21 @@ button{
 .cart-bar-payment{
   width: 30%;
   height: auto;
-  background-color: #42362e;
   text-align: center;
   color: white;
   font-size: 0.8rem;
   display: none;
+}
+.payment-cart-btn{
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  background-color: #42362e;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  font-stretch: condensed;
+  font-weight: bold;
 }
 .payment-cart-container{
   display: none;
@@ -1008,7 +1022,9 @@ button{
   font-family: 'Oswald', sans-serif;
   border-radius: 5px;
 }
-
+.payment-mobile-cart-nav{
+  display:none;
+}
 .payment-cart-container{
   display: block;
   width: 270px;
@@ -1206,6 +1222,7 @@ button{
     width: 100%;
     height: 100%;
     display: flex;
+    justify-content: center;
   }
   .place-order-container, .cart-total-container{
     width: 50%;
@@ -1225,7 +1242,7 @@ button{
     border-radius: 5px;
     text-align: center;
   }
-  .cart-total-btn{
+  .cart-total-btn, .payment-cart-total-btn{
     width: 95%;
     height: auto;
     padding: 10px 0;
@@ -1290,6 +1307,34 @@ button{
   }
   .cart-bar-payment{
     display: block;
+  }
+  .payment-body{
+    padding: 0 20px;
+  }
+  .payment-mobile-cart-nav{
+    display: none;
+    background-color: rgba(0, 0, 0, 1);
+    position: fixed;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    z-index: 300;
+  }
+  .payment-cart-container{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 90vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
+    z-index: 100;
+    overflow: scroll;
+  }
+  .payment-form-wrapper{
+    padding: 0;
   }
 }
 @media only screen and (max-width: 374px){
