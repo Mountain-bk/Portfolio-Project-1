@@ -107,17 +107,6 @@ if(closedText){
   };
 }
 
-//---Toggle check-mark or cross-mark based on selections---//
-//const selectors = document.querySelectorAll("#date-time-selector");
-const checkMark = document.querySelector(".time-mark");
-
-window.addEventListener("change", () =>{
-  if(timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
-    checkMark.src = "images/cross.png";
-  } else{
-    checkMark.src = "images/check.png";
-  }
-});
 
 //---Display Pick Up Order Time---//
 
@@ -144,6 +133,18 @@ if (timeRange[0]){
     //Add options to time select
     timeRange[0].options[timeRange[0].options.length] = new Option(text);
   };
+}
+
+//---Toggle check-mark or cross-mark based on selections---//
+const checkMark = document.querySelector(".time-mark");
+if(timeRange){
+  window.addEventListener("change", () =>{
+    if(timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
+      checkMark.src = "images/cross.png";
+    } else{
+      checkMark.src = "images/check.png";
+    }
+  });
 }
 
 function createTimeText(key){
