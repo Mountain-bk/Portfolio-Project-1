@@ -988,14 +988,14 @@ button{
   padding-right: 270px;
 }
 .payment-form{
-  max-width: 400px;
+  max-width: 450px;
   margin: auto;
 }
 .input-container{
-  width: 100%;
+  width: 90%;
   color: white;
   font-family: 'Roboto', sans-serif;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
 }
 .validation-field{
   width: 100%;
@@ -1003,9 +1003,14 @@ button{
 }
 .validation-field input{
   width: 100%;
-  padding: 6px 0;
+  padding: 6px 5px;
   border: 0;
   border-radius: 3px;
+}
+.receipt{
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  font-stretch: condensed;
 }
 .confirm-payment{
   width: 90%;
@@ -1335,6 +1340,14 @@ button{
   }
   .payment-form-wrapper{
     padding: 0;
+  }
+  .input-container{
+    width: 95%;
+    margin: 0 auto 20px auto;
+  }
+  .receipt-row{
+    width: 100%;
+    font-size: 0.8rem;
   }
 }
 @media only screen and (max-width: 374px){
