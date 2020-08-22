@@ -593,6 +593,10 @@ button{
 }
 .select-container{
   width: 100%;
+  text-align: center;
+}
+.select-container button{
+  width: 80%;
 }
 .add-cart, .select-btn, .save-changes{
   width: 100%;
@@ -750,7 +754,7 @@ button{
   border-radius: 5px;
 }
 
-.modal{
+.modal, .confirmation-modal{
   position: fixed;
   left: 0;
   top: 0;
@@ -1030,6 +1034,18 @@ button{
 .payment-mobile-cart-nav{
   display:none;
 }
+.confirmation-content-container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 50%;
+  height: auto;
+  border-radius: 0.5rem;
+  z-index: 100;
+  padding: 1rem 1.5rem;
+}
 .payment-cart-container{
   display: block;
   width: 270px;
@@ -1038,6 +1054,21 @@ button{
   z-index: 50;
   top: 0;
   right: 0;
+}
+.confirmation-message{
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+.confirmation-close-btn-container{
+  width: 100%;
+}
+.confirm-close-btn{
+  border: solid 2px black;
+  padding: 2px 4px;
+  border-radius: 5px;
+  right: 0;
+  font-size: 1rem;
 }
 
 @media only screen and (max-width: 1023px){
