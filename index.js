@@ -145,7 +145,7 @@ if(timeRange){
       checkMark.src = "images/check.png";
     }
   });
-}
+};
 
 function createTimeText(key){
   //Set starting time of the interval
@@ -697,18 +697,18 @@ if(modalSaveChangesContainer){
 }
 
 
-//Close Modal//
+//Close Modal(Add Cart, Edit Cart, Shopping Cart)//
 const closeBtn = document.querySelector(".close-btn");
 if(closeBtn){
   closeBtn.addEventListener("click", ()=>{
     closeModal();
   });
 }
-
 function closeModal(){
   modal.style.visibility = "hidden";
   modal.style.opacity = "0";
 }
+
 
 //Display the cart everytime when you load in desktop//
 if(orderBeverage){
@@ -737,10 +737,12 @@ if(mobileCartBtn){
     }
   });
 }
+
 //Display total amount in nav cart//
 function displayTotalAmount(){
   cartNavPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
 }
+
 //Change to close button when the nav cart is open//
 function changeToCloseCartBtn(){
   if(cartContainer){
@@ -789,4 +791,52 @@ if(cartContainer){
       "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
     }
   });
+}
+
+if(paymentCartContainer){
+  window.addEventListener("resize", () =>{
+    if(window.innerWidth > 690){
+      paymentCartContainer.style.display = "block";
+      changeToCloseCartBtn();
+    } else if(window.innerWidth === 690){
+      paymentCartContainer.style.display = "none";
+    }
+  });
+}
+
+//---Confirmation Process---//
+const confirmBtn = document.querySelector(".confirm-payment-btn");
+const confirmModal = document.querySelector(".confirmation-modal");
+
+if(confirmBtn){
+  confirmBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart")){
+      confirmModal.style.visibility = "visible";
+      confirmModal.style.opacity = "1";
+    }else{
+      alert("Please add item to cart");
+    }
+  })
+}
+
+
+//Close Modal(Payment Confirmation)//
+const paymentCloseBtn = document.querySelector(".confirm-close-btn");
+const inputName = document.querySelector("#customer-name");
+const inputPhone = document.querySelector("#customer-phone");
+const inputEmail = document.querySelector("#customer-email");
+
+if(paymentCloseBtn){
+  paymentCloseBtn.addEventListener("click", ()=>{
+    closeConfirmationModal();
+    inputName.value = "";
+    inputPhone.value = "";
+    inputEmail.value = "";
+    localStorage.clear();
+    document.location.href = "index.html";
+  });
+}
+function closeConfirmationModal(){
+  confirmModal.style.visibility = "hidden";
+  confirmModal.style.opacity = "0";
 }
