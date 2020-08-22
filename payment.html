@@ -40,10 +40,10 @@
           <div class="input-container">
             <label for="customer-email">Email</label>
             <div class="validation-field">
-              <input id="customer-email" type="text" name="" value="">
+              <input id="customer-email" type="email" name="" value="">
             </div>
           </div>
-          <div class="input-container">
+          <!--<div class="input-container">
             <div class="receipt">
               Receipt
             </div>
@@ -51,7 +51,7 @@
               <input id="receipt-required"type="checkbox" name="" value="">
               <label for="receipt-required">Please check this checkbox if you require a receipt</label>
             </div>
-          </div>
+          </div>-->
           <div class="confirm-payment-container">
             <div class="confirm-payment">
               <button type="button" class="confirm-payment-btn" name="button">Confirm Payment</button>
@@ -90,9 +90,6 @@
               <div class="total">
                 <h3 class="total-amount"></h3>
               </div>
-            </div>
-            <div class="payment">
-              <a href="#" class="payment-btn"><div>GO TO PAYMENT</div></a>
             </div>
           </div>
           <div class="zigzag-bottom">
@@ -163,6 +160,18 @@
           <button class="payment-cart-total-btn" type="button" name="button">
             <p>close cart</p>
           </button>
+        </div>
+      </div>
+    </div>
+    <div class="confirmation-modal">
+      <div class="confirmation-content-container">
+        <div class="close-btn-container">
+          <div class="confirmation-message">
+            <p>Your order is confirmed!</p>
+          </div>
+          <div class="confirmation-close-btn-container">
+            <button type="button" class="confirm-close-btn">close</button>
+          </div>
         </div>
       </div>
     </div>
