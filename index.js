@@ -1,3 +1,147 @@
+//---Alert Process---//
+const alertModal = document.querySelector(".alert-modal");
+const alertCloseBtn = document.querySelector(".alert-close-btn");
+const alertMessage = document.querySelector(".alert-message");
+
+//Close alert message//
+if(alertCloseBtn){
+  alertCloseBtn.addEventListener("click", () =>{
+    closeAlertModal();
+  });
+}
+
+function openAlertModal(){
+  alertModal.style.visibility = "visible";
+  alertModal.style.opacity = "1";
+}
+
+function closeAlertModal(){
+  alertModal.style.visibility = "hidden";
+  alertModal.style.opacity = "0";
+  if(alertMessage.innerHTML === "<p>Please select order type</p>"){
+    document.location.href = "index.html";
+  }else if(alertMessage.innerHTML === "<p>Please select order Time and Date</p>"){
+    document.location.href = "index.html";
+  }else if(alertMessage.innerHTML === "<p>Please add item to cart</p>"){
+    document.location.href = "menu.html";
+  }
+}
+
+//Refresh date and time after 15 minutes if user select not-ASAP//
+if(localStorage.getItem("orderTime")){
+  removeOrderTerm();
+}
+
+function removeOrderTerm(){
+  if(localStorage.getItem("orderTime") != "ASAP"){
+    setTimeout(removeSelectedTerm, 450000);
+  }
+}
+
+function removeSelectedTerm(){
+  localStorage.removeItem("orderTime");
+  localStorage.removeItem("orderDate");
+}
+//Refresh the local storage if there is 30 minutes of idle time//
+let userActivityTimeout = null;
+
+//Function to reset user inactivity time//
+function resetUserActivityTimeOut(){
+  clearTimeout(userActivityTimeout);
+  userActivityTimeout = setTimeout(() =>{
+    inactiveUserAction();
+  },900000);
+}
+
+//Function what will happen when user action is inactive//
+function inactiveUserAction(){
+  localStorage.clear();
+  openAlertModal();
+  alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
+  document.location.href = "index.html";
+}
+
+//Function which will reset inactivity timeout(event which will start the timer)//
+function activateActivityTracker(){
+  window.addEventListener("scroll", resetUserActivityTimeOut);
+  window.addEventListener("keydown", resetUserActivityTimeOut);
+  window.addEventListener("load", resetUserActivityTimeOut);
+  window.addEventListener("click", resetUserActivityTimeOut);
+}
+
+//If products are in cart, start the timer//
+if(localStorage.getItem("shoppingCart")){
+  activateActivityTracker();
+}
+
+//---Alert if cart is empty---//
+const paymentBarBtn = document.querySelector(".payment-bar-btn");
+const paymentBtn = document.querySelector(".payment-btn");
+const paymentNavBtn = document.querySelector(".place-order-btn");
+
+//alert message for payment bar btn//
+if(paymentBarBtn){
+  paymentBarBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+      paymentBarBtn.setAttribute("href", "payment.html");
+    }else if(localStorage.getItem("shoppingCart") === null){
+      paymentBarBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      paymentBarBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order type</p>";
+    }else{
+      paymentBarBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }
+  });
+};
+
+//alert message for payment btn(desktop)//
+if(paymentBtn){
+  paymentBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+      paymentBtn.setAttribute("href", "payment.html");
+    }else if(localStorage.getItem("shoppingCart") === null){
+      paymentBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      paymentBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order type</p>";
+    }else{
+      paymentBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }
+  });
+};
+
+//alert message for payment nav btn(mobile)//
+if(paymentNavBtn){
+  paymentNavBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+      paymentNavBtn.setAttribute("href", "payment.html");
+    }else if(localStorage.getItem("shoppingCart") === null){
+      paymentNavBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      paymentNavBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order type</p>";
+    }else{
+      paymentNavBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }
+  });
+};
+
 
 //---Carousel (Top page)---//
 const carouselSlide = document.querySelector(".carousel-slide");
@@ -107,11 +251,9 @@ if(closedText){
   };
 }
 
-
 //---Display Pick Up Order Time---//
-
-//Select time select//
 const timeRange = document.getElementsByClassName("time-selector");
+const checkMark = document.querySelector(".time-mark");
 //Pass in current minute//
 var currentMinute = giveCurrentMinute();
 //Pass in current hour//
@@ -135,9 +277,8 @@ if (timeRange[0]){
   };
 }
 
-//---Toggle check-mark or cross-mark based on selections---//
-const checkMark = document.querySelector(".time-mark");
-if(timeRange){
+//Toggle check-mark or cross-mark based on selections//
+if(timeRange[0]){
   window.addEventListener("change", () =>{
     if(timeRange[0].options[timeRange[0].selectedIndex].text === "Select Time"){
       checkMark.src = "images/cross.png";
@@ -145,7 +286,8 @@ if(timeRange){
       checkMark.src = "images/check.png";
     }
   });
-};
+}
+
 
 function createTimeText(key){
   //Set starting time of the interval
@@ -263,7 +405,8 @@ if(next){
     var orderTime = timeRange[0].options[timeRange[0].selectedIndex].text;
     if(orderTime === "Select Time"){
       next.removeAttribute("href");
-      alert("Select Time");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please Select Time</p>";
     }else{
       next.setAttribute("href", "menu.html");
       localStorage.setItem("orderDate", orderDate);
@@ -283,92 +426,7 @@ if(asap){
   });
 }
 
-//---Refresh local Storage if there is idle time---//
 
-//Refresh date and time after 15 minutes if user select not-ASAP//
-if(localStorage.getItem("orderTime")){
-  removeOrderTerm();
-}
-
-function removeOrderTerm(){
-  if(localStorage.getItem("orderTime") != "ASAP"){
-    setTimeout(removeSelectedTerm, 450000);
-  }
-}
-
-function removeSelectedTerm(){
-  localStorage.removeItem("orderTime");
-  localStorage.removeItem("orderDate");
-  alert("Order Term has been expired");
-}
-//Refresh the local storage if there is 30 minutes of idle time//
-let userActivityTimeout = null;
-
-//Function to reset user inactivity time//
-function resetUserActivityTimeOut(){
-  clearTimeout(userActivityTimeout);
-  userActivityTimeout = setTimeout(() =>{
-    inactiveUserAction();
-  },900000);
-}
-
-//Function what will happen when user action is inactive//
-function inactiveUserAction(){
-  localStorage.clear();
-  alert("Your session has expired. Please restart your order");
-  document.location.href = "index.html";
-}
-
-//Function which will reset inactivity timeout(event which will start the timer)//
-function activateActivityTracker(){
-  window.addEventListener("scroll", resetUserActivityTimeOut);
-  window.addEventListener("keydown", resetUserActivityTimeOut);
-  window.addEventListener("load", resetUserActivityTimeOut);
-  window.addEventListener("click", resetUserActivityTimeOut);
-}
-
-//If products are in cart, start the timer//
-if(localStorage.getItem("shoppingCart")){
-  activateActivityTracker();
-}
-
-//---Alert if cart is empty---//
-const paymentBarBtn = document.querySelector(".payment-bar-btn");
-const paymentBtn = document.querySelector(".payment-btn");
-const paymentNavBtn = document.querySelector(".place-order-btn");
-
-if(paymentBarBtn){
-  paymentBarBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart")){
-      paymentBarBtn.setAttribute("href", "payment.html");
-    }else{
-      paymentBarBtn.removeAttribute("href");
-      alert("Please add item to cart");
-    }
-  });
-};
-
-if(paymentBtn){
-  paymentBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart")){
-      paymentBtn.setAttribute("href", "payment.html");
-    }else{
-      paymentBtn.removeAttribute("href");
-      alert("Please add item to cart");
-    }
-  })
-}
-
-if(paymentNavBtn){
-  paymentNavBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart")){
-      paymentNavBtn.setAttribute("href", "payment.html");
-    }else{
-      paymentNavBtn.removeAttribute("href");
-      alert("Please add item to cart");
-    }
-  })
-}
 
 
 
@@ -807,24 +865,42 @@ if(paymentCartContainer){
 //---Confirmation Process---//
 const confirmBtn = document.querySelector(".confirm-payment-btn");
 const confirmModal = document.querySelector(".confirmation-modal");
-
-if(confirmBtn){
-  confirmBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart")){
-      confirmModal.style.visibility = "visible";
-      confirmModal.style.opacity = "1";
-    }else{
-      alert("Please add item to cart");
-    }
-  })
-}
-
-
-//Close Modal(Payment Confirmation)//
 const paymentCloseBtn = document.querySelector(".confirm-close-btn");
 const inputName = document.querySelector("#customer-name");
 const inputPhone = document.querySelector("#customer-phone");
 const inputEmail = document.querySelector("#customer-email");
+
+if(confirmBtn){
+  confirmBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("orderDate") && localStorage.getItem("orderTime") && localStorage.getItem("shoppingCart") && inputName.value != "" && inputPhone.value != "" && inputEmail.value != ""){
+      confirmModal.style.visibility = "visible";
+      confirmModal.style.opacity = "1";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
+    }else if(localStorage.getItem("shoppingCart") === null){
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else{
+      if(inputName.value == ""){
+        openAlertModal();
+        alertMessage.innerHTML = "<p>Please input your name</p>";
+      }else if(inputPhone.value == ""){
+        openAlertModal();
+        alertMessage.innerHTML = "<p>Please input your phone number</p>";
+      }else if(inputEmail.value == ""){
+        openAlertModal();
+        alertMessage.innerHTML = "<p>Please input your email address</p>";
+      }else{
+        openAlertModal();
+        alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
+      }
+    }
+  });
+}
+
+
+//Close Modal(Payment Confirmation)//
 
 if(paymentCloseBtn){
   paymentCloseBtn.addEventListener("click", ()=>{
