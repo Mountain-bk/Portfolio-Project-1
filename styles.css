@@ -754,7 +754,7 @@ button{
   border-radius: 5px;
 }
 
-.modal, .confirmation-modal{
+.modal, .confirmation-modal, .alert-modal{
   position: fixed;
   left: 0;
   top: 0;
@@ -1034,7 +1034,7 @@ button{
 .payment-mobile-cart-nav{
   display:none;
 }
-.confirmation-content-container{
+.confirmation-content-container, .alert-content-container{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1055,15 +1055,15 @@ button{
   top: 0;
   right: 0;
 }
-.confirmation-message{
+.confirmation-message, .alert-message{
   width: 100%;
   height: auto;
   margin: 10px 0;
 }
-.confirmation-close-btn-container{
+.confirmation-close-btn-container, .alert-close-btn-container{
   width: 100%;
 }
-.confirm-close-btn{
+.confirm-close-btn, .alert-close-btn{
   border: solid 2px black;
   padding: 2px 4px;
   border-radius: 5px;
