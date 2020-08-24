@@ -479,6 +479,58 @@ button{
   border-right: 6px solid #fff;
 }
 
+
+/*Select order type Page*/
+.order-type-bar-order-type{
+  width: 20%;
+  height: auto;
+  background-color: #006492;
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+}
+.order-type-bar-order-type:after{
+  content: "";
+  width: 0;
+  height: 0;
+  left: 100%;
+  top: 30%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #006492;
+  position: absolute;
+}
+.menu-bar-order-type{
+  width: 20%;
+  height: auto;
+  background-color: #42362e;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+  position: relative;
+}
+.menu-bar-order-type:after{
+  content: "";
+  width: 0;
+  height: 0;
+  left: 100%;
+  top: 30%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid black;
+  position: absolute;
+}
+.payment-bar-order-type{
+  width: 20%;
+  height: auto;
+  background-color: #42362e;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+}
+
+
 /*Menu Page*/
 .menu-header{
   width: 100%;
@@ -492,8 +544,16 @@ button{
   line-height: 50px;
   padding: 30px 0;
 }
+.order-type-bar{
+  width: 20%;
+  height: auto;
+  background-color: #42362e;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+}
 .menu-bar{
-  width: 30%;
+  width: 20%;
   height: auto;
   background-color: #006492;
   position: relative;
@@ -514,7 +574,7 @@ button{
 }
 
 .payment-bar{
-  width: 30%;
+  width: 20%;
   height: auto;
   background-color: #42362e;
   text-align: center;
@@ -739,6 +799,7 @@ button{
   height: auto;
   display: flex;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .payment-btn{
@@ -752,6 +813,10 @@ button{
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   border-radius: 5px;
+}
+
+.order-date-title, .order-time-title, .order-type-title{
+  font-size: 0.8rem;
 }
 
 .modal, .confirmation-modal, .alert-modal{
@@ -1171,9 +1236,14 @@ button{
   }.back, .next{
     margin-bottom: 40px;
   }
+/*Select order type Page*/
+  .order-type-bar-order-type, .menu-bar-order-type, .payment-bar-order-type{
+    width: 30%;
+    font-size: 0.7rem;
+  }
 /*Menu*/
-  .menu-bar, .payment-bar{
-    width: 40%;
+  .order-type-bar, .menu-bar, .payment-bar{
+    width: 30%;
     font-size: 0.7rem;
   }
   .recommend{
