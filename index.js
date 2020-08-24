@@ -411,6 +411,11 @@ if(next){
       next.setAttribute("href", "menu.html");
       localStorage.setItem("orderDate", orderDate);
       localStorage.setItem("orderTime", orderTime);
+      if(document.title == "Delivery Order Time"){
+        localStorage.setItem("orderType", "Delivery");
+      }else if(document.title == "Pick Up Order Time"){
+        localStorage.setItem("orderType", "Pick Up");
+      }
     }
   });
 }
@@ -423,6 +428,11 @@ if(asap){
     var todayDate = date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear();
     localStorage.setItem("orderDate", todayDate);
     localStorage.setItem("orderTime", "ASAP");
+    if(document.title == "Delivery Order Time"){
+      localStorage.setItem("orderType", "Delivery");
+    }else if(document.title == "Pick Up Order Time"){
+      localStorage.setItem("orderType", "Pick Up");
+    }
   });
 }
 
@@ -810,7 +820,6 @@ function changeToCloseCartBtn(){
   }else if(paymentCartContainer){
     paymentCartContainer.style.display = "block";
   }
-
 }
 
 //Open cart (mobile payment page)//
@@ -839,14 +848,14 @@ if(mobilePaymentCloseBtn){
 if(cartContainer){
   window.addEventListener("resize", () =>{
     if(window.innerWidth > 690){
-      cartContainer.style.display = "block";
-      changeToCloseCartBtn();
-    } else if(window.innerWidth === 690){
-      cartContainer.style.display = "none";
-      mobileCartBtn.innerHTML =
-      "<i class='fas fa-shopping-cart'></i>" +
-      "<span class='cart-nav-text'>total</span>" +
-      "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
+        cartContainer.style.display = "block";
+        changeToCloseCartBtn();
+    }else if(window.innerWidth === 690){
+        cartContainer.style.display = "none";
+        mobileCartBtn.innerHTML =
+        "<i class='fas fa-shopping-cart'></i>" +
+        "<span class='cart-nav-text'>total</span>" +
+        "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
     }
   });
 }
@@ -915,4 +924,41 @@ if(paymentCloseBtn){
 function closeConfirmationModal(){
   confirmModal.style.visibility = "hidden";
   confirmModal.style.opacity = "0";
+}
+
+
+//---Display order date time details(payment page)---//
+const orderDateDetails = document.querySelector(".order-date-details");
+const orderTypeDetails = document.querySelector(".order-type-details");
+const orderTimeDetails = document.querySelector(".order-time-details");
+
+//Display order date inside cart//
+if(orderBeverage){
+  if(localStorage.getItem("orderDate")){
+    var selectedDate = localStorage.getItem("orderDate");
+    orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
+  }else{
+    orderDateDetails.innerHTML = "<p>Not selected</p>"
+  }
+
+  //Display order type inside cart//
+  if(localStorage.getItem("orderTime")){
+    var selectedTime = localStorage.getItem("orderTime");
+    if(selectedTime === "ASAP"){
+      orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
+    }else{
+      selectedTime = JSON.stringify(selectedTime).replace(/"/g, "");
+      orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
+    }
+  }else{
+    orderTimeDetails.innerHTML = "<p>Not selected</p>"
+  }
+
+  //Display order time inside cart//
+  if(localStorage.getItem("orderType")){
+    var selectedType = localStorage.getItem("orderType");
+    orderTypeDetails.innerHTML = "<p>" + selectedType + "</p>";
+  }else{
+    orderTypeDetails.innerHTML = "<p>Not selected</p>"
+  }
 }
