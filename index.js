@@ -931,9 +931,10 @@ function closeConfirmationModal(){
 const orderDateDetails = document.querySelector(".order-date-details");
 const orderTypeDetails = document.querySelector(".order-type-details");
 const orderTimeDetails = document.querySelector(".order-time-details");
+const selectPageDetails = document.querySelector(".current-order-type");
 
 //Display order date inside cart//
-if(orderBeverage){
+if(orderBeverage || selectPageDetails){
   if(localStorage.getItem("orderDate")){
     var selectedDate = localStorage.getItem("orderDate");
     orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
