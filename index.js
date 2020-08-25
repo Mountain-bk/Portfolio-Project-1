@@ -19,7 +19,7 @@ function closeAlertModal(){
   alertModal.style.visibility = "hidden";
   alertModal.style.opacity = "0";
   if(alertMessage.innerHTML === "<p>Please select order type</p>"){
-    document.location.href = "index.html";
+    document.location.href = "select-order-type.html";
   }else if(alertMessage.innerHTML === "<p>Please select order Time and Date</p>"){
     document.location.href = "index.html";
   }else if(alertMessage.innerHTML === "<p>Please add item to cart</p>"){
