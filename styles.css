@@ -123,6 +123,7 @@ button{
   top:120px;
   position: fixed;
   z-index: 800;
+  font-size: 2rem;
 }
 .delivery, .pick-up{
   width: 200px;
@@ -141,9 +142,6 @@ button{
   line-height: 40px;
   font-size: 1.5rem;
   color: white;
-}
-.start-order{
-  font-size: 2rem;
 }
 .delivery{
   background-color: #006492;
@@ -481,6 +479,68 @@ button{
 
 
 /*Select order type Page*/
+.start-order-select{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+}
+.select-order-type-title-container{
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+.select-order-type-title{
+  width: 70%;
+  font-size: 1.3rem;
+  text-align: left;
+  bottom: 0;
+  border-bottom: solid 2px white;
+  color: white;
+}
+.start-order-select .or{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 2rem;
+  color: white;
+  margin: 0 30px;
+}
+
+.delivery-container, .pick-up-container{
+  width: 400px;
+  height: 250px;
+  padding: 10px 0;
+  text-align: center;
+  margin: 0 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.pick-up-container{
+  background-color: #e0183b;
+}
+.delivery-container{
+  background-color: #006492;
+}
+.current-order-type{
+  width: 100%;
+  margin-top: 10px;
+}
+.order-type-content-container{
+  background: white;
+  width: 50%;
+  margin: auto;
+  border-radius: 10px;
+  padding: 10px;
+}
 .order-type-bar-order-type{
   width: 20%;
   height: auto;
@@ -1224,7 +1284,10 @@ button{
   }.footer-logo-img{
     width: 100%;
   }
-/*Delivery and Pick Up HTML*/
+/*Delivery and Pick Up */
+  .pickup-title, .delivery-title{
+    width: 90%;
+  }
   .order-form{
     width: 90vw;
   }.time-heading{
@@ -1240,6 +1303,40 @@ button{
   .order-type-bar-order-type, .menu-bar-order-type, .payment-bar-order-type{
     width: 30%;
     font-size: 0.7rem;
+  }
+  .start-order-select .or{
+    margin: 15px;
+  }
+  .start-order-select{
+    flex-direction: column;
+  }
+  .select-order-type-title{
+    width: 90%;
+  }
+  .select-order-type-title-container{
+    margin: 0;
+  }
+  .delivery-container, .pick-up-container{
+    width: 200px;
+    height: 200px;
+    padding: 5px 0;
+    text-align: center;
+    margin: 0 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+  .current-order-type{
+    margin-bottom: 30px;
+  }
+  .order-type-content-container{
+    background: white;
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
   }
 /*Menu*/
   .order-type-bar, .menu-bar, .payment-bar{
