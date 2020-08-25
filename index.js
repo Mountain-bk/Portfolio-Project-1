@@ -27,14 +27,14 @@ function closeAlertModal(){
   }
 }
 
-//Refresh date and time after 15 minutes if user select not-ASAP//
+//Refresh date and time after 10 minutes if user select not-ASAP//
 if(localStorage.getItem("orderTime")){
   removeOrderTerm();
 }
 
 function removeOrderTerm(){
   if(localStorage.getItem("orderTime") != "ASAP"){
-    setTimeout(removeSelectedTerm, 450000);
+    setTimeout(removeSelectedTerm, 600000);
   }
 }
 
@@ -42,7 +42,8 @@ function removeSelectedTerm(){
   localStorage.removeItem("orderTime");
   localStorage.removeItem("orderDate");
 }
-//Refresh the local storage if there is 30 minutes of idle time//
+
+//Refresh the local storage if there is 15 minutes of idle time//
 let userActivityTimeout = null;
 
 //Function to reset user inactivity time//
@@ -348,13 +349,13 @@ function giveCurrentMinute(){
     return 0
   } else{
     if (currentMinute <= 15){
-      return 60
+      return 45
     } else if (currentMinute <= 30 && currentMinute > 15){
-      return 75
+      return 60
     } else if (currentMinute <= 45 && currentMinute > 30){
-      return 90
+      return 75
     } else if (currentMinute <= 60 && currentMinute > 45){
-      return 105
+      return 90
     }
   }
 }
