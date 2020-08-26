@@ -24,6 +24,8 @@ function closeAlertModal(){
     document.location.href = "select-order-type.html";
   }else if(alertMessage.innerHTML === "<p>Please add item to cart</p>"){
     document.location.href = "menu.html";
+  }else if(alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>"){
+    document.location.href = "index.html";
   }
 }
 
@@ -59,7 +61,6 @@ function inactiveUserAction(){
   localStorage.clear();
   openAlertModal();
   alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
-  document.location.href = "index.html";
 }
 
 //Function which will reset inactivity timeout(event which will start the timer)//
@@ -792,6 +793,7 @@ const paymentMobileNav = document.querySelector(".payment-mobile-cart-nav");
 const mobilePaymentCloseBtn = document.querySelector(".payment-cart-total-btn");
 
 //Open cart (menu page)//
+const menuMain = document.querySelector(".menu-main");
 if(mobileCartBtn){
   displayTotalAmount();
   mobileCartBtn.addEventListener("click", () =>{
@@ -801,8 +803,10 @@ if(mobileCartBtn){
       "<i class='fas fa-shopping-cart'></i>" +
       "<span class='cart-nav-text'>total</span>" +
       "<span class='cart-nav-price'>" + "$" + shoppingCart.totalAmount().toFixed(2) + "</span>";
+      menuMain.setAttribute("style","-ms-touch-action: auto;");
     } else{
       changeToCloseCartBtn();
+      menuMain.setAttribute("style","-ms-touch-action: none;");
     }
   });
 }
