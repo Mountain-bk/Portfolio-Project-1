@@ -77,9 +77,9 @@ function activityWatcher(){
     activityEvents.forEach(function(eventName) {
         document.addEventListener(eventName, activity, true);
     });
-
-
 }
+
+
 
 
 //---Alert if cart is empty---//
