@@ -1,5 +1,4 @@
 
-
 body{
   margin: 0;
   padding: 0;
@@ -45,12 +44,10 @@ button{
   overflow: hidden;
 }
 
-/*Top Page - Shirik page*/
 .shrink-page{
   transform: translateX(-50%);
 }
 
-/*Top Page - Header*/
 .header{
   width: 100%;
   height: 120px;
@@ -62,28 +59,34 @@ button{
   z-index: 1000;
   font-size: 1.5rem;
 }
+
 .logo{
   width:100%;
   height: 100%;
   display: grid;
   place-items: center;
 }
+
 .menu-nav{
   margin: 0;
   height: 100%;
   display: flex;
   align-items: center;
 }
+
 .nav-item{
   padding: 0 35px;
   border-right: solid 2px white;
 }
+
 .nav-item:last-child{
   border-right: 0;
 }
+
 .menu-btn{
   display: none;
 }
+
 .fa-bars{
   color: white;
   font-size: 2rem;
@@ -99,10 +102,12 @@ button{
   position: fixed;
   z-index: 2000;
 }
+
 .mobile-menu-nav{
   font-size: 1rem;
   padding: 0 20px;
 }
+
 .mobile-nav-item{
   padding: 10px 0;
 }
@@ -111,7 +116,6 @@ button{
   display: block;
 }
 
-/*Top Page - Start Order Module*/
 .start-order{
   width: 100%;
   background-color:white;
@@ -125,6 +129,7 @@ button{
   z-index: 800;
   font-size: 2rem;
 }
+
 .delivery, .pick-up{
   width: 200px;
   height: 70px;
@@ -133,6 +138,7 @@ button{
   margin: 0 10px;
   color: white;
 }
+
 .start-order .or{
   width: 40px;
   height: 40px;
@@ -143,23 +149,26 @@ button{
   font-size: 1.5rem;
   color: white;
 }
+
 .delivery{
   background-color: #006492;
 }
+
 .pick-up{
   background-color: #e0183b;
 }
 
-/*Top Page - Carousel*/
 .carousel, .carousel-slide, .banner, .carousel-image{
   height: 500px;
 }
+
 .carousel{
   width: 100%;
   margin-top: 250px;
   z-index: 0;
   position: relative;
 }
+
 .carousel-container{
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -168,20 +177,24 @@ button{
   scroll-snap-type: x mandatory;
   transition: 1s ease;
 }
+
 .carousel-container::-webkit-scrollbar{
   display: none;
 }
+
 .carousel-slide{
   width: 300%;
   left: 0px;
   display: flex;
 }
+
 .banner{
   scroll-snap-align: center;
   width: 100vw;
   display: flex;
   justify-content: center;
 }
+
 .carousel-image{
   width: 65%;
   object-fit: cover;
@@ -195,32 +208,35 @@ button{
   top: 45%;
   color: white;
 }
+
 .carousel-button-left{
   left:10%;
 }
+
 .carousel-button-right{
   right:10%;
 }
+
 .carousel .fas{
   font-size: 4rem;
 }
 
-/*Top Page - Middle Table*/
 .middle-table{
   width: 100%;
   height: 100px;
 }
+
 .table{
   width: 100%;
   height: 100%;
 }
+
 .table-img{
   width: 100%;
   height: 100%;
   object-fit: fill;
 }
 
-/*Top Page - Article*/
 .articles{
   background-image: url("images/brick-wall.jpg");
   background-size: cover;
@@ -229,6 +245,7 @@ button{
   justify-content: center;
   align-items: center;
 }
+
 .article-container{
   max-width: 1024px;
   height: auto;
@@ -241,18 +258,19 @@ button{
   padding-top: 20px;
   border-bottom: dashed 2px white;
 }
+
 .topics{
   width: 100%;
   height: auto;
+  text-align: center;
 }
+
 .new-topics h3{
   font-size: 2rem;
   color: white;
   margin: 0;
 }
-.topics{
-  text-align: center;
-}
+
 .topic{
   width: 30%;
   height: auto;
@@ -263,25 +281,29 @@ button{
   display: inline-block;
   text-align: left;
 }
+
 .topic-container{
   width:90%;
   height: 100%;
   margin: 0 5%;
 }
+
 .topic-title, .topic-article, .topic-btn, .topic-img-banner{
   padding: 20px 5px 0 5px;;
 }
+
 .topic-title{
   font-size: 1.5rem;
-
 }
 .topic-img-banner{
   width: 100%;
 }
+
 .topic-img{
   width: 100%;
   object-fit: cover;
 }
+
 .see-details{
   background-color: #e0183b;
   color: white;
@@ -296,31 +318,36 @@ button{
   padding-bottom: 100px;
   color: white;
 }
+
 .notice-title h3{
   font-size: 2rem;
   border-bottom: dashed 2px white;
   padding-top: 20px;
 }
+
 .notice-list{
   margin: 10px 0 0 10px;
   font-size: 1.3rem;
 }
+
 .notice{
   text-decoration: underline;
 }
-/*Top Page - Footer*/
+
 .footer{
   width: 100%;
   height: 300px;
   background:black;
   line-height: 300px;
 }
+
 .footer-logo{
   max-width: 350px;
   height: auto;
   margin: auto;
   text-align: center;
 }
+
 .footer-logo-img{
   object-fit: cover;
 }
@@ -332,6 +359,7 @@ button{
   justify-content: center;
   margin: 50px 0;
 }
+
 .delivery-title, .pickup-title{
   width: 70%;
   font-size: 1.3rem;
@@ -340,11 +368,13 @@ button{
   border-bottom: solid 2px white;
   color: white;
 }
+
 .order-form-container{
   font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
 }
+
 .order-form{
   width: 500px;
 }
@@ -352,6 +382,7 @@ button{
 .delivery-time{
   display: flex;
 }
+
 .time-heading{
   width: 60%;
   background-color: #006492;
@@ -359,6 +390,7 @@ button{
   padding: 5px 0 5px 10px;
   border-radius: 5px 0 0 5px;
 }
+
 .time-value{
   width: 40%;
   background-color: white;
@@ -366,10 +398,12 @@ button{
   padding: 5px 0 5px 10px;
   border-radius: 0 5px 5px 0;
 }
+
 .order-intro{
   display: block;
   width: 100%;
 }
+
 .order-question{
   width: 100%;
   text-align: center;
@@ -377,11 +411,13 @@ button{
   font-size: 1.3rem;
   padding: 20px 0;
 }
+
 .intro{
   color: white;
   text-align: center;
   width: 100%;
 }
+
 .asap{
   width: 100%;
   height: auto;
@@ -402,44 +438,54 @@ button{
   padding: 30px 0;
   font-size: 1.3rem;
 }
+
 .order-date-time{
   width: 100%;
 }
+
 .order-date-time label{
   font-weight: bold;
   font-size: 1.2rem;
 }
+
 .input-order-date, .input-order-time{
   width: 100%;
 }
+
 .date-title, .time-title{
   left: 0;
   color: white;
 }
+
 .order-date, .order-time{
   width: 100%;
   height: 40px;
   display: flex;
   margin-bottom: 15px;
 }
+
 .date-selector, .time-selector{
   font-size: 1.3rem;
   width: 90%;
 }
+
 .validation-container{;
   width: 10%;
   height: auto;
   background-color: white;
 }
+
 .date-mark, .time-mark{
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
+
 .back-next-row{
   width: 100%;
   font-size: 1.5rem;
 }
+
 .back{
   background-color: #838383;
   float: left;
@@ -447,6 +493,7 @@ button{
   padding: 5px 5px 5px 20px;
   border-radius: 5px;
 }
+
 .next{
   background-color: #e0183b;
   float: right;
@@ -454,6 +501,7 @@ button{
   padding: 5px 20px 5px 5px;
   border-radius: 5px;
 }
+
 .asap:after, .next:after, .see-details:after{
     content: "";
     width: 0;
@@ -465,6 +513,7 @@ button{
     border: 6px solid transparent;
     border-left: 6px solid #fff;
 }
+
 .back:after{
   content: "";
   width: 0;
@@ -477,7 +526,6 @@ button{
   border-right: 6px solid #fff;
 }
 
-
 /*Select order type Page*/
 .start-order-select{
   width: 100%;
@@ -488,11 +536,13 @@ button{
   font-family: 'Roboto', sans-serif;
   font-size: 2rem;
 }
+
 .select-order-type-title-container{
   display: flex;
   justify-content: center;
   margin: 50px 0;
 }
+
 .select-order-type-title{
   width: 70%;
   font-size: 1.3rem;
@@ -501,6 +551,7 @@ button{
   border-bottom: solid 2px white;
   color: white;
 }
+
 .start-order-select .or{
   width: 40px;
   height: 40px;
@@ -524,16 +575,20 @@ button{
   justify-content: center;
   border-radius: 10px;
 }
+
 .pick-up-container{
   background-color: #e0183b;
 }
+
 .delivery-container{
   background-color: #006492;
 }
+
 .current-order-type{
   width: 100%;
   margin-top: 10px;
 }
+
 .order-type-content-container{
   background: white;
   width: 50%;
@@ -541,6 +596,7 @@ button{
   border-radius: 10px;
   padding: 10px;
 }
+
 .order-type-bar-order-type{
   width: 20%;
   height: auto;
@@ -550,6 +606,7 @@ button{
   color: white;
   font-size: 0.8rem;
 }
+
 .order-type-bar-order-type:after{
   content: "";
   width: 0;
@@ -561,6 +618,7 @@ button{
   border-left: 10px solid #006492;
   position: absolute;
 }
+
 .menu-bar-order-type{
   width: 20%;
   height: auto;
@@ -570,6 +628,7 @@ button{
   font-size: 0.8rem;
   position: relative;
 }
+
 .menu-bar-order-type:after{
   content: "";
   width: 0;
@@ -581,6 +640,7 @@ button{
   border-left: 10px solid black;
   position: absolute;
 }
+
 .payment-bar-order-type{
   width: 20%;
   height: auto;
@@ -596,6 +656,7 @@ button{
   width: 100%;
   height: auto;
 }
+
 .menu-header-container{
   max-width: 1574px;
   margin: auto;
@@ -604,6 +665,7 @@ button{
   line-height: 50px;
   padding: 30px 0;
 }
+
 .order-type-bar{
   width: 20%;
   height: auto;
@@ -612,6 +674,7 @@ button{
   color: white;
   font-size: 0.8rem;
 }
+
 .menu-bar{
   width: 20%;
   height: auto;
@@ -621,6 +684,7 @@ button{
   color: white;
   font-size: 0.8rem;
 }
+
 .menu-bar:after{
   content: "";
   width: 0;
@@ -641,14 +705,17 @@ button{
   color: white;
   font-size: 0.8rem;
 }
+
 .menu-main{
   max-width: 1574px;
   margin: auto;
   padding: 0 10px;
 }
+
 .menu-title-container{
   margin: 50px 0;
 }
+
 .menu-title{
   font-size: 1.3rem;
   text-align: left;
@@ -656,68 +723,80 @@ button{
   border-bottom: solid 2px white;
   color: white;
 }
+
 .recommend{
   width: 100%;
   height: 175px;
 }
+
 .recommend-container{
   width: 700px;
   height: 100%;
   margin: auto;
 }
+
 .recommend-img{
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .menu-wrapper{
   width: 100%;
   height: auto;
   position: relative;
   margin: auto auto 100px auto;
 }
+
 .menu-container{
   width: 100%;
   height: auto;
   margin: auto;
 }
+
 .beverage{
   padding-right: 270px;
 }
+
 .food-title, .drink-title{
   font-size: 2rem;
   border-bottom: solid 2px white;
   margin-top: 60px;
   color: white;
 }
-.food-list, .drink-list{
-}
+
 .food-article, .drink-article{
   display: inline-block;
   width: 24%;
   margin-top: 50px;
 }
+
 .food-img-banner, .drink-img-banner{
   width: 100%;
   height: 150px;
 }
+
 .menu-img{
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .food-detail, .drink-detail{
   color: white;
   height: 100px;
   padding: 10px 0 0 10px;
 }
+
 .select-container{
   width: 100%;
   text-align: center;
 }
+
 .select-container button{
   width: 80%;
 }
+
 .add-cart, .select-btn, .save-changes{
   width: 100%;
   height: auto;
@@ -728,6 +807,7 @@ button{
   font-size: 1.2rem;
   text-transform: uppercase;
 }
+
 .cart-container{
   display: block;
   width: 270px;
@@ -737,15 +817,18 @@ button{
   top: 0;
   right: 0;
 }
+
 .cart{
   width: 270px;
   top: 0;
   z-index: 50;
 }
+
 .zigzag-top{
   height: 10px;
   background: url("images/zigzag-top.png");
 }
+
 .input-coupon{
   height: auto;
   background-color: #dedede;
@@ -753,14 +836,17 @@ button{
   text-align: center;
   font-size: 1.3rem;
 }
+
 .coupon-code, .coupon-apply-btn{
   height: 30px;
   font-size: 1.2rem;
 }
+
 .coupon-code{
   width: 150px;
   border-radius: 5px;
 }
+
 .coupon-apply-btn{
   background-color: #e0183b;
   color: white;
@@ -776,60 +862,75 @@ button{
   height: auto;
   padding: 10px;
 }
+
 .order-beverages{
   transition: .7s ease;
 }
+
 .order-beverages-details{
   padding: 10px 0;
   width: 100%;
   height: 100%;
   border-bottom: dashed 1px black;
 }
+
 .order-name-price{
   width: 100%;
   display: flex;
 }
+
 .order-name{
   width: 60%;
 }
+
 .order-price{
   text-align: right;
   width: 40%;
 }
+
 .remove-edit-container{
   margin-top: 5px;
   width: 100%;
 }
+
 .remove-btn{
   background: black;
   color: white;
   margin-right: 10px;
 }
+
 .edit-btn{
   background: #006E7F;
   color: white;
 }
+
 .tax{
   display: flex;
   padding: 10px 0;
 }
+
 .tax-title{
   width: 60%;
 }
+
 .tax-price{
   text-align: right;
   width: 40%;
 }
+
 .total-price{
   display: flex;
 }
+
 .total-title{
   width: 60%;
 }
+
 .total{
   text-align: right;
   width: 40%;
 }
+
 .zigzag-bottom{
   height: 10px;
   background: url("images/zigzag-bottom.png");
@@ -841,19 +942,24 @@ button{
   font-stretch: condensed;
   margin-bottom: 20px;
 }
+
 .order-details-title{
   font-size: 1.7rem;
 }
+
 .tax{
   border-bottom: dashed 1px black;
 }
+
 .total-price{
   font-size: 1.5rem;
   border-bottom: dashed 1px black;
 }
+
 .total-amount{
   color: #006E7F;
 }
+
 .payment{
   width: 100%;
   height: auto;
@@ -891,6 +997,7 @@ button{
   transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
   z-index: 400;
 }
+
 .modal-content-container{
   position: absolute;
   top: 50%;
@@ -903,26 +1010,32 @@ button{
   z-index: 100;
   padding: 1rem 1.5rem;
 }
+
 .close-btn{
   font-size: 2rem;
   height: 10%;
   cursor: pointer;
 }
+
 .modal-content{
   width: 100%;
   height: 90%;
 }
+
 .modal-header{
   display: flex;
   font-size: 1.5rem;
 }
+
 .modal-product{
   width: 50%;
 }
+
 .modal-price{
   width: 50%;
   text-align: right;
 }
+
 .modal-img-container{
   width: 100%;
   height: 400px;
@@ -934,10 +1047,12 @@ button{
   height: 100%;
   object-fit: cover;
 }
+
 .modal-add-cart, .modal-edit-cart{
   display: flex;
   align-items: center;
 }
+
 .modal-edit-cart{
   display: none;
 }
@@ -949,9 +1064,11 @@ button{
   justify-content: space-between;
   align-items: center;
 }
+
 .minus-btn-container, .plus-btn-container{
   width: 15%;
 }
+
 .input-count-container{
   width: 60%;
 }
@@ -961,16 +1078,19 @@ button{
   width: 100%;
   border-radius: 10px;
 }
+
 .minus-btn, .plus-btn, .edit-minus-btn, .edit-plus-btn{
   height: 100%;
   width: 100%;
   font-size: 1.3rem;
   background-color: #dedede;
 }
+
 .add-cart-container, .save-changes-container{
   width: 70%;
   padding: 0 10px;
 }
+
 .mobile-cart-nav{
   display: none;
 }
@@ -980,68 +1100,76 @@ button{
   max-width: 1440px;
   margin: auto;
 }
+
 .store-title-container{
   margin-top: 350px;
   width: 100%;
   margin-bottom: 100px;
 }
+
 .store-title{
   border-bottom: solid 2px white;
   color: white;
   padding-left: 10px;
 }
+
 .store-details-container{
   width: 100%;
 }
+
 .store-details{
   background: black;
 }
+
 .location-title-container{
   padding: 30px 60px;
   color: white;
 }
+
 .specific-details-container{
   display: flex;
   height: 400px;
   margin-bottom: 50px;
 }
+
 .store-img-container, .address-hours-container, .map-container{
   width: 33%;
   height: 100%;
 }
+
 .store-img-container{
   display: flex;
   justify-content: center;
 }
+
 .store-img{
   object-fit: cover;
   width: 70%;
   height: 70%;
 }
+
 .address-hours-container{
   line-height: 1.6;
   font-size: 1.3rem;
   color: white;
 }
-.adress{
-  height: 50%;
-}
-.hours{
-  height: 50%;
-}
-.map-container{
 
+.adress, .hours{
+  height: 50%;
 }
+
 .map-container iframe{
   width: 80%;
   height: 60%;
 }
+
 
 /*Payment*/
 .payment-header{
   width: 100%;
   height: auto;
 }
+
 .payment-header-container{
   max-width: 1574px;
   margin: auto;
@@ -1050,6 +1178,7 @@ button{
   line-height: 50px;
   padding: 30px 0;
 }
+
 .menu-bar-payment{
   width: 30%;
   height: auto;
@@ -1068,6 +1197,7 @@ button{
   font-size: 0.8rem;
   position: relative;
 }
+
 .payment-bar-payment:after{
   content: "";
   width: 0;
@@ -1079,6 +1209,7 @@ button{
   border-right: 10px solid #006492;
   position: absolute;
 }
+
 .cart-bar-payment{
   width: 30%;
   height: auto;
@@ -1087,6 +1218,7 @@ button{
   font-size: 0.8rem;
   display: none;
 }
+
 .payment-cart-btn{
   width: 100%;
   height: 100%;
@@ -1098,6 +1230,7 @@ button{
   font-stretch: condensed;
   font-weight: bold;
 }
+
 .payment-cart-container{
   display: none;
   width: 270px;
@@ -1107,44 +1240,53 @@ button{
   top: 0;
   right: 0;
 }
+
 .payment-body{
   max-width: 1440px;
   position: relative;
   margin: auto;
 }
+
 .payment-form-wrapper{
   position: relative;
   padding-right: 270px;
 }
+
 .payment-form{
   max-width: 450px;
   margin: auto;
 }
+
 .input-container{
   width: 90%;
   color: white;
   font-family: 'Roboto', sans-serif;
   margin: 0 auto 20px auto;
 }
+
 .validation-field{
   width: 100%;
   position: relative;
 }
+
 .validation-field input{
   width: 100%;
   padding: 6px 5px;
   border: 0;
   border-radius: 3px;
 }
+
 .receipt{
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   font-stretch: condensed;
 }
+
 .confirm-payment{
   width: 90%;
   margin: auto;
 }
+
 .confirm-payment-btn{
   width: 100%;
   height: auto;
@@ -1156,9 +1298,11 @@ button{
   font-family: 'Oswald', sans-serif;
   border-radius: 5px;
 }
+
 .payment-mobile-cart-nav{
   display:none;
 }
+
 .confirmation-content-container, .alert-content-container{
   position: absolute;
   top: 50%;
@@ -1171,6 +1315,7 @@ button{
   z-index: 100;
   padding: 1rem 1.5rem;
 }
+
 .payment-cart-container{
   display: block;
   width: 270px;
@@ -1180,20 +1325,26 @@ button{
   top: 0;
   right: 0;
 }
+
 .confirmation-message, .alert-message{
   width: 100%;
   height: auto;
   margin: 10px 0;
 }
+
 .confirmation-close-btn-container, .alert-close-btn-container{
   width: 100%;
 }
+
 .confirm-close-btn, .alert-close-btn{
   border: solid 2px black;
   padding: 2px 4px;
   border-radius: 5px;
   right: 0;
   font-size: 1rem;
+}
+.order-date-time-details{
+  margin: 30px 0;
 }
 
 @media only screen and (max-width: 1023px){
@@ -1533,9 +1684,10 @@ button{
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 1;
     transition: linear 0.25s, opacity 0.25s 0s, transform 0.25s ease;
-    z-index: 100;
+    z-index: 300;
     overflow: scroll;
   }
+
   .payment-form-wrapper{
     padding: 0;
   }
