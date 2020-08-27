@@ -29,53 +29,58 @@ function closeAlertModal(){
   }
 }
 
-//Refresh date and time after 10 minutes if user select not-ASAP//
-if(localStorage.getItem("orderTime")){
-  removeOrderTerm();
-}
-
-function removeOrderTerm(){
-  if(localStorage.getItem("orderTime") != "ASAP"){
-    setTimeout(removeSelectedTerm, 600000);
-  }
-}
-
-function removeSelectedTerm(){
-  localStorage.removeItem("orderTime");
-  localStorage.removeItem("orderDate");
-}
-
-//Refresh the local storage if there is 15 minutes of idle time//
-let userActivityTimeout = null;
-
-//Function to reset user inactivity time//
-function resetUserActivityTimeOut(){
-  clearTimeout(userActivityTimeout);
-  userActivityTimeout = setTimeout(() =>{
-    inactiveUserAction();
-  },900000);
-}
-
-//Function what will happen when user action is inactive//
-function inactiveUserAction(){
-  localStorage.clear();
-  openAlertModal();
-  alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
-}
-
-//Function which will reset inactivity timeout(event which will start the timer)//
-function activateActivityTracker(){
-  window.addEventListener("scroll", resetUserActivityTimeOut);
-  window.addEventListener("keydown", resetUserActivityTimeOut);
-  window.addEventListener("load", resetUserActivityTimeOut);
-  window.addEventListener("click", resetUserActivityTimeOut);
-  window.addEventListener("pagehide", resetUserActivityTimeOut);
-}
-
-//If products are in cart, start the timer//
+//---Clear local storage when user have inactivity time---//
 if(localStorage.getItem("shoppingCart")){
-  activateActivityTracker();
+  activityWatcher();
 }
+
+function activityWatcher(){
+
+    //The number of seconds that have passed
+    //since the user was active.
+    var secondsSinceLastActivity = 0;
+
+    //Five minutes. 60 x 5 = 300 seconds.
+    var maxInactivity = (60 * 15);
+
+    //Setup the setInterval method to run
+    //every second. 1000 milliseconds = 1 second.
+    setInterval(function(){
+        secondsSinceLastActivity++;
+        //console.log(secondsSinceLastActivity + ' seconds since the user was last active');
+        //if the user has been inactive or idle for longer
+        //then the seconds specified in maxInactivity
+        if(secondsSinceLastActivity > maxInactivity){
+          //Redirect them to notice to restart your order
+          localStorage.clear();
+          openAlertModal();
+          alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
+        }
+    }, 1000);
+
+    //The function that will be called whenever a user is active
+    function activity(){
+        //reset the secondsSinceLastActivity variable
+        //back to 0
+        secondsSinceLastActivity = 0;
+    }
+
+    //An array of DOM events that should be interpreted as
+    //user activity.
+    var activityEvents = [
+        'mousedown', 'mousemove', 'keydown',
+        'scroll', 'touchstart'
+    ];
+
+    //add these events to the document.
+    //register the activity function as the listener parameter.
+    activityEvents.forEach(function(eventName) {
+        document.addEventListener(eventName, activity, true);
+    });
+
+
+}
+
 
 //---Alert if cart is empty---//
 const paymentBarBtn = document.querySelector(".payment-bar-btn");
