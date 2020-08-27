@@ -69,6 +69,7 @@ function activateActivityTracker(){
   window.addEventListener("keydown", resetUserActivityTimeOut);
   window.addEventListener("load", resetUserActivityTimeOut);
   window.addEventListener("click", resetUserActivityTimeOut);
+  window.addEventListener("pagehide", resetUserActivityTimeOut);
 }
 
 //If products are in cart, start the timer//
