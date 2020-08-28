@@ -1,154 +1,3 @@
-//---Alert Process---//
-const alertModal = document.querySelector(".alert-modal");
-const alertCloseBtn = document.querySelector(".alert-close-btn");
-const alertMessage = document.querySelector(".alert-message");
-
-//Close alert message//
-if(alertCloseBtn){
-  alertCloseBtn.addEventListener("click", () =>{
-    closeAlertModal();
-  });
-}
-
-function openAlertModal(){
-  alertModal.style.visibility = "visible";
-  alertModal.style.opacity = "1";
-}
-
-function closeAlertModal(){
-  alertModal.style.visibility = "hidden";
-  alertModal.style.opacity = "0";
-  if(alertMessage.innerHTML === "<p>Please select order type</p>"){
-    document.location.href = "select-order-type.html";
-  }else if(alertMessage.innerHTML === "<p>Please select order Time and Date</p>"){
-    document.location.href = "select-order-type.html";
-  }else if(alertMessage.innerHTML === "<p>Please add item to cart</p>"){
-    document.location.href = "menu.html";
-  }else if(alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>"){
-    document.location.href = "index.html";
-  }
-}
-
-//---Clear local storage when user have inactivity time---//
-if(localStorage.getItem("shoppingCart")){
-  activityWatcher();
-}
-
-function activityWatcher(){
-
-    //The number of seconds that have passed
-    //since the user was active.
-    var secondsSinceLastActivity = 0;
-
-    //Five minutes. 60 x 5 = 300 seconds.
-    var maxInactivity = (60 * 15);
-
-    //Setup the setInterval method to run
-    //every second. 1000 milliseconds = 1 second.
-    setInterval(function(){
-        secondsSinceLastActivity++;
-        //console.log(secondsSinceLastActivity + ' seconds since the user was last active');
-        //if the user has been inactive or idle for longer
-        //then the seconds specified in maxInactivity
-        if(secondsSinceLastActivity > maxInactivity){
-          //Redirect them to notice to restart your order
-          localStorage.clear();
-          openAlertModal();
-          alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
-        }
-    }, 1000);
-
-    //The function that will be called whenever a user is active
-    function activity(){
-        //reset the secondsSinceLastActivity variable
-        //back to 0
-        secondsSinceLastActivity = 0;
-    }
-
-    //An array of DOM events that should be interpreted as
-    //user activity.
-    var activityEvents = [
-        'mousedown', 'mousemove', 'keydown',
-        'scroll', 'touchstart'
-    ];
-
-    //add these events to the document.
-    //register the activity function as the listener parameter.
-    activityEvents.forEach(function(eventName) {
-        document.addEventListener(eventName, activity, true);
-    });
-}
-
-
-
-
-//---Alert if cart is empty---//
-const paymentBarBtn = document.querySelector(".payment-bar-btn");
-const paymentBtn = document.querySelector(".payment-btn");
-const paymentNavBtn = document.querySelector(".place-order-btn");
-
-//alert message for payment bar btn//
-if(paymentBarBtn){
-  paymentBarBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
-      paymentBarBtn.setAttribute("href", "payment.html");
-    }else if(localStorage.getItem("shoppingCart") === null){
-      paymentBarBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
-      paymentBarBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please select order type</p>";
-    }else{
-      paymentBarBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }
-  });
-};
-
-//alert message for payment btn(desktop)//
-if(paymentBtn){
-  paymentBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
-      paymentBtn.setAttribute("href", "payment.html");
-    }else if(localStorage.getItem("shoppingCart") === null){
-      paymentBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
-      paymentBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please select order type</p>";
-    }else{
-      paymentBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }
-  });
-};
-
-//alert message for payment nav btn(mobile)//
-if(paymentNavBtn){
-  paymentNavBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
-      paymentNavBtn.setAttribute("href", "payment.html");
-    }else if(localStorage.getItem("shoppingCart") === null){
-      paymentNavBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
-      paymentNavBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please select order type</p>";
-    }else{
-      paymentNavBtn.removeAttribute("href");
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }
-  });
-};
 
 
 //---Carousel (Top page)---//
@@ -881,6 +730,170 @@ if(paymentCartContainer){
     }
   });
 }
+
+
+//---Alert Process---//
+const alertModal = document.querySelector(".alert-modal");
+const alertCloseBtn = document.querySelector(".alert-close-btn");
+const alertMessage = document.querySelector(".alert-message");
+
+//Close alert message//
+if(alertCloseBtn){
+  alertCloseBtn.addEventListener("click", () =>{
+    changePageOrClose();
+  });
+}
+
+function openAlertModal(){
+  alertModal.style.visibility = "visible";
+  alertModal.style.opacity = "1";
+  alertMessage.innerHTML = "";
+}
+
+function closeAlertModal(){
+  alertModal.style.visibility = "hidden";
+  alertModal.style.opacity = "0";
+}
+
+function changePageOrClose(){
+  if(alertMessage.innerHTML === "<p>Please select order type</p>"){
+    document.location.href = "select-order-type.html";
+  }else if(alertMessage.innerHTML === "<p>Please select order Time and Date</p>"){
+    document.location.href = "select-order-type.html";
+  }else if(alertMessage.innerHTML === "<p>Please add item to cart</p>"){
+    document.location.href = "menu.html";
+  }else if(alertMessage.innerHTML === "<p>Please input your name</p>"){
+    closeAlertModal();
+  }else if(alertMessage.innerHTML === "<p>Please input your phone number</p>"){
+    closeAlertModal();
+  }else if(alertMessage.innerHTML === "<p>Please input your email address</p>"){
+    closeAlertModal();
+  }else if(alertMessage.innerHTML === "<p>Your session has expired. Please restart your order</p>"){
+    document.location.href = "index.html";
+  }
+}
+
+//---Clear local storage when user have inactivity time---//
+if(localStorage.getItem("shoppingCart")){
+  activityWatcher();
+}
+
+function activityWatcher(){
+
+    //The number of seconds that have passed
+    //since the user was active.
+    var secondsSinceLastActivity = 0;
+
+    //Ten minutes. 60 x 5 = 300 seconds.
+    var maxInactivity = (10 * 1);
+
+    //Setup the setInterval method to run
+    //every second. 1000 milliseconds = 1 second.
+    setInterval(function(){
+        secondsSinceLastActivity++;
+        console.log(secondsSinceLastActivity + ' seconds since the user was last active');
+        //if the user has been inactive or idle for longer
+        //then the seconds specified in maxInactivity
+        if(secondsSinceLastActivity > maxInactivity){
+          //Redirect them to notice to restart your order
+          localStorage.clear();
+          openAlertModal();
+          alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
+        }
+    }, 1000);
+
+    //The function that will be called whenever a user is active
+    function activity(){
+        //reset the secondsSinceLastActivity variable
+        //back to 0
+        secondsSinceLastActivity = 0;
+    }
+
+    //An array of DOM events that should be interpreted as
+    //user activity.
+    var activityEvents = [
+        'mousedown', 'mousemove', 'keydown',
+        'scroll', 'touchstart', 'load'
+    ];
+
+    //add these events to the document.
+    //register the activity function as the listener parameter.
+    activityEvents.forEach(function(eventName) {
+        document.addEventListener(eventName, activity, true);
+    });
+}
+
+
+
+
+//---Alert if cart is empty---//
+const paymentBarBtn = document.querySelector(".payment-bar-btn");
+const paymentBtn = document.querySelector(".payment-btn");
+const paymentNavBtn = document.querySelector(".place-order-btn");
+
+//alert message for payment bar btn//
+if(paymentBarBtn){
+  paymentBarBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+      paymentBarBtn.setAttribute("href", "payment.html");
+    }else if(localStorage.getItem("shoppingCart") === null){
+      paymentBarBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      paymentBarBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order type</p>";
+    }else{
+      paymentBarBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }
+  });
+};
+
+//alert message for payment btn(desktop)//
+if(paymentBtn){
+  paymentBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+      paymentBtn.setAttribute("href", "payment.html");
+    }else if(localStorage.getItem("shoppingCart") === null){
+      paymentBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      paymentBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order type</p>";
+    }else{
+      paymentBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }
+  });
+};
+
+//alert message for payment nav btn(mobile)//
+if(paymentNavBtn){
+  paymentNavBtn.addEventListener("click", () =>{
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+      paymentNavBtn.setAttribute("href", "payment.html");
+    }else if(localStorage.getItem("shoppingCart") === null){
+      paymentNavBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      paymentNavBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order type</p>";
+    }else{
+      paymentNavBtn.removeAttribute("href");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    }
+  });
+};
+
 
 //---Confirmation Process---//
 const confirmBtn = document.querySelector(".confirm-payment-btn");
