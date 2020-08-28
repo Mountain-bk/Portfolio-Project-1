@@ -774,11 +774,13 @@ function changePageOrClose(){
 }
 
 //---Clear local storage when user have inactivity time---//
-window.addEventListener("load", ()=>{
-  if(localStorage.getItem("shoppingCart") || localStorage.getItem("orderDate")){
-    activityWatcher();
-  }
-});
+
+
+if(localStorage.getItem("shoppingCart") || localStorage.getItem("orderDate")){
+  activityWatcher();
+}
+
+
 
 
 function activityWatcher(){
@@ -788,12 +790,13 @@ function activityWatcher(){
     var secondsSinceLastActivity = 0;
 
     //Ten minutes. 60 x 5 = 300 seconds.
-    var maxInactivity = (60 * 10);
+    var maxInactivity = (60 * 1);
 
     //Setup the setInterval method to run
     //every second. 1000 milliseconds = 1 second.
     setInterval(function(){
         secondsSinceLastActivity++;
+        //console.log(secondsSinceLastActivity + ' seconds since the user was last active');
         //if the user has been inactive or idle for longer
         //then the seconds specified in maxInactivity
         if(secondsSinceLastActivity > maxInactivity){
@@ -814,8 +817,7 @@ function activityWatcher(){
     //An array of DOM events that should be interpreted as
     //user activity.
     var activityEvents = [
-        'mousedown', 'mousemove', 'keydown',
-        'scroll', 'touchstart', 'load'
+      'load', 'blur'
     ];
 
     //add these events to the document.
