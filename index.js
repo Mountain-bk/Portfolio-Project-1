@@ -794,7 +794,6 @@ function activityWatcher(){
     //every second. 1000 milliseconds = 1 second.
     setInterval(function(){
         secondsSinceLastActivity++;
-        console.log(secondsSinceLastActivity + ' seconds since the user was last active');
         //if the user has been inactive or idle for longer
         //then the seconds specified in maxInactivity
         if(secondsSinceLastActivity > maxInactivity){
