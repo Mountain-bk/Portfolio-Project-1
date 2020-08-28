@@ -529,7 +529,7 @@ if(modalAddCartContainer){
       if(window.innerWidth <= 690){
         changeToCloseCartBtn();
       }
-      }
+    }
   });
 }
 
@@ -774,9 +774,12 @@ function changePageOrClose(){
 }
 
 //---Clear local storage when user have inactivity time---//
-if(localStorage.getItem("shoppingCart")){
-  activityWatcher();
-}
+window.addEventListener("load", ()=>{
+  if(localStorage.getItem("shoppingCart") || localStorage.getItem("orderDate")){
+    activityWatcher();
+  }
+});
+
 
 function activityWatcher(){
 
@@ -785,7 +788,7 @@ function activityWatcher(){
     var secondsSinceLastActivity = 0;
 
     //Ten minutes. 60 x 5 = 300 seconds.
-    var maxInactivity = (10 * 1);
+    var maxInactivity = (60 * 10);
 
     //Setup the setInterval method to run
     //every second. 1000 milliseconds = 1 second.
