@@ -863,7 +863,7 @@ button{
   padding: 10px;
 }
 
-.order-beverages{
+.order-beverages, .confirmed-order-beverages{
   transition: .7s ease;
 }
 
