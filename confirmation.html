@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@469&display=swap" rel="stylesheet">
+    <title>Confirmation</title>
+  </head>
+  <body onload="return loadConfirmation()" onbeforeunload="return moveConfirmation()">
+    <div class="confirmation-container">
+      <div class="confiramtion-content">
+        <div class="confirmation-message">
+          <h2>Your Order is confirmed</h2>
+        </div>
+        <div class="confirmation-details">
+            <div class="order-details">
+              <div class="order-details-title">
+                <h3>ORDER DETAILS</h3>
+              </div>
+              <div class="order-beverages">
+
+              </div>
+              <div class="tax">
+                <div class="tax-title">
+                  <h3>TAX</h3>
+                </div>
+                <div class="tax-price">
+                  <h3 class="tax-amount"></h3>
+                </div>
+              </div>
+              <div class="total-price">
+                <div class="total-title">
+                  <h3>TOTAL</h3>
+                </div>
+                <div class="total">
+                  <h3 class="total-amount"></h3>
+                </div>
+              </div>
+              <div class="order-date-time-details">
+                <div class="selected-order-date">
+                  <div class="order-date-title">
+                    <h3>order date</h3>
+                  </div>
+                  <div class="order-date-details">
+
+                  </div>
+                </div>
+                <div class="selected-order-type">
+                  <div class="order-time-title">
+                    <h3>order time</h3>
+                  </div>
+                  <div class="order-time-details">
+
+                  </div>
+                </div>
+                <div class="selected-order-time">
+                  <div class="order-type-title">
+                    <h3>order type</h3>
+                  </div>
+                  <div class="order-type-details">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="home-btn-container">
+      <div class="home-btn">
+        <a class="home-btn-text" href="index.html">
+          <h3>home</h3>
+        </a>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
