@@ -985,7 +985,7 @@ button{
   font-size: 0.8rem;
 }
 
-.modal, .confirmation-modal, .alert-modal{
+.modal, .alert-modal{
   position: fixed;
   left: 0;
   top: 0;
@@ -1303,7 +1303,7 @@ button{
   display:none;
 }
 
-.confirmation-content-container, .alert-content-container{
+.alert-content-container{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1326,17 +1326,17 @@ button{
   right: 0;
 }
 
-.confirmation-message, .alert-message{
+.alert-message{
   width: 100%;
   height: auto;
   margin: 10px 0;
 }
 
-.confirmation-close-btn-container, .alert-close-btn-container{
+.alert-close-btn-container{
   width: 100%;
 }
 
-.confirm-close-btn, .alert-close-btn{
+.alert-close-btn{
   border: solid 2px black;
   padding: 2px 4px;
   border-radius: 5px;
@@ -1345,6 +1345,36 @@ button{
 }
 .order-date-time-details{
   margin: 30px 0 50px 0;
+}
+
+/*Confirmation Page*/
+.confirmation-container, .home-btn-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.confiramtion-content{
+  padding: 100px 10px 50px 10px;
+  margin: auto;
+}
+.confirmation-message{
+  color: white;
+  font-size: 1.5rem;
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+.home-btn{
+  background-color: #e0183b;
+  color: white;
+  font-size: 1.2rem;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 50px;
+  margin-bottom: 100px;
 }
 
 @media only screen and (max-width: 1023px){
