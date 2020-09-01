@@ -147,6 +147,8 @@ if(timeRange[0]){
 
 
 function createTimeText(key){
+  //Set Delivery Option timeout//
+  var deliveryTime = setDeliveryTime(key);
   //Set starting time of the interval
   var intervalStart = setIntervalStart(key);
   //Set end time of the interval
@@ -154,9 +156,24 @@ function createTimeText(key){
   //Text for the options
   var text = intervalStart + " - " + intervalEnd;
   if (document.title === "Delivery Order Time"){
-    return intervalStart
+    return deliveryTime
   } else if (document.title === "Pick Up Order Time")
   return text
+}
+
+function setDeliveryTime(key){
+  var hour = Math.floor(key / 60);
+  var minute = key % 60;
+  var deliveryMinute = minute + 15;
+  if (deliveryMinute == 60){
+    //convert 60 to 00
+    var deliveryHour = hour + 1;
+    deliveryMinute = "00";
+  } else {
+    var deliveryHour = hour;
+  }
+  var deliveryTime = deliveryHour + ":" + deliveryMinute;
+  return deliveryTime
 }
 
 function setIntervalStart(key){
@@ -273,10 +290,34 @@ if(next){
       }else if(document.title == "Pick Up Order Time"){
         localStorage.setItem("orderType", "Pick Up");
       }
+      let date = new Date();
+      let time = date.getTime();
+      localStorage.setItem("orderSetTime", time);
     }
   });
 }
 
+
+//---Delete order date, time and type after 15 minutes since you set the order type---//
+if(localStorage.getItem("orderSetTime")){
+  window.addEventListener("load", ()=>{
+    checkOrderTime();
+  });
+}
+
+function checkOrderTime(){
+  let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 900000;
+  let date = new Date();
+  let newLoadTime = date.getTime();
+  if(limitOrderTime <= newLoadTime){
+    localStorage.removeItem("orderDate");
+    localStorage.removeItem("orderTime");
+    localStorage.removeItem("orderType");
+    localStorage.removeItem("orderSetTime");
+    openAlertModal();
+    alertMessage.innerHTML = "<p>Order Term session has expired. Please select order type</p>";
+  }
+}
 
 //Set order term when you click ASAP button//
 const asap = document.querySelector(".a-asap");
@@ -292,8 +333,6 @@ if(asap){
     }
   });
 }
-
-
 
 
 
@@ -744,16 +783,19 @@ if(alertCloseBtn){
   });
 }
 
-function openAlertModal(){
-  alertModal.style.visibility = "visible";
-  alertModal.style.opacity = "1";
-  alertMessage.innerHTML = "";
+if(alertModal){
+  function openAlertModal(){
+    alertModal.style.visibility = "visible";
+    alertModal.style.opacity = "1";
+    alertMessage.innerHTML = "";
+  }
+
+  function closeAlertModal(){
+    alertModal.style.visibility = "hidden";
+    alertModal.style.opacity = "0";
+  }
 }
 
-function closeAlertModal(){
-  alertModal.style.visibility = "hidden";
-  alertModal.style.opacity = "0";
-}
 
 function changePageOrClose(){
   if(alertMessage.innerHTML === "<p>Please select order type</p>"){
@@ -770,64 +812,10 @@ function changePageOrClose(){
     closeAlertModal();
   }else if(alertMessage.innerHTML === "<p>Your session has expired. Please restart your order</p>"){
     document.location.href = "index.html";
+  }else if(alertMessage.innerHTML === "<p>Order Term session has expired. Please select order type</p>"){
+    document.location.href = "select-order-type.html";
   }
 }
-
-//---Clear local storage when user have inactivity time---//
-
-
-if(localStorage.getItem("shoppingCart") || localStorage.getItem("orderDate")){
-  activityWatcher();
-}
-
-
-
-
-function activityWatcher(){
-
-    //The number of seconds that have passed
-    //since the user was active.
-    var secondsSinceLastActivity = 0;
-
-    //Ten minutes. 60 x 5 = 300 seconds.
-    var maxInactivity = (60 * 1);
-
-    //Setup the setInterval method to run
-    //every second. 1000 milliseconds = 1 second.
-    setInterval(function(){
-        secondsSinceLastActivity++;
-        //console.log(secondsSinceLastActivity + ' seconds since the user was last active');
-        //if the user has been inactive or idle for longer
-        //then the seconds specified in maxInactivity
-        if(secondsSinceLastActivity > maxInactivity){
-          //Redirect them to notice to restart your order
-          localStorage.clear();
-          openAlertModal();
-          alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
-        }
-    }, 1000);
-
-    //The function that will be called whenever a user is active
-    function activity(){
-        //reset the secondsSinceLastActivity variable
-        //back to 0
-        secondsSinceLastActivity = 0;
-    }
-
-    //An array of DOM events that should be interpreted as
-    //user activity.
-    var activityEvents = [
-      'load', 'blur'
-    ];
-
-    //add these events to the document.
-    //register the activity function as the listener parameter.
-    activityEvents.forEach(function(eventName) {
-        document.addEventListener(eventName, activity, true);
-    });
-}
-
-
 
 
 //---Alert if cart is empty---//
@@ -898,11 +886,43 @@ if(paymentNavBtn){
   });
 };
 
+//---Clear local storage when user have inactivity time---//
+
+if(localStorage.getItem("shoppingCart") || localStorage.getItem("orderDate")){
+  window.addEventListener("load", ()=>{
+    if(localStorage.getItem("FormerLoadTime")){
+      checkIdleTime();
+    }else{
+      setFormerLoadTime();
+    }
+  })
+}
+
+function checkIdleTime(){
+  //set limit time after 30 minutes from last load time
+  let limitTime = JSON.parse(localStorage.getItem("FormerLoadTime")) + 1800000;
+  let date = new Date();
+  let newLoadTime = date.getTime();
+  //if wake up load time is after 30 minutes than former load time
+  if(limitTime <= newLoadTime){
+    localStorage.clear();
+    openAlertModal();
+    alertMessage.innerHTML = "<p>Your session has expired. Please restart your order</p>";
+  }else{
+    setFormerLoadTime();
+  }
+}
+
+function setFormerLoadTime(){
+  let date = new Date();
+  let time = date.getTime();
+  localStorage.setItem("FormerLoadTime", time);
+}
+
+
 
 //---Confirmation Process---//
 const confirmBtn = document.querySelector(".confirm-payment-btn");
-const confirmModal = document.querySelector(".confirmation-modal");
-const paymentCloseBtn = document.querySelector(".confirm-close-btn");
 const inputName = document.querySelector("#customer-name");
 const inputPhone = document.querySelector("#customer-phone");
 const inputEmail = document.querySelector("#customer-email");
@@ -910,9 +930,14 @@ const inputEmail = document.querySelector("#customer-email");
 if(confirmBtn){
   confirmBtn.addEventListener("click", () =>{
     if(localStorage.getItem("orderDate") && localStorage.getItem("orderTime") && localStorage.getItem("shoppingCart") && inputName.value != "" && inputPhone.value != "" && inputEmail.value != ""){
-      confirmModal.style.visibility = "visible";
-      confirmModal.style.opacity = "1";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+      checkOrderTime();
+      inputName.value = "";
+      inputPhone.value = "";
+      inputEmail.value = "";
+      if(localStorage.getItem("orderDate")){
+        document.location.href = "confirmation.html";
+      }
+    }else if(localStorage.getItem("orderDate") === null){
       openAlertModal();
       alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
     }else if(localStorage.getItem("shoppingCart") === null){
@@ -937,21 +962,13 @@ if(confirmBtn){
 }
 
 
-//Close Modal(Payment Confirmation)//
-
-if(paymentCloseBtn){
-  paymentCloseBtn.addEventListener("click", ()=>{
-    closeConfirmationModal();
-    inputName.value = "";
-    inputPhone.value = "";
-    inputEmail.value = "";
-    localStorage.clear();
-    document.location.href = "index.html";
-  });
+//---Create confirmation page---//
+function loadConfirmation(){
+  localStorage.clear();
 }
-function closeConfirmationModal(){
-  confirmModal.style.visibility = "hidden";
-  confirmModal.style.opacity = "0";
+
+function moveConfirmation(){
+  return "";
 }
 
 
