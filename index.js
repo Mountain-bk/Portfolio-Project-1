@@ -298,39 +298,24 @@ if(next){
 }
 
 
-//---Delete order date, time and type after 15 minutes since you set the order type---//
-if(localStorage.getItem("orderSetTime")){
-  window.addEventListener("load", ()=>{
-    checkOrderTime();
-  });
-}
-
-function checkOrderTime(){
-  let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 900000;
-  let date = new Date();
-  let newLoadTime = date.getTime();
-  if(limitOrderTime <= newLoadTime){
-    localStorage.removeItem("orderDate");
-    localStorage.removeItem("orderTime");
-    localStorage.removeItem("orderType");
-    localStorage.removeItem("orderSetTime");
-    openAlertModal();
-    alertMessage.innerHTML = "<p>Order Term session has expired. Please select order type</p>";
-  }
-}
 
 //Set order term when you click ASAP button//
 const asap = document.querySelector(".a-asap");
 if(asap){
   asap.addEventListener("click", () =>{
+    let date = new Date();
+    let time = date.getTime();
     var todayDate = date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear();
     localStorage.setItem("orderDate", todayDate);
     localStorage.setItem("orderTime", "ASAP");
     if(document.title == "Delivery Order Time"){
       localStorage.setItem("orderType", "Delivery");
+      localStorage.setItem("orderSetTime", time);
     }else if(document.title == "Pick Up Order Time"){
       localStorage.setItem("orderType", "Pick Up");
+      localStorage.setItem("orderSetTime", time);
     }
+
   });
 }
 
@@ -920,6 +905,30 @@ function setFormerLoadTime(){
 }
 
 
+//---Delete order date, time and type after 15 minutes since you set the order type---//
+if(alertModal){
+
+  if(localStorage.getItem("orderSetTime")){
+    window.addEventListener("load", ()=>{
+      checkOrderTime();
+    });
+  }
+
+  function checkOrderTime(){
+    let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 900000;
+    let date = new Date();
+    let newLoadTime = date.getTime();
+    if(limitOrderTime <= newLoadTime){
+      localStorage.removeItem("orderDate");
+      localStorage.removeItem("orderTime");
+      localStorage.removeItem("orderType");
+      localStorage.removeItem("orderSetTime");
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Order Term session has expired. Please select order type</p>";
+    }
+  }
+}
+
 
 //---Confirmation Process---//
 const confirmBtn = document.querySelector(".confirm-payment-btn");
@@ -963,12 +972,48 @@ if(confirmBtn){
 
 
 //---Create confirmation page---//
+const confirmedOrderBeverage = document.querySelector(".confirmed-order-beverages");
 function loadConfirmation(){
+  displayConfirmationCart();
   localStorage.clear();
 }
 
 function moveConfirmation(){
   return "";
+}
+
+function displayConfirmationCart(){
+  var cartArray = shoppingCart.listCart();
+  var output = " ";
+  for(var i in cartArray){
+    output +=
+    "<div class='order-beverages-details'>" +
+      "<div class='order-name-price'>" +
+        "<div class='order-name'>" +
+          "<h4>" + cartArray[i].product + " x " + cartArray[i].count + "</h4>" +
+          "<p>" + cartArray[i].details + "</p>" +
+        "</div>" +
+        "<div class='order-price'>" +
+          "<h4>" + "$" + cartArray[i].price * cartArray[i].count + "</h4>" +
+          "<p>(plus tax)</p>" +
+        "</div>" +
+      "</div>" +
+    "</div>"
+  };
+  confirmedOrderBeverage.innerHTML = output;
+  totalTax.innerHTML = "$" + shoppingCart.totalTax().toFixed(2);
+  totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
+  var selectedDate = localStorage.getItem("orderDate");
+  orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
+  var selectedTime = localStorage.getItem("orderTime");
+  if(selectedTime === "ASAP"){
+    orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
+  }else{
+    selectedTime = JSON.stringify(selectedTime).replace(/"/g, "");
+    orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
+  }
+  var selectedType = localStorage.getItem("orderType");
+  orderTypeDetails.innerHTML = "<p>" + selectedType + "</p>";
 }
 
 
