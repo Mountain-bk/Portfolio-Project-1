@@ -1070,6 +1070,7 @@ if(orderBeverage || selectPageDetails){
     orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
   //Input Not Selected if user didn't select yet
   }else{
+    orderDateTitle.innerHTML = "<h3>Order Date</h3>"
     orderDateDetails.innerHTML = "<p>Not selected</p>"
   }
 
@@ -1093,6 +1094,7 @@ if(orderBeverage || selectPageDetails){
       orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
     }
   }else{
+    orderTimeTitle.innerHTML = "<h3>Order Time</h3>"
     orderTimeDetails.innerHTML = "<p>Not selected</p>"
   }
 
