@@ -283,12 +283,20 @@ if(next){
       alertMessage.innerHTML = "<p>Please Select Time</p>";
     }else{
       next.setAttribute("href", "menu.html");
-      localStorage.setItem("orderDate", orderDate);
-      localStorage.setItem("orderTime", orderTime);
       if(document.title == "Delivery Order Time"){
-        localStorage.setItem("orderType", "Delivery");
+        localStorage.setItem("DeliveryDate", orderDate);
+        localStorage.setItem("DeliveryTime", orderTime);
+        if(localStorage.getItem("PickUpDate")){
+          localStorage.removeItem("PickUpDate");
+          localStorage.removeItem("PickUpTime");
+        }
       }else if(document.title == "Pick Up Order Time"){
-        localStorage.setItem("orderType", "Pick Up");
+        localStorage.setItem("PickUpDate", orderDate);
+        localStorage.setItem("PickUpTime", orderTime);
+        if(localStorage.getItem("DeliveryDate")){
+          localStorage.removeItem("DeliveryDate");
+          localStorage.removeItem("DeliveryTime");
+        }
       }
       let date = new Date();
       let time = date.getTime();
@@ -306,14 +314,22 @@ if(asap){
     let date = new Date();
     let time = date.getTime();
     var todayDate = date.getDate() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear();
-    localStorage.setItem("orderDate", todayDate);
-    localStorage.setItem("orderTime", "ASAP");
     if(document.title == "Delivery Order Time"){
-      localStorage.setItem("orderType", "Delivery");
+      localStorage.setItem("DeliveryDate", todayDate);
+      localStorage.setItem("DeliveryTime", "ASAP");
       localStorage.setItem("orderSetTime", time);
+      if(localStorage.getItem("PickUpDate")){
+        localStorage.removeItem("PickUpDate");
+        localStorage.removeItem("PickUpTime");
+      }
     }else if(document.title == "Pick Up Order Time"){
-      localStorage.setItem("orderType", "Pick Up");
+      localStorage.setItem("PickUpDate", todayDate);
+      localStorage.setItem("PickUpTime", "ASAP");
       localStorage.setItem("orderSetTime", time);
+      if(localStorage.getItem("DeliveryDate")){
+        localStorage.removeItem("DeliveryDate");
+        localStorage.removeItem("DeliveryTime");
+      }
     }
 
   });
@@ -797,8 +813,8 @@ function changePageOrClose(){
     closeAlertModal();
   }else if(alertMessage.innerHTML === "<p>Your session has expired. Please restart your order</p>"){
     document.location.href = "index.html";
-  }else if(alertMessage.innerHTML === "<p>Order Term session has expired. Please select order type</p>"){
-    document.location.href = "select-order-type.html";
+  }else if(alertMessage.innerHTML === "<p>Delivery/Pick Up session has expired</p>"){
+    closeAlertModal();
   }
 }
 
@@ -811,7 +827,7 @@ const paymentNavBtn = document.querySelector(".place-order-btn");
 //alert message for payment bar btn//
 if(paymentBarBtn){
   paymentBarBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
       paymentBarBtn.setAttribute("href", "payment.html");
     }else if(localStorage.getItem("shoppingCart") === null){
       paymentBarBtn.removeAttribute("href");
@@ -832,7 +848,7 @@ if(paymentBarBtn){
 //alert message for payment btn(desktop)//
 if(paymentBtn){
   paymentBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
       paymentBtn.setAttribute("href", "payment.html");
     }else if(localStorage.getItem("shoppingCart") === null){
       paymentBtn.removeAttribute("href");
@@ -853,7 +869,7 @@ if(paymentBtn){
 //alert message for payment nav btn(mobile)//
 if(paymentNavBtn){
   paymentNavBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderDate") && localStorage.getItem("orderTime")){
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
       paymentNavBtn.setAttribute("href", "payment.html");
     }else if(localStorage.getItem("shoppingCart") === null){
       paymentNavBtn.removeAttribute("href");
@@ -873,7 +889,7 @@ if(paymentNavBtn){
 
 //---Clear local storage when user have inactivity time---//
 
-if(localStorage.getItem("shoppingCart") || localStorage.getItem("orderDate")){
+if(localStorage.getItem("shoppingCart") || localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
   window.addEventListener("load", ()=>{
     if(localStorage.getItem("FormerLoadTime")){
       checkIdleTime();
@@ -919,12 +935,13 @@ if(alertModal){
     let date = new Date();
     let newLoadTime = date.getTime();
     if(limitOrderTime <= newLoadTime){
-      localStorage.removeItem("orderDate");
-      localStorage.removeItem("orderTime");
-      localStorage.removeItem("orderType");
+      localStorage.removeItem("PickUpDate");
+      localStorage.removeItem("PickUpTime");
+      localStorage.removeItem("DeliveryDate");
+      localStorage.removeItem("DeliveryTime");
       localStorage.removeItem("orderSetTime");
       openAlertModal();
-      alertMessage.innerHTML = "<p>Order Term session has expired. Please select order type</p>";
+      alertMessage.innerHTML = "<p>Delivery/Pick Up session has expired</p>";
     }
   }
 }
@@ -938,15 +955,15 @@ const inputEmail = document.querySelector("#customer-email");
 
 if(confirmBtn){
   confirmBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("orderDate") && localStorage.getItem("orderTime") && localStorage.getItem("shoppingCart") && inputName.value != "" && inputPhone.value != "" && inputEmail.value != ""){
+    if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate") && localStorage.getItem("shoppingCart") && inputName.value != "" && inputPhone.value != "" && inputEmail.value != ""){
       checkOrderTime();
       inputName.value = "";
       inputPhone.value = "";
       inputEmail.value = "";
-      if(localStorage.getItem("orderDate")){
+      if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
         document.location.href = "confirmation.html";
       }
-    }else if(localStorage.getItem("orderDate") === null){
+    }else if(localStorage.getItem("DeliveryDate") === null || localStorage.getItem("PickUpDate") === null){
       openAlertModal();
       alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
     }else if(localStorage.getItem("shoppingCart") === null){
@@ -1003,38 +1020,72 @@ function displayConfirmationCart(){
   confirmedOrderBeverage.innerHTML = output;
   totalTax.innerHTML = "$" + shoppingCart.totalTax().toFixed(2);
   totalPrice.innerHTML = "$" + shoppingCart.totalAmount().toFixed(2);
-  var selectedDate = localStorage.getItem("orderDate");
-  orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
-  var selectedTime = localStorage.getItem("orderTime");
-  if(selectedTime === "ASAP"){
-    orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
-  }else{
-    selectedTime = JSON.stringify(selectedTime).replace(/"/g, "");
-    orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
+  if(localStorage.getItem("DeliveryDate")){
+    var selectedDate = localStorage.getItem("DeliveryDate");
+    var selectedTime = localStorage.getItem("DeliveryTime");
+    orderDateTitle.innerHTML = "<h3>Delivery Date</h3>";
+    orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
+    orderTimeTitle.innerHTML = "<h3>Delivery Time</h3>";
+    if(selectedTime === "ASAP"){
+      orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
+    }else{
+      selectedTime = JSON.stringify(selectedTime).replace(/"/g, "");
+      orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
+    }
+  }else if(localStorage.getItem("PickUpDate")){
+    var selectedDate = localStorage.getItem("PickUpDate");
+    var selectedTime = localStorage.getItem("PickUpTime");
+    orderDateTitle.innerHTML = "<h3>Pick Up Date</h3>";
+    orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
+    orderTimeTitle.innerHTML = "<h3>Pick Up Time</h3>";
+    if(selectedTime === "ASAP"){
+      orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
+    }else{
+      selectedTime = JSON.stringify(selectedTime).replace(/"/g, "");
+      orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
+    }
   }
-  var selectedType = localStorage.getItem("orderType");
-  orderTypeDetails.innerHTML = "<p>" + selectedType + "</p>";
+
 }
 
 
 //---Display order date time details(payment page)---//
+const orderDateTitle = document.querySelector(".order-date-title");
+const orderTimeTitle = document.querySelector(".order-time-title");
 const orderDateDetails = document.querySelector(".order-date-details");
-const orderTypeDetails = document.querySelector(".order-type-details");
 const orderTimeDetails = document.querySelector(".order-time-details");
 const selectPageDetails = document.querySelector(".current-order-type");
 
 //Display order date inside cart//
 if(orderBeverage || selectPageDetails){
-  if(localStorage.getItem("orderDate")){
-    var selectedDate = localStorage.getItem("orderDate");
+  //Input Delivery Details if user select delivery order
+  if(localStorage.getItem("DeliveryDate")){
+    var selectedDate = localStorage.getItem("DeliveryDate");
+    orderDateTitle.innerHTML = "<h3>Delivery Date</h3>"
     orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
+  //Input Pick Up Details if user select pick up order
+  }else if(localStorage.getItem("PickUpDate")){
+    var selectedDate = localStorage.getItem("PickUpDate");
+    orderDateTitle.innerHTML = "<h3>Pick Up Date</h3>"
+    orderDateDetails.innerHTML = "<p>" + selectedDate + "</p>";
+  //Input Not Selected if user didn't select yet
   }else{
     orderDateDetails.innerHTML = "<p>Not selected</p>"
   }
 
-  //Display order type inside cart//
-  if(localStorage.getItem("orderTime")){
-    var selectedTime = localStorage.getItem("orderTime");
+  //Display order time inside cart//
+  if(localStorage.getItem("DeliveryTime")){
+    var selectedTime = localStorage.getItem("DeliveryTime");
+    orderTimeTitle.innerHTML = "<h3>Delivery Time</h3>"
+    if(selectedTime === "ASAP"){
+      orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
+    }else{
+      selectedTime = JSON.stringify(selectedTime).replace(/"/g, "");
+      orderTimeDetails.innerHTML = "<p>" + selectedTime + "</p>";
+    }
+  }else if(localStorage.getItem("PickUpTime")){
+    var selectedTime = localStorage.getItem("PickUpTime");
+    orderTimeTitle.innerHTML = "<h3>Pick Up Time</h3>"
     if(selectedTime === "ASAP"){
       orderTimeDetails.innerHTML = "<p>30 minutes from current time</p>";
     }else{
@@ -1045,11 +1096,4 @@ if(orderBeverage || selectPageDetails){
     orderTimeDetails.innerHTML = "<p>Not selected</p>"
   }
 
-  //Display order time inside cart//
-  if(localStorage.getItem("orderType")){
-    var selectedType = localStorage.getItem("orderType");
-    orderTypeDetails.innerHTML = "<p>" + selectedType + "</p>";
-  }else{
-    orderTypeDetails.innerHTML = "<p>Not selected</p>"
-  }
 }
