@@ -930,7 +930,7 @@ if(alertModal){
   }
 
   function checkOrderTime(){
-    let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 3000;
+    let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 300000;
     let date = new Date();
     let newLoadTime = date.getTime();
     if(limitOrderTime <= newLoadTime){
@@ -978,7 +978,7 @@ if(confirmBtn){
         alertMessage.innerHTML = "<p>Please input your email address</p>";
       //Move to check order time is not expired
       }else{
-        let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 30000;
+        let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 300000;
         let date = new Date();
         let newLoadTime = date.getTime();
         if(limitOrderTime <= newLoadTime){
