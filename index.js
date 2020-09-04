@@ -162,15 +162,11 @@ function createTimeText(key){
 }
 
 function setDeliveryTime(key){
-  var hour = Math.floor(key / 60);
+  var deliveryHour = Math.floor(key / 60);
   var minute = key % 60;
-  var deliveryMinute = minute + 15;
-  if (deliveryMinute == 60){
-    //convert 60 to 00
-    var deliveryHour = hour + 1;
-    deliveryMinute = "00";
-  } else {
-    var deliveryHour = hour;
+  var deliveryMinute = minute;
+  if (deliveryMinute == 0){
+    deliveryMinute = "0" + minute;
   }
   var deliveryTime = deliveryHour + ":" + deliveryMinute;
   return deliveryTime
@@ -815,6 +811,9 @@ function changePageOrClose(){
     document.location.href = "index.html";
   }else if(alertMessage.innerHTML === "<p>Delivery/Pick Up session has expired</p>"){
     closeAlertModal();
+    location.reload();
+  }else if(alertMessage.innerHTML === "<p>Delivery/Pick Up session has expired<br>Please select order Time and Date</p>"){
+    document.location.href = "select-order-type.html";
   }
 }
 
@@ -900,8 +899,8 @@ if(localStorage.getItem("shoppingCart") || localStorage.getItem("DeliveryDate") 
 }
 
 function checkIdleTime(){
-  //set limit time after 30 minutes from last load time
-  let limitTime = JSON.parse(localStorage.getItem("FormerLoadTime")) + 1800000;
+  //set limit time after 15 minutes from last load time
+  let limitTime = JSON.parse(localStorage.getItem("FormerLoadTime")) + 900000;
   let date = new Date();
   let newLoadTime = date.getTime();
   //if wake up load time is after 30 minutes than former load time
@@ -921,7 +920,7 @@ function setFormerLoadTime(){
 }
 
 
-//---Delete order date, time and type after 15 minutes since you set the order type---//
+//---Delete order date, time and type after 5 minutes since you set the order type---//
 if(alertModal){
 
   if(localStorage.getItem("orderSetTime")){
@@ -931,7 +930,7 @@ if(alertModal){
   }
 
   function checkOrderTime(){
-    let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 900000;
+    let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 3000;
     let date = new Date();
     let newLoadTime = date.getTime();
     if(limitOrderTime <= newLoadTime){
@@ -955,37 +954,54 @@ const inputEmail = document.querySelector("#customer-email");
 
 if(confirmBtn){
   confirmBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate") && localStorage.getItem("shoppingCart") && inputName.value != "" && inputPhone.value != "" && inputEmail.value != ""){
-      checkOrderTime();
-      inputName.value = "";
-      inputPhone.value = "";
-      inputEmail.value = "";
-      if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
-        document.location.href = "confirmation.html";
-      }
-    }else if(localStorage.getItem("DeliveryDate") === null || localStorage.getItem("PickUpDate") === null){
-      openAlertModal();
-      alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
-    }else if(localStorage.getItem("shoppingCart") === null){
+    //Check item in cart//
+    if(localStorage.getItem("shoppingCart") === null){
       openAlertModal();
       alertMessage.innerHTML = "<p>Please add item to cart</p>";
+    //Check order type//
+    }else if(localStorage.getItem("orderSetTime") === null){
+      openAlertModal();
+      alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
+    //Move to check inputs//
     }else{
+      //Check input name//
       if(inputName.value == ""){
         openAlertModal();
         alertMessage.innerHTML = "<p>Please input your name</p>";
+      //Check input phone//
       }else if(inputPhone.value == ""){
         openAlertModal();
         alertMessage.innerHTML = "<p>Please input your phone number</p>";
+      //Check input e-mail address//
       }else if(inputEmail.value == ""){
         openAlertModal();
         alertMessage.innerHTML = "<p>Please input your email address</p>";
+      //Move to check order time is not expired
       }else{
-        openAlertModal();
-        alertMessage.innerHTML = "<p>Please select order Time and Date</p>";
+        let limitOrderTime = JSON.parse(localStorage.getItem("orderSetTime")) + 3000;
+        let date = new Date();
+        let newLoadTime = date.getTime();
+        if(limitOrderTime <= newLoadTime){
+          localStorage.removeItem("PickUpDate");
+          localStorage.removeItem("PickUpTime");
+          localStorage.removeItem("DeliveryDate");
+          localStorage.removeItem("DeliveryTime");
+          localStorage.removeItem("orderSetTime");
+        //Confirm order if order type session is not expired//
+        if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
+          document.location.href = "confirmation.html";
+        //Alert if order type session is expired//
+        }else if(localStorage.getItem("orderSetTime") === null){
+          openAlertModal();
+          alertMessage.innerHTML = "<p>Delivery/Pick Up session has expired<br>Please select order Time and Date</p>";
+        }
       }
     }
-  });
+  }
+});
 }
+
+
 
 
 //---Create confirmation page---//
