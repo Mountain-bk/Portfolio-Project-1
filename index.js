@@ -987,14 +987,14 @@ if(confirmBtn){
           localStorage.removeItem("DeliveryDate");
           localStorage.removeItem("DeliveryTime");
           localStorage.removeItem("orderSetTime");
-        //Confirm order if order type session is not expired//
-        if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
-          document.location.href = "confirmation.html";
-        //Alert if order type session is expired//
-        }else if(localStorage.getItem("orderSetTime") === null){
-          openAlertModal();
-          alertMessage.innerHTML = "<p>Delivery/Pick Up session has expired<br>Please select order Time and Date</p>";
-        }
+      }
+      //Confirm order if order type session is not expired//
+      if(localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
+        document.location.href = "confirmation.html";
+      //Alert if order type session is expired//
+      }else if(localStorage.getItem("orderSetTime") === null){
+        openAlertModal();
+        alertMessage.innerHTML = "<p>Delivery/Pick Up session has expired<br>Please select order Time and Date</p>";
       }
     }
   }
