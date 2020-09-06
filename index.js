@@ -811,6 +811,9 @@ function changePageOrClose(){
     document.location.href = "index.html";
   }else if(alertMessage.innerHTML === "<p>Delivery/Pick Up session has expired</p>"){
     closeAlertModal();
+    if(localStorage.getItem("FormerLoadTime")){
+      checkIdleTime();
+    }
     location.reload();
   }else if(alertMessage.innerHTML === "<p>Delivery/Pick Up session has expired<br>Please select order Time and Date</p>"){
     document.location.href = "select-order-type.html";
@@ -888,7 +891,7 @@ if(paymentNavBtn){
 
 //---Clear local storage when user have inactivity time---//
 
-if(localStorage.getItem("shoppingCart") || localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
+if(localStorage.getItem("shoppingCart")){
   window.addEventListener("load", ()=>{
     if(localStorage.getItem("FormerLoadTime")){
       checkIdleTime();
