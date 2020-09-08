@@ -829,13 +829,13 @@ const paymentNavBtn = document.querySelector(".place-order-btn");
 //alert message for payment bar btn//
 if(paymentBarBtn){
   paymentBarBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderSetTime")){
       paymentBarBtn.setAttribute("href", "payment.html");
     }else if(localStorage.getItem("shoppingCart") === null){
       paymentBarBtn.removeAttribute("href");
       openAlertModal();
       alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+    }else if(localStorage.getItem("orderSetTime") === null){
       paymentBarBtn.removeAttribute("href");
       openAlertModal();
       alertMessage.innerHTML = "<p>Please select order type</p>";
@@ -850,13 +850,13 @@ if(paymentBarBtn){
 //alert message for payment btn(desktop)//
 if(paymentBtn){
   paymentBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderSetTime")){
       paymentBtn.setAttribute("href", "payment.html");
     }else if(localStorage.getItem("shoppingCart") === null){
       paymentBtn.removeAttribute("href");
       openAlertModal();
       alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+    }else if(localStorage.getItem("orderSetTime") === null){
       paymentBtn.removeAttribute("href");
       openAlertModal();
       alertMessage.innerHTML = "<p>Please select order type</p>";
@@ -871,13 +871,13 @@ if(paymentBtn){
 //alert message for payment nav btn(mobile)//
 if(paymentNavBtn){
   paymentNavBtn.addEventListener("click", () =>{
-    if(localStorage.getItem("shoppingCart") && localStorage.getItem("DeliveryDate") || localStorage.getItem("PickUpDate")){
+    if(localStorage.getItem("shoppingCart") && localStorage.getItem("orderSetTime")){
       paymentNavBtn.setAttribute("href", "payment.html");
     }else if(localStorage.getItem("shoppingCart") === null){
       paymentNavBtn.removeAttribute("href");
       openAlertModal();
       alertMessage.innerHTML = "<p>Please add item to cart</p>";
-    }else if(localStorage.getItem("orderDate") === null && localStorage.getItem("orderTime") === null){
+    }else if(localStorage.getItem("orderSetTime") === null){
       paymentNavBtn.removeAttribute("href");
       openAlertModal();
       alertMessage.innerHTML = "<p>Please select order type</p>";
