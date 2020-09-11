@@ -1,2 +1,4 @@
-# Portfolio-Project-1
-Jappalo Wings - Pizza Restaurant Imitation
+# Delivery Pizza Restaurant Imitation
+Personal project No.1
+Languages Used:
+HTML, CSS, JavaScript
