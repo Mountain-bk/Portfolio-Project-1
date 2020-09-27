@@ -817,7 +817,7 @@ function changePageOrClose(){
     location.reload();
   }else if(alertMessage.innerHTML === "<p>Delivery/Pick Up session has expired<br>Please select order Time and Date</p>"){
     document.location.href = "select-order-type.html";
-  }else if(alertMessage.innerHTML === "<p>Please Select Time"){
+  }else if(alertMessage.innerHTML === "<p>Please Select Time</p>"){
     closeAlertModal();
   }
 }
